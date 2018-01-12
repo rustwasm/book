@@ -164,11 +164,12 @@ some constraints:
 - Ultimately, JS bundlers (like [WebPack] and [Parcel]) will need to understand
   wasm-based npm packages and generate the appropriate module instantiation.
 
-  - Work in this direction is under way.
+  - Work in this direction is [under way][bundlers].
 
 [WebPack]: https://webpack.js.org/
 [Parcel]: https://parceljs.org/
 [npm interop]: https://github.com/aturon/rust-wasm/issues/5
+[bundlers]: https://github.com/aturon/rust-wasm/issues/8
 
 If you're interested in helping flesh out this story, please jump in on
 the [tracking issue][npm interop]!
