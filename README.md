@@ -12,7 +12,7 @@ specification].
 
 WebAssembly isn't tied to JS or the web; it makes no assumptions about its host
 environment. There is some reason to think that wasm could become an important
-"portable executable" format used in a variety of context. That said, *today*
+"portable executable" format used in a variety of contexts. That said, *today*
 wasm is very much about JS, which comes in many flavors (including both browsers
 and node.js).
 
