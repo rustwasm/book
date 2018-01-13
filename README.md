@@ -200,6 +200,10 @@ prominent so far are:
 
 # Demos, talks and more
 
-Numerous additional resources are available at https://www.hellorust.com/,
+- Numerous Rust-centric resources are available at https://www.hellorust.com/,
 including demos, talks, and a news feed tracking significant achievements around
 Rust and wasm.
+- There are also many general wasm resources:
+  - http://webassembly.org/
+  - https://github.com/mbasso/awesome-wasm
+  - http://wasmweekly.news/
