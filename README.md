@@ -183,7 +183,9 @@ To clear this up: **wasm is quite capable of working with the DOM today**. You
 can employ strategies like those in [wasm-bindgen] to operate on the DOM via
 calls back into JS. However, such calls do impose an overhead, so efficiency
 gains are most easily had if once can batch up DOM interactions. Improvements to
-the DOM, like the [changelist proposal], will further smooth the path.
+the DOM, like the [changelist proposal], and improvements to WebAssembly, like
+the [Host Bindings proposal](https://github.com/WebAssembly/design/issues/1148),
+will further smooth the path.
 
 [changelist proposal]: https://github.com/whatwg/dom/issues/270
 
