@@ -77,6 +77,10 @@ Each of the wasm targets has a different story with respect to `std`:
 
 #### From the Rust side
 
+> **Note**: this is likely to [change in the near future][export-issue]
+
+[export-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/29
+
 When using wasm within a JS host, importing and exporting functions from the
 Rust side is straightforward: it works exactly like C. In particular:
 
@@ -140,7 +144,15 @@ So far we've focused on the details of function-level interop. But in practice,
 it's vital to interoperate at the *package* level as well, which means producing
 and consuming npm packages.
 
-This part of the story is still in the [design phase][npm interop], but here are
+As of today the story for this sort of interop is largely still in flux, but
+there's lots of progress on lots of fronts to cover as well! The crucial
+lynchpin of the assumed integration point is **ES6 Modules**. Although [this
+requires a polyfill][es6-wasm] the abstraction of ES6 modules for wasm as well
+as JS has shown to be beneficial to consumers and bundlers alike.
+
+[es6-wasm]: https://github.com/WebAssembly/design/issues/1087
+
+This part of the story is still in the design phase, but here are
 some constraints:
 
 - Consumers of Rust/wasm-based packages should be completely unaware that Rust
@@ -148,28 +160,33 @@ some constraints:
   Rust toolchain.
   - This means that publication to npm is done in *binary* form: we upload a
     `.wasm` file containing the fully-compiled Rust code.
+  - JS is expected to consume Rust through ES6 `import` statements which end up
+    resolving to the compiled module.
 
 - You should be able to *work on* the Rust portion of the library using standard
   Cargo workflows.
 
-- There should be a straightforward way to express npm metadata (i.e. the
-  contents of `package.json`) for a Rust/wasm project.
+- There should be a [straightforward way][metdata] to express npm metadata (i.e.
+  the contents of `package.json`) for a Rust/wasm project.
 
   - That means, in particular, that a Rust project might pull in several crates,
     *each* of which pulls in their own npm package dependencies.
 
-- There should be an easy way to publish such a project to npm, handling all
-  needed transitive dependencies.
+- There should be an [easy way][npm-publish] to publish such a project to npm,
+  handling all needed [transitive dependencies][rust-deps].
 
-- Ultimately, JS bundlers (like [WebPack] and [Parcel]) will need to understand
-  wasm-based npm packages and generate the appropriate module instantiation.
-
-  - Work in this direction is [under way][bundlers].
+Ultimately, JS bundlers (like [WebPack] and [Parcel]) will need to understand
+wasm-based npm packages and generate the appropriate module instantiation. This
+is expected to happen through bundlers interpreting wasm modules as ES6 modules
+and generating appropriate instantiation glue. Work in this direction is [under
+way][bundlers].
 
 [WebPack]: https://webpack.js.org/
 [Parcel]: https://parceljs.org/
-[npm interop]: https://github.com/aturon/rust-wasm/issues/5
 [bundlers]: https://github.com/aturon/rust-wasm/issues/8
+[metadata]: https://github.com/rust-lang-nursery/rust-wasm/issues/34
+[rust-deps]: https://github.com/rust-lang-nursery/rust-wasm/issues/36
+[npm-publish]: https://github.com/rust-lang-nursery/rust-wasm/issues/35
 
 If you're interested in helping flesh out this story, please jump in on
 the [tracking issue][npm interop]!
