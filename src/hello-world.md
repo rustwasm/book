@@ -1,30 +1,4 @@
-# Common Rust+wasm Workflows
-
-This document is intended to currently collect a number of workflows related to
-Rust+wasm over time. Right now it's not necessarily the most organized, but that
-may come soon!
-
-## "Hello World" for `wasm32-unknown-unknown`
-
-First up you'll probably want to install the target! That can be done through:
-
-```
-$ rustup target add wasm32-unknown-unknown --toolchain nightly
-```
-
-Next up if you're interested in making small wasm binaries you'll want to
-install the [`wasm-gc`](https://github.com/alexcrichton/wasm-gc) tool to work
-around bugs in the compiler toolchain for now:
-
-```
-$ cargo install --git https://github.com/alexcrichton/wasm-gc
-```
-
-And finally if you're *really* interested in making small wasm binaries you'll
-want to install `wasm-opt` from the [binaryen
-toolkit](https://github.com/WebAssembly/binaryen).
-
-### Generating a library
+# "Hello World" for `wasm32-unknown-unknown`
 
 A basic "hello world" can be generated with:
 
