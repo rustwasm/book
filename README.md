@@ -6,7 +6,7 @@ Rust and WebAssembly together.
 Some of the early material is being collected into a small [book]; please take a 
 look and contribute!
 
-[book]: https://rust-lang-nursery.github.io/rust-wasm/t
+[book]: https://rust-lang-nursery.github.io/rust-wasm/
 
 # Key WebAssembly background
 
