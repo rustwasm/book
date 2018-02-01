@@ -1,23 +1,16 @@
 sudo: false
 dist: trusty
 language: rust
-rust:
-- stable
-os:
-- linux
 
 before_install:
-- cargo install mdbook --vers '0.0.25' --debug --force
-- export PATH=$HOME/.cargo/bin:$PATH
+  - cargo install mdbook --vers '0.0.25' --debug --force
 
 script:
-  - ./setup.sh
-  - echo "Building site to book/"
   - mdbook build
 
 deploy:
   provider: pages
-  skip-cleanup: false
+  skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
   local-dir: book
   keep-history: false
