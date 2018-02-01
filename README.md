@@ -3,6 +3,11 @@
 This repo aims to be a simple, organic means of coordinating early work on using
 Rust and WebAssembly together.
 
+Some of the early material is being collected into a small [book]; please take a 
+look and contribute!
+
+[book]: https://rust-lang-nursery.github.io/rust-wasm/t
+
 # Key WebAssembly background
 
 WebAssembly is a simple machine model and executable format with an [extensive
@@ -271,3 +276,6 @@ you can view them easily without having to call `build` every time.
 
 The files are all written in Markdown so if you don't want to generate the book
 to read them then you can read them from the `src` directory.
+
+[mdbook]: https://github.com/rust-lang-nursery/mdBook
+[rustup]: https://github.com/rust-lang-nursery/rustup.rs/
