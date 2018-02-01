@@ -3,7 +3,7 @@
 If you want to be able to use Rust for wasm then you need an environment to be able to do that! If
 you haven't already you'll need to install [rustup][rustup] the official tool in order to install
 and manage different versions of the Rust compiler. Follow the instructions on the site to get it
-installed on your machine. Once that's installed you'll need to get the `wasm32-uknown-unknown`
+installed on your machine. Once that's installed you'll need to get the `wasm32-unknown-unknown`
 toolchain.
 
 ```bash
