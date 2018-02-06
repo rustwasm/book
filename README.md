@@ -50,78 +50,11 @@ Each of the wasm targets has a different story with respect to `std`:
   libc-based functionality. That means that a lot of `std` is available and
   works, but at the cost of significant binary bloat.
 
-## JS interop
-
-### Importing and exporting JS functions
-
-#### From the Rust side
-
-> **Note**: this is likely to [change in the near future][export-issue]
-
-[export-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/29
-
-When using wasm within a JS host, importing and exporting functions from the
-Rust side is straightforward: it works exactly like C. In particular:
-
-```rust
-// import a JS function called `foo`
-extern { fn foo(); }
-
-// export a Rust function called `bar`
-#[no_mangle]
-pub extern fn bar() { /* ... */ }
-```
-
-Because of wasm's limited value types, these functions must operate only on
-primitive numeric types.
-
-#### From the JS side
-
-Within JS, a wasm binary turns into an ES6 module. It must be *instantiated*
-with a linear memory and set of JS functions matching the expected imports. The
-details of instantiation are available on [MDN][instantiation].
-
-[instantiation]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate
-
-The resulting ES6 module will contain all of functions exported from Rust, now
-available as JS functions.
-
-[Here][hello world] is a very simple example of the whole setup in action.
-
-[hello world]: https://www.hellorust.com/demos/add/index.html
-
-### Going beyond numerics
-
-When using wasm within JS, there is a sharp split between the wasm module's
-memory and the JS memory:
-
-- Each wasm module has a linear memory (described at the top of this document),
-  which is initialized during instantiation. **JS code can freely read and write
-  to this memory**.
-
-- By contrast, wasm code has no *direct* access to JS objects.
-
-Thus, sophisticated interop happens in two main ways:
-
-- Copying in or out binary data to the wasm memory. For example, this is one way
-  to provide an owned `String` to the Rust side.
-
-- Setting up an explicit "heap" of JS objects which are then given
-  "addresses". This allows wasm code to refer to JS objects indirectly (using
-  integers), and operate on those objects by invoking imported JS functions.
-
-Fortunately, this interop story is very amenable to treatment through a generic
-"bindgen"-style framework: [wasm-bindgen]. The framework makes it possible to
-write idiomatic Rust function signatures that map to idiomatic JS functions,
-automatically.
-
-[wasm-bindgen]: https://github.com/alexcrichton/wasm-bindgen
-
+## JS Interop
 ### The JS package ecosystem
-
-So far we've focused on the details of function-level interop. But in practice,
-it's vital to interoperate at the *package* level as well, which means producing
-and consuming npm packages.
+In the book we focused on the details of [function-level interop][book-interop].
+But in practice, it's vital to interoperate at the *package* level as well, which
+means producing and consuming npm packages.
 
 As of today the story for this sort of interop is largely still in flux, but
 there's lots of progress on lots of fronts to cover as well! The crucial
@@ -129,6 +62,7 @@ lynchpin of the assumed integration point is **ES6 Modules**. Although [this
 requires a polyfill][es6-wasm] the abstraction of ES6 modules for wasm as well
 as JS has shown to be beneficial to consumers and bundlers alike.
 
+[book-interop]: https://rust-lang-nursery.github.io/rust-wasm/js-ffi.html
 [es6-wasm]: https://github.com/WebAssembly/design/issues/1087
 
 This part of the story is still in the design phase, but here are
