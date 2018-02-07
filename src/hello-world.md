@@ -39,7 +39,7 @@ And we can test it out with:
 ```html
 <html>
   <head>
-    <script type='text/javscript'>
+    <script type='text/javascript'>
       fetch('hello_world.gc.opt.wasm')
         .then(r => r.arrayBuffer())
         .then(r => WebAssembly.instantiate(r))
