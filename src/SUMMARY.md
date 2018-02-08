@@ -1,7 +1,7 @@
 # Summary
 
 - [Introduction](./introduction.md)
-- [WebAssembly Background](./web-assembly-background.md)
+- [Background And Concepts](./background-and-concepts.md)
 - [Setup](./setup.md)
 - [Hello World](./hello-world.md)
 - [Tools](./tools.md)
