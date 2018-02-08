@@ -37,9 +37,10 @@ $ wasm-opt -Os hello_world.gc.wasm -o hello_world.gc.opt.wasm
 And we can test it out with:
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
-    <script type='text/javascript'>
+    <script>
       fetch('hello_world.gc.opt.wasm')
         .then(r => r.arrayBuffer())
         .then(r => WebAssembly.instantiate(r))
