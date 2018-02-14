@@ -142,7 +142,7 @@ Rust and wasm.
   - https://github.com/mbasso/awesome-wasm
   - http://wasmweekly.news/
 
-# rust-wasm-book
+# Rust and WebAssembly book
 
 This repo also contains documentation on using Rust for wasm, common workflows,
 how to get started and more. It acts as a guide for how to do some neat things
