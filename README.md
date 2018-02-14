@@ -8,6 +8,24 @@ Materials about pieces available right now are being collected into a small
 
 [book]: https://rust-lang-nursery.github.io/rust-wasm/
 
+<!-- Generated with https://github.com/thlorenz/doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Status](#status)
+  - [The Rust compiler](#the-rust-compiler)
+  - [The Rust standard library](#the-rust-standard-library)
+  - [JS Interop](#js-interop)
+    - [The JS package ecosystem](#the-js-package-ecosystem)
+    - [The DOM, GC integration, and more](#the-dom-gc-integration-and-more)
+  - [The crate ecosystem](#the-crate-ecosystem)
+- [Demos, talks and more](#demos-talks-and-more)
+- [Rust and WebAssembly book](#rust-and-webassembly-book)
+  - [Building the book](#building-the-book)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Status
 
 ## The Rust compiler
