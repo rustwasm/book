@@ -51,7 +51,9 @@ Each of the wasm targets has a different story with respect to `std`:
   works, but at the cost of significant binary bloat.
 
 ## JS Interop
+
 ### The JS package ecosystem
+
 In the book we focused on the details of [function-level interop][book-interop].
 But in practice, it's vital to interoperate at the *package* level as well, which
 means producing and consuming npm packages.
