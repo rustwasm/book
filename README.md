@@ -1,10 +1,10 @@
 # Rust + WebAssembly: an early point of coordination
 
-This repo aims to be a simple, organic means of coordinating early work on using
-Rust and WebAssembly together.
+This repo aims to be a simple, organic means of coordinating work on using Rust
+and WebAssembly together.
 
-Some of the early material is being collected into a small [book]; please take a 
-look and contribute!
+Materials about pieces available right now are being collected into a small
+[book]; please take a look and contribute!
 
 [book]: https://rust-lang-nursery.github.io/rust-wasm/
 
