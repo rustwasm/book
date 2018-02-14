@@ -51,6 +51,6 @@ and cannot be shrunk.
 [memory can be grown]: https://webassembly.github.io/spec/core/syntax/instructions.html#syntax-instr-memory
 [extensive specification]: https://webassembly.github.io/spec/
 [value types]: https://webassembly.github.io/spec/core/syntax/types.html#value-types
-[Node.js]:[https://nodejs.org]
-[S-expressions]:[https://en.wikipedia.org/wiki/S-expression]
-[wat2wasm demo]:[https://cdn.rawgit.com/WebAssembly/wabt/aae5a4b7/demo/wat2wasm/]
+[Node.js]: https://nodejs.org
+[S-expressions]: https://en.wikipedia.org/wiki/S-expression
+[wat2wasm demo]: https://cdn.rawgit.com/WebAssembly/wabt/aae5a4b7/demo/wat2wasm/
