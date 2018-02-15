@@ -13,6 +13,7 @@ Materials about pieces available right now are being collected into a small
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [Vision](#vision)
 - [Status](#status)
   - [The Rust compiler](#the-rust-compiler)
   - [The Rust standard library](#the-rust-standard-library)
@@ -25,6 +26,27 @@ Materials about pieces available right now are being collected into a small
   - [Building the book](#building-the-book)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Vision
+
+**Compiling Rust to WebAssembly should be *the* best choice for fast code for
+the Web.**
+
+JavaScript Web applications struggle to reliably hit 60 fps. JavaScript's
+dynamic type system and garbage collection pauses don't help. Modern JITs do
+what they can, but are still unreliable. Seemingly small code changes can result
+in drastic performance regressions if you accidentally wander off the JIT's
+happy path.
+
+Rust gives programmers low-level control and reliable, GC-pause-free
+performance. It does not suffer those problems that JavaScript does. The
+introduction of WebAssembly let's us bring Rust's advantages to the Web.
+
+Let's make it happen!
+
+*See also [Rust and the case for WebAssembly in 2018.][case-for-wasm]*
+
+[case-for-wasm]: https://mgattozzi.com/rust-wasm
 
 # Status
 
