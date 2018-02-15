@@ -14,6 +14,7 @@ Materials about pieces available right now are being collected into a small
 
 
 - [Vision](#vision)
+- [Get Involved](#get-involved)
 - [Status](#status)
   - [The Rust compiler](#the-rust-compiler)
   - [The Rust standard library](#the-rust-standard-library)
@@ -47,6 +48,17 @@ Let's make it happen!
 *See also [Rust and the case for WebAssembly in 2018.][case-for-wasm]*
 
 [case-for-wasm]: https://mgattozzi.com/rust-wasm
+
+# Get Involved
+
+* Join us on IRC at [`#rust-wasm` on `irc.mozilla.org`][irc] ([web chat])
+
+* Run into a paper cut or roadblock when compiling Rust to WebAssembly?
+  [File an issue!][file-issue]
+
+[irc]: irc://irc.mozilla.org#rust-wasm
+[web chat]: https://client02.chat.mibbit.com/?channel=%23rust-wasm&server=irc.mozilla.org
+[file-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/new
 
 # Status
 
