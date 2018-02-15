@@ -1,12 +1,64 @@
 # Rust + WebAssembly: an early point of coordination
 
-This repo aims to be a simple, organic means of coordinating early work on using
-Rust and WebAssembly together.
+This repo aims to be a simple, organic means of coordinating work on using Rust
+and WebAssembly together.
 
-Some of the early material is being collected into a small [book]; please take a 
-look and contribute!
+Materials about pieces available right now are being collected into a small
+[book]; please take a look and contribute!
 
 [book]: https://rust-lang-nursery.github.io/rust-wasm/
+
+<!-- Generated with https://github.com/thlorenz/doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Vision](#vision)
+- [Get Involved](#get-involved)
+- [Status](#status)
+  - [The Rust compiler](#the-rust-compiler)
+  - [The Rust standard library](#the-rust-standard-library)
+  - [JS Interop](#js-interop)
+    - [The JS package ecosystem](#the-js-package-ecosystem)
+    - [The DOM, GC integration, and more](#the-dom-gc-integration-and-more)
+  - [The crate ecosystem](#the-crate-ecosystem)
+- [Demos, talks and more](#demos-talks-and-more)
+- [Rust and WebAssembly book](#rust-and-webassembly-book)
+  - [Building the book](#building-the-book)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Vision
+
+**Compiling Rust to WebAssembly should be *the* best choice for fast code for
+the Web.**
+
+JavaScript Web applications struggle to reliably hit 60 fps. JavaScript's
+dynamic type system and garbage collection pauses don't help. Modern JITs do
+what they can, but are still unreliable. Seemingly small code changes can result
+in drastic performance regressions if you accidentally wander off the JIT's
+happy path.
+
+Rust gives programmers low-level control and reliable, GC-pause-free
+performance. It does not suffer those problems that JavaScript does. The
+introduction of WebAssembly let's us bring Rust's advantages to the Web.
+
+Let's make it happen!
+
+*See also [Rust and the case for WebAssembly in 2018.][case-for-wasm]*
+
+[case-for-wasm]: https://mgattozzi.com/rust-wasm
+
+# Get Involved
+
+* Join us on IRC at [`#rust-wasm` on `irc.mozilla.org`][irc] ([web chat])
+
+* Run into a paper cut or roadblock when compiling Rust to WebAssembly?
+  [File an issue!][file-issue]
+
+[irc]: irc://irc.mozilla.org#rust-wasm
+[web chat]: https://client02.chat.mibbit.com/?channel=%23rust-wasm&server=irc.mozilla.org
+[file-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/new
 
 # Status
 
@@ -30,7 +82,6 @@ backend:
 
 - It [only supports compiling with optimizations on](https://github.com/aturon/rust-wasm/issues/1).
 - It [requires compiling with a single, massive compilation unit](https://github.com/aturon/rust-wasm/issues/2).
-- Some improvements are blocked on [rustc's LLVM lagging far behind](https://github.com/aturon/rust-wasm/issues/3).
 
 ## The Rust standard library
 
@@ -51,7 +102,9 @@ Each of the wasm targets has a different story with respect to `std`:
   works, but at the cost of significant binary bloat.
 
 ## JS Interop
+
 ### The JS package ecosystem
+
 In the book we focused on the details of [function-level interop][book-interop].
 But in practice, it's vital to interoperate at the *package* level as well, which
 means producing and consuming npm packages.
@@ -140,7 +193,7 @@ Rust and wasm.
   - https://github.com/mbasso/awesome-wasm
   - http://wasmweekly.news/
 
-# rust-wasm-book
+# Rust and WebAssembly book
 
 This repo also contains documentation on using Rust for wasm, common workflows,
 how to get started and more. It acts as a guide for how to do some neat things
