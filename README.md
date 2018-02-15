@@ -171,6 +171,7 @@ the [Host Bindings proposal](https://github.com/WebAssembly/design/issues/1148),
 will further smooth the path.
 
 [changelist proposal]: https://github.com/whatwg/dom/issues/270
+[wasm-bindgen]: https://github.com/alexcrichton/wasm-bindgen
 
 ## The crate ecosystem
 
