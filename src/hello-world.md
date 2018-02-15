@@ -41,8 +41,7 @@ And we can test it out with:
 <html>
   <head>
     <script>
-      fetch('hello_world.gc.opt.wasm')
-        .then(r => r.arrayBuffer())
+      WebAssembly.compileStreaming(fetch('hello_world.gc.opt.wasm'))
         .then(r => WebAssembly.instantiate(r))
         .then(wasm_module => {
             alert(`2 + 1 = ${wasm_module.instance.exports.add_one(2)}`);
