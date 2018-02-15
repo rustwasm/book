@@ -48,7 +48,6 @@ backend:
 
 - It [only supports compiling with optimizations on](https://github.com/aturon/rust-wasm/issues/1).
 - It [requires compiling with a single, massive compilation unit](https://github.com/aturon/rust-wasm/issues/2).
-- Some improvements are blocked on [rustc's LLVM lagging far behind](https://github.com/aturon/rust-wasm/issues/3).
 
 ## The Rust standard library
 
