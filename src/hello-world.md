@@ -41,7 +41,27 @@ And we can test it out with:
 <html>
   <head>
     <script>
-      WebAssembly.compileStreaming(fetch('hello_world.gc.opt.wasm'))
+      WebAssembly.instantiateStreaming(fetch('hello_world.gc.opt.wasm'))
+        .then(wasm_module => {
+            alert(`2 + 1 = ${wasm_module.instance.exports.add_one(2)}`);
+        });
+    </script>
+  </head>
+  <body></body>
+</html>
+```
+
+Note: To run with `instantiateStreaming` and `compileStreaming`, you need your webserver to serve `.wasm` file with `application/wasm` MIME type.
+
+Alternatively, if you are running locally without any webserver.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      fetch('hello_world.gc.opt.wasm')
+        .then(r => r.arrayBuffer())
         .then(r => WebAssembly.instantiate(r))
         .then(wasm_module => {
             alert(`2 + 1 = ${wasm_module.instance.exports.add_one(2)}`);
