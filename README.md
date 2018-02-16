@@ -1,4 +1,4 @@
-# Rust + WebAssembly: an early point of coordination
+# Rust + WebAssembly = 💖
 
 This repo aims to be a simple, organic means of coordinating work on using Rust
 and WebAssembly together.
