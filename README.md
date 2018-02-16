@@ -88,7 +88,7 @@ The Rust compiler currently supports two wasm-related targets:
   back-end. It's appropriate when you're compiling pure Rust code, i.e. you have
   no C dependencies. Compared to the emscripten target, it produces much leaner
   code by default and is much easier to set
-  up. [Here's how to set it up](https://www.hellorust.com/setup/wasm-target/).
+  up. [Here's how to set it up](https://rust-lang-nursery.github.io/rust-wasm/setup.html).
 
 - `wasm32-unknown-emscripten`. This target compiles to wasm via the emscripten
   toolchain. It's what you should use if you have C dependencies, including
