@@ -43,16 +43,23 @@ Rust gives programmers low-level control and reliable performance. It is free
 from the non-deterministic GC pauses that JavaScript suffers. And now
 WebAssembly lets us bring Rust's advantages to the Web.
 
-Furthermore, Rust is particularly well-suited for the Web. Rust's minuscule
-runtime enables small `.wasm` binary sizes and incremental adoption. Binary size
-is of huge importance since the `.wasm` must be downloaded over the
-network. Incrementality means that existing code bases don't need to be thrown
-away: programmers can start by porting their most performance-sensitive
-JavaScript functions to Rust to gain immediate benefits.
+Rust is particularly well-suited for the Web. Rust's minuscule runtime enables
+small `.wasm` binary sizes and incremental adoption. Binary size is of huge
+importance since the `.wasm` must be downloaded over the network. Incrementality
+means that existing code bases don't need to be thrown away: programmers can
+start by porting their most performance-sensitive JavaScript functions to Rust
+to gain immediate benefits. Furthermore, Rust has many of the amenities that Web
+developers have come to expect, such as strong package management, expressive
+abstractions, and a welcoming community.
 
 Let's make it happen!
 
 *See also [Rust and the case for WebAssembly in 2018.][case-for-wasm]*
+
+We envision the pipeline that fits Rust into JavaScript package management and
+bundler ecosystem to look something like this:
+
+<img alt="Rust to WebAssembly to NPM to bundler to Webpage pipeline" src="./pipeline.png"/>
 
 [case-for-wasm]: https://mgattozzi.com/rust-wasm
 
@@ -63,7 +70,7 @@ Let's make it happen!
 * Read the book, compile some Rust into WebAssembly, and if you ran into a paper
   cut or roadblock, [let us know by filing an issue!][file-issue]
 
-* [Help write this book](#rust-and-webassembly-book)
+* [Help write the Rust and WebAssembly book](#rust-and-webassembly-book)
 
 * [Fix WebAssembly-specific issues in `rustc`][o-wasm]
 
@@ -219,7 +226,7 @@ with it. Over time this might extend to more things or act as a more internal
 rather than user facing resource as this repo evolves. Considering the early
 stage nature of wasm and Rust with wasm the two are indistinguishable right now.
 
-[Open issues for improving the book.][book-issues]
+[Open issues for improving the Rust and WebAssembly book.][book-issues]
 
 [book-issues]: https://github.com/rust-lang-nursery/rust-wasm/labels/book
 
