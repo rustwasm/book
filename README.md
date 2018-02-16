@@ -1,4 +1,4 @@
-# Rust + WebAssembly: an early point of coordination
+# Rust + WebAssembly = 💖
 
 This repo aims to be a simple, organic means of coordinating work on using Rust
 and WebAssembly together.
@@ -14,7 +14,7 @@ Materials about pieces available right now are being collected into a small
 
 
 - [Vision](#vision)
-- [Get Involved](#get-involved)
+- [Get Involved!](#get-involved)
 - [Status](#status)
   - [The Rust compiler](#the-rust-compiler)
   - [The Rust standard library](#the-rust-standard-library)
@@ -39,26 +39,51 @@ what they can, but are still unreliable. Seemingly small code changes can result
 in drastic performance regressions if you accidentally wander off the JIT's
 happy path.
 
-Rust gives programmers low-level control and reliable, GC-pause-free
-performance. It does not suffer those problems that JavaScript does. The
-introduction of WebAssembly let's us bring Rust's advantages to the Web.
+Rust gives programmers low-level control and reliable performance. It is free
+from the non-deterministic GC pauses that JavaScript suffers. And now
+WebAssembly lets us bring Rust's advantages to the Web.
+
+Rust is particularly well-suited for the Web. Rust's minuscule runtime enables
+small `.wasm` binary sizes and incremental adoption. Binary size is of huge
+importance since the `.wasm` must be downloaded over the network. Incrementality
+means that existing code bases don't need to be thrown away: programmers can
+start by porting their most performance-sensitive JavaScript functions to Rust
+to gain immediate benefits. Furthermore, Rust has many of the amenities that Web
+developers have come to expect, such as strong package management, expressive
+abstractions, and a welcoming community.
 
 Let's make it happen!
 
 *See also [Rust and the case for WebAssembly in 2018.][case-for-wasm]*
 
+We envision the pipeline that fits Rust into JavaScript package management and
+bundler ecosystem to look something like this:
+
+<img alt="Rust to WebAssembly to NPM to bundler to Webpage pipeline" src="./pipeline.png"/>
+
 [case-for-wasm]: https://mgattozzi.com/rust-wasm
 
-# Get Involved
+# Get Involved!
 
 * Join us on IRC at [`#rust-wasm` on `irc.mozilla.org`][irc] ([web chat])
 
-* Run into a paper cut or roadblock when compiling Rust to WebAssembly?
-  [File an issue!][file-issue]
+* Read the book, compile some Rust into WebAssembly, and if you ran into a paper
+  cut or roadblock, [let us know by filing an issue!][file-issue]
+
+* [Help write the Rust and WebAssembly book](#rust-and-webassembly-book)
+
+* [Fix WebAssembly-specific issues in `rustc`][o-wasm]
+
+* [Write tooling for WebAssembly][tooling]
+
+* Take a look at [this repo's open issues][issues]
 
 [irc]: irc://irc.mozilla.org#rust-wasm
 [web chat]: https://client02.chat.mibbit.com/?channel=%23rust-wasm&server=irc.mozilla.org
 [file-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/new
+[o-wasm]: https://github.com/rust-lang/rust/labels/O-wasm
+[tooling]: https://github.com/rust-lang-nursery/rust-wasm/issues/10
+[issues]: https://github.com/rust-lang-nursery/rust-wasm/issues
 
 # Status
 
@@ -70,7 +95,7 @@ The Rust compiler currently supports two wasm-related targets:
   back-end. It's appropriate when you're compiling pure Rust code, i.e. you have
   no C dependencies. Compared to the emscripten target, it produces much leaner
   code by default and is much easier to set
-  up. [Here's how to set it up](https://www.hellorust.com/setup/wasm-target/).
+  up. [Here's how to set it up](https://rust-lang-nursery.github.io/rust-wasm/setup.html).
 
 - `wasm32-unknown-emscripten`. This target compiles to wasm via the emscripten
   toolchain. It's what you should use if you have C dependencies, including
@@ -201,6 +226,10 @@ how to get started and more. It acts as a guide for how to do some neat things
 with it. Over time this might extend to more things or act as a more internal
 rather than user facing resource as this repo evolves. Considering the early
 stage nature of wasm and Rust with wasm the two are indistinguishable right now.
+
+[Open issues for improving the Rust and WebAssembly book.][book-issues]
+
+[book-issues]: https://github.com/rust-lang-nursery/rust-wasm/labels/book
 
 ## Building the book
 
