@@ -39,9 +39,16 @@ what they can, but are still unreliable. Seemingly small code changes can result
 in drastic performance regressions if you accidentally wander off the JIT's
 happy path.
 
-Rust gives programmers low-level control and reliable, GC-pause-free
-performance. It does not suffer those problems that JavaScript does. The
-introduction of WebAssembly let's us bring Rust's advantages to the Web.
+Rust gives programmers low-level control and reliable performance. It is free
+from the non-deterministic GC pauses that JavaScript suffers. And now
+WebAssembly lets us bring Rust's advantages to the Web.
+
+Furthermore, Rust is particularly well-suited for the Web. Rust's minuscule
+runtime enables small `.wasm` binary sizes and incremental adoption. Binary size
+is of huge importance since the `.wasm` must be downloaded over the
+network. Incrementality means that existing code bases don't need to be thrown
+away: programmers can start by porting their most performance-sensitive
+JavaScript functions to Rust to gain immediate benefits.
 
 Let's make it happen!
 
