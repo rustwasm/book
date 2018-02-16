@@ -14,7 +14,7 @@ Materials about pieces available right now are being collected into a small
 
 
 - [Vision](#vision)
-- [Get Involved](#get-involved)
+- [Get Involved!](#get-involved)
 - [Status](#status)
   - [The Rust compiler](#the-rust-compiler)
   - [The Rust standard library](#the-rust-standard-library)
@@ -56,16 +56,27 @@ Let's make it happen!
 
 [case-for-wasm]: https://mgattozzi.com/rust-wasm
 
-# Get Involved
+# Get Involved!
 
 * Join us on IRC at [`#rust-wasm` on `irc.mozilla.org`][irc] ([web chat])
 
-* Run into a paper cut or roadblock when compiling Rust to WebAssembly?
-  [File an issue!][file-issue]
+* Read the book, compile some Rust into WebAssembly, and if you ran into a paper
+  cut or roadblock, [let us know by filing an issue!][file-issue]
+
+* [Help write this book](#rust-and-webassembly-book)
+
+* [Fix WebAssembly-specific issues in `rustc`][o-wasm]
+
+* [Write tooling for WebAssembly][tooling]
+
+* Take a look at [this repo's open issues][issues]
 
 [irc]: irc://irc.mozilla.org#rust-wasm
 [web chat]: https://client02.chat.mibbit.com/?channel=%23rust-wasm&server=irc.mozilla.org
 [file-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/new
+[o-wasm]: https://github.com/rust-lang/rust/labels/O-wasm
+[tooling]: https://github.com/rust-lang-nursery/rust-wasm/issues/10
+[issues]: https://github.com/rust-lang-nursery/rust-wasm/issues
 
 # Status
 
@@ -207,6 +218,10 @@ how to get started and more. It acts as a guide for how to do some neat things
 with it. Over time this might extend to more things or act as a more internal
 rather than user facing resource as this repo evolves. Considering the early
 stage nature of wasm and Rust with wasm the two are indistinguishable right now.
+
+[Open issues for improving the book.][book-issues]
+
+[book-issues]: https://github.com/rust-lang-nursery/rust-wasm/labels/book
 
 ## Building the book
 
