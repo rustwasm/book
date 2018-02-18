@@ -76,6 +76,14 @@ bundler ecosystem to look something like this:
 
 * [Write tooling for WebAssembly][tooling]
 
+    * [`wasm-bindgen` is a project for facilitating high-level interactions between wasm modules and JS.][wasm-bindgen]
+        * [Design][wasm-bindgen-design]
+        * [Open Issues][wasm-bindgen-issues]
+
+    * [`svelte` is a work-in-progress code size profiler for WebAssembly.][svelte]
+        * [Contributing][svelte-contributing]
+        * [Open Issues][svelte-issues]
+
 * Take a look at [this repo's open issues][issues]
 
 [irc]: irc://irc.mozilla.org#rust-wasm
@@ -84,6 +92,12 @@ bundler ecosystem to look something like this:
 [o-wasm]: https://github.com/rust-lang/rust/labels/O-wasm
 [tooling]: https://github.com/rust-lang-nursery/rust-wasm/issues/10
 [issues]: https://github.com/rust-lang-nursery/rust-wasm/issues
+[wasm-bindgen]: https://github.com/alexcrichton/wasm-bindgen
+[wasm-bindgen-design]: https://github.com/alexcrichton/wasm-bindgen/blob/master/DESIGN.md
+[wasm-bindgen-issues]: https://github.com/alexcrichton/wasm-bindgen/issues
+[svelte]: https://github.com/fitzgen/svelte
+[svelte-contributing]: https://github.com/fitzgen/svelte/blob/master/CONTRIBUTING.md
+[svelte-issues]: https://github.com/fitzgen/svelte/issues
 
 # Status
 
@@ -188,15 +202,15 @@ There is some confusion about whether wasm code can work with the DOM today, or
 whether that's effectively blocked on GC integration.
 
 To clear this up: **wasm is quite capable of working with the DOM today**. You
-can employ strategies like those in [wasm-bindgen] to operate on the DOM via
-calls back into JS. However, such calls do impose an overhead, so efficiency
-gains are most easily had if once can batch up DOM interactions. Improvements to
-the DOM, like the [changelist proposal], and improvements to WebAssembly, like
-the [Host Bindings proposal](https://github.com/WebAssembly/design/issues/1148),
+can employ strategies like those in [`wasm-bindgen`][wasm-bindgen] to operate on
+the DOM via calls back into JS. However, such calls do impose an overhead, so
+efficiency gains are most easily had if once can batch up DOM
+interactions. Improvements to the DOM, like the [changelist proposal], and
+improvements to WebAssembly, like the
+[Host Bindings proposal](https://github.com/WebAssembly/design/issues/1148),
 will further smooth the path.
 
 [changelist proposal]: https://github.com/whatwg/dom/issues/270
-[wasm-bindgen]: https://github.com/alexcrichton/wasm-bindgen
 
 ## The crate ecosystem
 
