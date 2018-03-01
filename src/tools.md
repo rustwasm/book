@@ -16,7 +16,7 @@ However, since Rust has the potential to be used for both development and toolin
 - [wasmtext] - prints wasm modules in text format, in Rust
 - [wasmstandalone] - standalone JIT-based wasm runner, in Rust, using Cretonne, in early development
 
-There's also plenty of _space for tooling to be be built or rewritten in Rust_ for better syngerny with the ecosystem. Some of them include:
+There's also plenty of _space for tooling to be be built or rewritten in Rust_ for better synergy with the ecosystem. Some of them include:
 - [A wasm size profiler][wasmsizeprofiler]
 - A [Wabt] rewrite in Rust
 - Tools for the [ewasm project][ewasm]
