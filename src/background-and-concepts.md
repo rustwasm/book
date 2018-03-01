@@ -11,12 +11,12 @@ will become an important "portable executable" format used in a variety of conte
 
 As of *today*, however, _wasm_ is mostly related to JavaScript, which comes in many flavors (including both
 browsers and [Node.js]). Due to JS being widespread and easy to access we will focus mostly on using these
-platforms to run Rust-generated _wasm_, but other intepreters are probably going to be released in the near future.
+platforms to run Rust-generated _wasm_, but other interpreters are probably going to be released in the near future.
 
 As a programming language, WebAssembly is comprised of two formats: The binary format and the text format.
 Both represent a common structure, albeit in different ways. The text format (generally called `wat`) uses
 [S-expressions], which bears some resemblance to languages like Clojure or Racket.
-The binary format `wasm` is a lower level format, being itself the assembly code which is ran by the intepreters.
+The binary format `wasm` is a lower level format, being itself the assembly code which is run by the interpreters.
 
 For reference, here is a factorial function in `wat`:
 

@@ -115,7 +115,7 @@ The Rust compiler currently supports two wasm-related targets:
   toolchain. It's what you should use if you have C dependencies, including
   libc. [Here's how to set it up](https://www.hellorust.com/setup/emscripten/).
 
-The `wasm32-unknown-unknown` is particularly promising for integrating bits of
+The `wasm32-unknown-unknown` target is particularly promising for integrating bits of
 "greenfield" Rust code into JS projects. However, it is also the less mature
 backend:
 
