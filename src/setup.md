@@ -15,7 +15,7 @@ install the [wasm-gc][wasm-gc] tool to make smaller binaries and to work around 
 in the compiler toolchain for now:
 
 ```
-$ cargo install --git https://github.com/alexcrichton/wasm-gc
+$ cargo install wasm-gc
 ```
 
 And finally if you're *really* interested in making small wasm binaries you'll
