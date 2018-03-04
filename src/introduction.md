@@ -5,4 +5,4 @@ request!][repo]
 
 [Rust]: https://www.rust-lang.org
 [WebAssembly]: http://webassembly.org/
-[repo]: https://rust-lang-nursery.github.io/rust-wasm/
+[repo]: https://github.com/rust-lang-nursery/rust-wasm
