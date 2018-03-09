@@ -203,8 +203,9 @@ whether that's effectively blocked on GC integration.
 
 To clear this up: **wasm is quite capable of working with the DOM today**. You
 can employ strategies like those in [`wasm-bindgen`][wasm-bindgen] to operate on
-the DOM via calls back into JS. However, such calls do impose an overhead, so
-efficiency gains are most easily had if once can batch up DOM
+the DOM via calls back into JS. However, such calls impose an overhead cost.
+
+Efficiency gains are most easily achieved by batching DOM
 interactions. Improvements to the DOM, like the [changelist proposal], and
 improvements to WebAssembly, like the
 [Host Bindings proposal](https://github.com/WebAssembly/design/issues/1148),
