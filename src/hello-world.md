@@ -3,7 +3,7 @@
 A basic "hello world" can be generated with:
 
 ```
-$ cargo +nightly new hello-world
+$ cargo +nightly new --lib hello-world
 ```
 
 Next up change `Cargo.toml` to have:
