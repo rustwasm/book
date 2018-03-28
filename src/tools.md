@@ -15,6 +15,7 @@ However, since Rust has the potential to be used for both development and toolin
 - [wasmparser] - A wasm binary decoder with optional validation, in Rust
 - [wasmtext] - prints wasm modules in text format, in Rust
 - [wasmstandalone] - standalone JIT-based wasm runner, in Rust, using Cretonne, in early development
+- [wasm-pack] - Package up your wasm for distribution on npm
 
 There's also plenty of _space for tooling to be be built or rewritten in Rust_ for better synergy with the ecosystem. Some of them include:
 - [A wasm size profiler][wasmsizeprofiler]
@@ -36,3 +37,4 @@ This page is meant to be a living document, so feel free to send us a pull reque
 [wasmstandalone]: https://github.com/sunfishcode/wasmstandalone
 [wasmsizeprofiler]: https://github.com/rust-lang-nursery/rust-wasm/issues/20
 [ewasm]: https://github.com/ewasm
+[wasm-pack]: https://github.com/ashleygwilliams/wasm-pack
