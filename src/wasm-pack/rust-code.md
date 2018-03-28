@@ -34,7 +34,10 @@ use wasm_bindgen::prelude::*;
 Let's step through this line by line. First up is the `proc_macro` feature. We're enabling this for
 the whole crate. What this means is that we will later tag code with an attribute and this will
 allow rust to generate code that we don't have to write by hand. In our case it'll use
-`wasm-bindgen.` This crate knows how to make code that works well with wasm so we don't have to
+`wasm-bindgen.` It should be noted that `#![feature(proc_macro)]` implies using the nightly
+compiler. This gated feature will hopefully be stabilized and landed soon so that you won't need it!
+
+`wasm-bindgen` knows how to make code that works well with wasm so we don't have to
 worry about it too much and just write rust code for the most part. If you want to know the full
 extent of it's capabilities check out the README on it's repo which can be found
 [here](https://github.com/alexcrichton/wasm-bindgen). For our purposes we need to know that if we
@@ -64,14 +67,12 @@ call `alert` to print out the results before returning the value.
 
 ```rust
 #[wasm_bindgen]
-#[no_mangle]
-pub extern fn add(a: i32, b: i32) -> i32 {
+pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
 
 #[wasm_bindgen]
-#[no_mangle]
-pub extern fn alert_add(a: i32, b: i32) -> i32 {
+pub fn alert_add(a: i32, b: i32) -> i32 {
     let c = add(a, b);
     alert(&format!("Hello from Rust! {} + {} = {}", a, b, c));
     c
@@ -106,14 +107,12 @@ extern {
 }
 
 #[wasm_bindgen]
-#[no_mangle]
-pub extern fn add(a: i32, b: i32) -> i32 {
+pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
 
 #[wasm_bindgen]
-#[no_mangle]
-pub extern fn alert_add(a: i32, b: i32) -> i32 {
+pub fn alert_add(a: i32, b: i32) -> i32 {
     let c = add(a, b);
     alert(&format!("Hello from Rust! {} + {} = {}", a, b, c));
     c

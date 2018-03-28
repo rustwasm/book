@@ -18,6 +18,14 @@ and make sure the binary is in your `$PATH` so you can run it.
 If you also have not installed npm already you'll need to do so! Follow the docs available on
 [npm](https://www.npmjs.com/get-npm) or install it through your package manager!
 
+To confirm you've succeeded run:
+
+```bash
+$ npm --version
+```
+
+You should see the version number pop out in your terminal if you installed it successfully!
+
 ## npm account
 
 After you have npm installed you'll need to sign up for an account on npm if you have not already

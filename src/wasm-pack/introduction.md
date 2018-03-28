@@ -1,9 +1,10 @@
 # Introduction
 
-`wasm-pack` is a brand new tool designed to make packaging up wasm binaries and distributing them
-on npm easy to do. We can't necessarily distribute Rust code to developers directly and expect them
-to build it from scratch. npm is about installing the packages and importing them, not also
-compiling them. With wasm though it's not a problem. Once it's compiled it's all good to go.
+`wasm-pack` is a brand new tool designed to make packaging up binaries that include wasm (that may
+or may not have JS in them) and make publishing them on npm easy to do. We can't necessarily
+distribute Rust code to developers directly and expect them
+to build it from scratch. npm is used to install packages for frontend work but it doesn't know how
+to compile Rust! With wasm though it's not a problem. Once it's compiled it's all good to go.
 However, getting it ready to be distributed, packaging it up properly for npm, and then sending it
 to npm can be a bit of a hassle. `wasm-pack` is here to make that easier.
 

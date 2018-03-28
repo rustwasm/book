@@ -3,7 +3,7 @@
 Now that we've installed all of our tools and setup our npm account we can actually start coding!
 We'll be writing up a small crate that adds two numbers and outputs the numbers. While this will
 be a simple example, we're really trying to focus on how to use wasm-pack. You'll be provided links
-to other resources so you can make more complicated code to package and ship to npm!
+to other resources so you can make more complicated code to package and ship them to npm!
 
 Let's get started then! First off run this command to create our project:
 

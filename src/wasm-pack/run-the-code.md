@@ -21,6 +21,7 @@ Now we need to create a `package.json` file that looks like this:
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10",
     "webpack-dev-server": "^3.1.0"
+  }
 }
 ```
 
@@ -28,7 +29,9 @@ where `MYSCOPE` is whatever you used before. You can expand this to be a more co
 we're really just trying to verify that this works!
 
 Next up we'll need to create a small webpack configuration so that we can use the
-`webpack-dev-server` to serve the wasm file properly. Here's what it should look like:
+`webpack-dev-server` to serve the wasm file properly. It should be noted that webpack isn't
+a requirement. It's just what was chosen for this tutorial. You just need something to server the
+code! Here's what it should look like:
 
 ```javascript
 const path = require('path');
@@ -66,7 +69,8 @@ js.then(js => {
 });
 ```
 
-Since web pack can't load stuff synchronously yet we are using the import statement above followed
+Since web pack [can't load wasm synchronously yet](https://github.com/webpack/webpack/issues/6615)
+we are using the import statement above followed
 by the promise in order to load it properly. This is what lets us then call `alert_add`. We're
 importing from the `node_module` folder we haven't gotten yet so let's import all of our
 dependencies finally and run the example!
