@@ -33,13 +33,13 @@ use wasm_bindgen::prelude::*;
 
 Let's step through this line by line. First up is the `proc_macro` feature. We're enabling this for
 the whole crate. What this means is that we will later tag code with an attribute and this will
-allow rust to generate code that we don't have to write by hand. In our case it'll use
-`wasm-bindgen.` It should be noted that `#![feature(proc_macro)]` implies using the nightly
+allow Rust to generate code that we don't have to write by hand. In our case it'll use
+`wasm-bindgen`. It should be noted that `#![feature(proc_macro)]` implies using the nightly
 compiler. This gated feature will hopefully be stabilized and landed soon so that you won't need it!
 
 `wasm-bindgen` knows how to make code that works well with wasm so we don't have to
-worry about it too much and just write rust code for the most part. If you want to know the full
-extent of it's capabilities check out the README on it's repo which can be found
+worry about it too much and just write Rust code for the most part. If you want to know the full
+extent of its capabilities check out the README on its repo which can be found
 [here](https://github.com/alexcrichton/wasm-bindgen). For our purposes we need to know that if we
 want functions to work with wasm easily we'll need it.
 
@@ -82,13 +82,13 @@ pub fn alert_add(a: i32, b: i32) -> i32 {
 You'll notice that both functions have this `#[no_mangle]` attribute. When we export functions in
 Rust to other languages we need to make sure the name doesn't get changed when compiled so that if
 we want to call `add` that it will be called `add` and not a random compiler generated name. Now
-we've also said that these are both `pub extern fn` by putting the `extern` keyword in there we
+we've also said that these are both `pub extern fn` by putting the `extern` keyword in there, we
 have marked this as a function that can be called by another language outside of Rust. You can also
 call these functions inside of Rust as we can see inside `alert_add`.
 
 The rest is fairly straightforward if you're familiar with Rust, but if you're not we'll walk
 through it. Both functions take a value `a` and a value `b`. We have said that both are 32 bit
-integers (i32). We then say both will return an i32. The last line in a function returns the value
+integers (`i32`). We then say both will return an `i32`. The last line in a function returns the value
 if there is no semicolon. So in the `add` function the value of `a + b` gets calculated and it's
 value is returned! In the case of `alert_add` we store the value of the `add` function we just made
 into the variable `c`. We then call `alert` saying what the add operation looked like and what the

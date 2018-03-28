@@ -49,11 +49,11 @@ repository = "https://github.com/mgattozzi/wasm-add"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasm-bindgen="0.1"
+wasm-bindgen = "0.1"
 ```
 
 First off lets look at the last three fields added to the package section `description`, `license`,
-and `repository` npm requires this metadata and so `wasm-pack` won't package your code up until you
+and `repository`. npm requires this metadata and so `wasm-pack` won't package your code up until you
 have them set. There are more fields that you can add that are more specific to `crates.io` that you
 can find [here](https://doc.rust-lang.org/cargo/reference/manifest.html) but for the sake of this
 tutorial that's all you need for that section.
@@ -64,7 +64,7 @@ You'll also notice we add a new section titled `[lib]`. In here we added this li
 crate-type = ["cdylib"]
 ```
 
-Normally rust compiles the code for the library in a format meant for other Rust packages. We want
+Normally Rust compiles the code for the library in a format meant for other Rust packages. We want
 our code to work with wasm though! We specify that it's a dynamic library that's C compatible. This
 sounds a bit weird but the `wasm32` target will know to interpret this option and instead produce
 a wasm binary properly. This is meant to get `cargo` to pass the right parameters to the compiler!
@@ -72,7 +72,7 @@ a wasm binary properly. This is meant to get `cargo` to pass the right parameter
 Alright the last thing we added was this to the `[dependencies]` section:
 
 ```toml
-wasm-bindgen="0.1"
+wasm-bindgen = "0.1"
 ```
 
 This is the `wasm-bindgen` crate. We'll be using it very shortly to make our functions work nicely

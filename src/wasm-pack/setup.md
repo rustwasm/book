@@ -2,10 +2,9 @@
 
 ## Rust
 
-If you haven't already you'll need to install Rust! See [the setup section](../setup.html) for more
-details. Once you've done that you'll need to install `wasm-pack`.
-
-Just run the following:
+If you haven't already, you'll need to install nightly Rust with the wasm toolchain!
+See [the setup section](setup.html) for more details. Once you've done that you'll need to install
+`wasm-pack`.
 
 ```bash
 $ cargo install wasm-pack
