@@ -171,7 +171,7 @@ some constraints:
 - You should be able to *work on* the Rust portion of the library using standard
   Cargo workflows.
 
-- There should be a [straightforward way][metdata] to express npm metadata (i.e.
+- There should be a [straightforward way][metadata] to express npm metadata (i.e.
   the contents of `package.json`) for a Rust/wasm project.
 
   - That means, in particular, that a Rust project might pull in several crates,
@@ -192,9 +192,6 @@ way][bundlers].
 [metadata]: https://github.com/rust-lang-nursery/rust-wasm/issues/34
 [rust-deps]: https://github.com/rust-lang-nursery/rust-wasm/issues/36
 [npm-publish]: https://github.com/rust-lang-nursery/rust-wasm/issues/35
-
-If you're interested in helping flesh out this story, please jump in on
-the [tracking issue][npm interop]!
 
 ### The DOM, GC integration, and more
 
