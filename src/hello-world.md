@@ -27,7 +27,8 @@ Now prepare the wasm binary with:
 ```
 $ cargo +nightly build --target wasm32-unknown-unknown --release
 
-# make the binary a little smaller (working around bugs in rustc toolchain)
+# make the binary smaller by removing all unneeded exports, imports, and functions 
+# (working around bugs in rustc toolchain)
 $ wasm-gc target/wasm32-unknown-unknown/release/hello_world.wasm -o hello_world.gc.wasm
 
 # make the binary *even smaller* if you installed `wasm-opt`
