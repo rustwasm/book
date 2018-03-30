@@ -72,3 +72,13 @@ Alternatively, if you are running locally without any webserver.
   <body></body>
 </html>
 ```
+
+Ensure that your browser supports Wasm. Two options:
+
+- Run this [StackOverflow code snippet](https://stackoverflow.com/a/47880734)
+
+- Search for your browser version's Wasm support on [caniuse.com](https://caniuse.com/#search=wasm)
+
+Open the HTML file with your browser, you should see:
+
+![Wasm Hello World Screenshot](./images/wasm_hello_world_screenshot.png)
