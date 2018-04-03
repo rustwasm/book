@@ -73,6 +73,14 @@ Alternatively, if you are running locally without any webserver.
 </html>
 ```
 
+If you have Python 3 installed, you can alternatively serve this file with Python's built 
+in web server from `localhost`. Python's web server cannot serve `instantiateStreaming` or 
+`compileStreaming` due to its lack of support for the `application/wasm` MIME type.
+
+```
+$ python3 -m http.server
+```
+
 Ensure that your browser supports Wasm. Two options:
 
 - Run this [StackOverflow code snippet](https://stackoverflow.com/a/47880734)
