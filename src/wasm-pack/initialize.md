@@ -49,7 +49,7 @@ repository = "https://github.com/mgattozzi/wasm-add"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasm-bindgen="0.1"
+wasm-bindgen="0.2"
 ```
 
 First off lets look at the last three fields added to the package section `description`, `license`,
@@ -72,7 +72,7 @@ a wasm binary properly. This is meant to get `cargo` to pass the right parameter
 Alright the last thing we added was this to the `[dependencies]` section:
 
 ```toml
-wasm-bindgen="0.1"
+wasm-bindgen="0.2"
 ```
 
 This is the `wasm-bindgen` crate. We'll be using it very shortly to make our functions work nicely

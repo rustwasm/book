@@ -26,15 +26,15 @@ We'll use this later to make sure our `add` function works!
 Now we need to add this to the top of the file:
 
 ```rust
-#![feature(proc_macro)]
+#![feature(proc_macro, wasm_import_module, wasm_custom_section)]
 extern crate wasm_bindgen;
 use wasm_bindgen::prelude::*;
 ```
 
-Let's step through this line by line. First up is the `proc_macro` feature. We're enabling this for
+Let's step through this line by line. First up is the list of nightly features. We're enabling this for
 the whole crate. What this means is that we will later tag code with an attribute and this will
 allow rust to generate code that we don't have to write by hand. In our case it'll use
-`wasm-bindgen.` It should be noted that `#![feature(proc_macro)]` implies using the nightly
+`wasm-bindgen.` It should be noted that `#![feature(...)]` implies using the nightly
 compiler. This gated feature will hopefully be stabilized and landed soon so that you won't need it!
 
 `wasm-bindgen` knows how to make code that works well with wasm so we don't have to
@@ -97,7 +97,7 @@ value was! We then return what was inside `c`. Neat!
 This is all the Rust code we need to write. Your `lib.rs` file should look like this by now:
 
 ```rust
-#![feature(proc_macro)]
+#![feature(proc_macro, wasm_import_module, wasm_custom_section)]
 extern crate wasm_bindgen;
 use wasm_bindgen::prelude::*;
 
