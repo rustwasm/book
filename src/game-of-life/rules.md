@@ -35,19 +35,13 @@ Life:][wikipedia]
 
 Consider the following initial universe:
 
-<style>
-.universe {
-    font-family: monospace;
-}
-</style>
-
-<table class="universe">
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>■     </td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>■     </td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>■     </td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-</table>
+```
+◻◻◻◻◻
+◻◻■◻◻
+◻◻■◻◻
+◻◻■◻◻
+◻◻◻◻◻
+```
 
 We can calculate the next generation by considering each cell. The top left cell
 is dead. Rule (4) is the only transition rule that applies to dead
@@ -71,13 +65,13 @@ generation.
 
 Put it all together, and we get this universe after the next tick:
 
-<table class="universe">
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>■     </td><td>■     </td><td>■     </td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-</table>
+```
+◻◻◻◻◻
+◻◻◻◻◻
+◻■■■◻
+◻◻◻◻◻
+◻◻◻◻◻
+```
 
 From these simple, deterministic rules, strange and exciting behavior emerges:
 
