@@ -126,6 +126,10 @@ interface you expose to JavaScript. Ultimately, you will have an easier time
 finding and fixing bugs if you can isolate them in a smaller test cases that
 don't require interacting with JavaScript.
 
+Note that in order to run the `#[test]`s without compiler and linker errors, you
+will need to comment out the `#![wasm_bindgen]` annotations and `crate-type =
+"cdylib"` bits.
+
 [quickcheck]: https://crates.io/crates/quickcheck
 
 ## Exercises
