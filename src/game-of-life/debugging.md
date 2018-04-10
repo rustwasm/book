@@ -12,8 +12,12 @@ present in the compiled `.wasm` binary, and stack traces will have function
 names like `wasm[42]` rather than
 `wasm_game_of_life::Universe::live_neighbor_count`.
 
-To enable debug symbols, ensure that you `debug = true` in the
-`[profile.release]` section of your `Cargo.toml`:
+When using a "debug" build (aka `npm run build-debug`) debug symbols are enabled
+by default.
+
+With a "release" build, debug symbols are not enabled by default. To enable
+debug symbols, ensure that you `debug = true` in the `[profile.release]` section
+of your `Cargo.toml`:
 
 ```toml
 [profile.release]
