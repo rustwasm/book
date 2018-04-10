@@ -194,6 +194,25 @@ build-debug` command. Occasionally, I've seen the development server be overly
 aggressive with its caching of the `.wasm`. If you run into this, try restarting
 the development server.
 
+> ## Caveat for Chrome Users
+>
+> Note that unfortunately this example does not yet work in Chrome. Chrome has
+> different limits than than Firefox, for example, about instantiating wasm
+> modules. Currently the Webpack wasm integration uses `new
+> WebAssembly.Instance` which limits the input module to at most 4K, but
+> frequently (especially in development mode) wasm modules may be larger than
+> 4K.
+>
+> The usage of `new WebAssembly.Instance` is currently believed to [be a
+> bug][bug] in webpack which is likely to get fixed once
+> [`instantiateStreaming`][bug2] is used instead. Once this is [fixed in
+> upstream Webpack][fix] then this example will work in Chrome (like it does
+> currently in Firefox).
+
+[bug]: https://github.com/webpack/webpack/issues/6475
+[bug2]: https://github.com/webpack/webpack/issues/6433
+[fix]: https://github.com/webpack/webpack/pull/6709
+
 ## Exercises
 
 * Modify `index.js` to greet you by your name instead of by "Rust and WebAssembly".
