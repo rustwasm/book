@@ -107,9 +107,9 @@ The `index.js` is the main entry point for our Web page's JavaScript. It imports
 the project's WebAssemly module, and calls the module's `greet` function.
 
 ```js
-import * as wasm from "./wasm_game_of_life";
+import { greet } from "./wasm_game_of_life";
 
-wasm.greet("Rust and WebAssembly");
+greet("Rust and WebAssembly");
 ```
 
 ### `src/lib.rs`

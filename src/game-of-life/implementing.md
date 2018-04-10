@@ -337,8 +337,14 @@ inside `index.html`'s `<head>`:
 </style>
 ```
 
-Next, let's define some constants that JavaScript will use when rendering in
-`index.js`:
+At the top of `index.js`, let's fix our import to bring in the `Universe` rather
+than the old `greet` function:
+
+```js
+import { Universe } from "./wasm_game_of_life";
+```
+
+Next, let's define some constants that JavaScript will use when rendering:
 
 ```js
 const CELL_SIZE = 5; // px
@@ -356,7 +362,7 @@ draws the current universe to the `<canvas>`, and then calls `Universe::tick`.
 
 ```js
 // Construct the universe, and get its width and height.
-const universe = wasm.Universe.new();
+const universe = Universe.new();
 const width = universe.width();
 const height = universe.height();
 
