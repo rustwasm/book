@@ -155,11 +155,24 @@ To build the Rust crate as WebAssembly and generate the `wasm_bindgen` glue, run
 this command:
 
 ```text
-npm run build
+npm run build-debug
 ```
 
-The first build may take a little while, but subsequent builds will be much
-faster.
+The first build may take a little while, since dependencies need to be compiled.
+But don't worry: subsequent builds, when dependencies don't need to be
+recompiled, will be much faster.
+
+This creates a "debug" build of the Rust crates: a build that does not have
+optimizations applied, and has symbols included for better debugging in your
+browser's developer tools. You can also create a "release" build that has
+optimization passes applied with this command:
+
+```
+npm run build-release
+```
+
+This is the command we want to use to create `.wasm` binaries for profiling and
+deploying to production.
 
 Next, open a new terminal for the development server. Running the server in a
 new terminal lets us leave it running in the background, and doesn't block us
@@ -177,7 +190,7 @@ and you should be greeted with an alert message:
 
 Anytime you make changes and want them reflected on
 [http://localhost:8080/](http://localhost:8080/), just re-run the `npm run
-build` command. Occasionally, I've seen the development server be overly
+build-debug` command. Occasionally, I've seen the development server be overly
 aggressive with its caching of the `.wasm`. If you run into this, try restarting
 the development server.
 

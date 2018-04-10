@@ -3,6 +3,10 @@
 This chapter introduces how to profile Web pages using Rust and WebAssembly
 where the goal is improving throughput or latency.
 
+> ⚡ Alaways make sure you are using a `--release` build when profiling! With
+> our project template, that means using `npm run build-release` instead of `npm
+> run build-debug`.
+
 ## Available Tools
 
 ### The `performance.now()` Timer
@@ -545,7 +549,7 @@ do need to make sure that this native code speed up translates into a
 WebAssembly speed up as well.
 
 Let's reinstate all the `#[wasm_bindgen]` annotations, rebuild the `.wasm` with
-`npm run build`, and refresh
+`npm run build-release`, and refresh
 [http://localhost:8080/](http://localhost:8080/). On my machine, the page is
 running at 60 frames per second again, and recording another profile with the
 browser's profiler reveals that each animation frame is taking about ten

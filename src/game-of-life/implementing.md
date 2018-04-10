@@ -465,7 +465,7 @@ requestAnimationFrame(renderLoop);
 Rebuild the WebAssembly and bindings glue:
 
 ```
-npm run build
+npm run build-debug
 ```
 
 Make sure your development server is still running. If it isn't, start it again:
