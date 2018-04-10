@@ -1,3 +1,0 @@
-# Code Size Profiling
-
-TODO
