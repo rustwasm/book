@@ -40,6 +40,11 @@ extern {
     #[wasm_bindgen(js_namespace = console)]
     fn log(msg: &str);
 }
+
+// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+macro_rules! log {
+    ($($t:tt)*) => (log(&format!($($t)*)))
+}
 ```
 
 Then, we can start logging messages to the console by inserting calls to `log`
@@ -55,10 +60,10 @@ index f757641..a30e107 100755
                  let cell = self.cells[idx];
                  let live_neighbors = self.live_neighbor_count(row, col);
 
-+                log(&format!(
++                log!(
 +                    "cell[{}, {}] is initially {:?} and has {} live neighbors",
 +                    row, col, cell, live_neighbors
-+                ));
++                );
 +
                  let next_cell = match (cell, live_neighbors) {
                      // Rule 1: Any live cell with fewer than two live neighbours
@@ -67,7 +72,7 @@ index f757641..a30e107 100755
                      (otherwise, _) => otherwise,
                  };
 
-+                log(&format!("    it becomes {:?}", next_cell));
++                log!("    it becomes {:?}", next_cell);
 +
                  next[idx] = next_cell;
              }
