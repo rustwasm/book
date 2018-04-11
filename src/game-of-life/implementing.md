@@ -68,10 +68,11 @@ optimize for the following properties:
    handles to JavaScript `Object`s or boxed Rust structures.
 
 3. **Minimizing the number of times JavaScript calls an exported WebAssembly
-   function, or WebAssembly calls an imported JavaScript function.** Calling
-   across the JavaScript↔WebAssembly boundary is pretty fast, but not quite as
-   fast as calling JavaScript→JavaScript or WebAssembly→WebAssembly. In the case
-   of homogeneous calls, engines can often perform optimizations like
+   function, or WebAssembly calls an imported JavaScript function.** These
+   boundary-crossing calls are analogous to syscalls in native development.
+   Calling across the JavaScript↔WebAssembly boundary is pretty fast, but not
+   quite as fast as calling JavaScript→JavaScript or WebAssembly→WebAssembly. In
+   the case of homogeneous calls, engines can often perform optimizations like
    inlining. With heterogeneous calls, those optimizations are much harder to
    perform. We don't want to design the interface such that each iteration of
    our hottest loop is an out-of-line function call.
