@@ -131,8 +131,8 @@ index(row, column, universe) = row * height(universe) + column
 ```
 
 To expose the universe's cells to JavaScript, we return a pointer to the start
-of the array. The JavaScript knows the width and height of the universe, and can
-read the bytes that make up the cells directly.
+of the array. The JavaScript code knows the width and height of the universe,
+and can read the bytes that make up the cells directly.
 
 This is an efficient design that is also easy to implement. We will use this
 design in the rest of the tutorial.
