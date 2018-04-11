@@ -33,12 +33,15 @@ We will implement the third option.
 
 JavaScript's garbage-collected heap — where `Object`s, `Array`s, and DOM nodes
 are allocated — is distinct from WebAssembly's linear memory space, where our
-Rust values live. WebAssembly (currently) has no direct access to the
-garbage-collected heap. JavaScript, on the other hand, can read and write to the
-WebAssembly linear memory space, but only as an `ArrayBuffer` of scalar values
-(`u8`, `i32`, `f64`, etc...). WebAssembly functions also take and return scalar
-values. These are the building blocks upon which all WebAssembly and JavaScript
-communication is built.
+Rust values live. WebAssembly currently has no direct access to the
+garbage-collected heap (as of April 2018, this is expected to change with the
+["host bindings" proposal][host-bindings]). JavaScript, on the other hand, can
+read and write to the WebAssembly linear memory space, but only as an
+`ArrayBuffer` of scalar values (`u8`, `i32`, `f64`, etc...). WebAssembly
+functions also take and return scalar values. These are the building blocks upon
+which all WebAssembly and JavaScript communication is built.
+
+[host-bindings]: https://github.com/WebAssembly/host-bindings/blob/master/proposals/host-bindings/Overview.md
 
 `wasm_bindgen` defines a common understanding of how to work with compound
 structures across this boundary. It involves boxing Rust structures, and
