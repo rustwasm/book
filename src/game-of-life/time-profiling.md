@@ -3,9 +3,9 @@
 This chapter introduces how to profile Web pages using Rust and WebAssembly
 where the goal is improving throughput or latency.
 
-> ⚡ Alaways make sure you are using a `--release` build when profiling! With
-> our project template, that means using `npm run build-release` instead of `npm
-> run build-debug`.
+> ⚡ Always make sure you are using a `--release` build when profiling! With our
+> project template, that means using `npm run build-release` instead of `npm run
+> build-debug`.
 
 ## Available Tools
 
