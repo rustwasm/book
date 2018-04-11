@@ -208,6 +208,49 @@ only do string formatting in debug mode, and in release mode use static strings.
 This is definitely easier said than done, but tools like `svelte` and manually
 inspecting LLVM-IR can help you figure out which functions are panicking.
 
+Panics do not always appear as a `panic!()` macro invocation. They arise
+implicitly from many constructs, such as:
+
+* Indexing a slice panics on out of bounds indices: `my_slice[i]`
+
+* Division will panic if the divisor is zero: `dividend / divisor`
+
+* Unwrapping an `Option` or `Result`: `opt.unwrap()` or `res.unwrap()`
+
+The first two can be translated into the third. Indexing can be replaced with
+fallible `my_slice.get(i)` operations. Division can be replaced with
+`checked_div` calls. Now we only have a single case to contend with.
+
+Unwrapping an `Option` or `Result` without panicking comes in two flavors: safe
+and unsafe.
+
+The safe approach is to `abort` instead of panicking when encountering a `None`
+or an `Error`:
+
+```rust
+#[inline]
+pub fn unwrap_abort<T>(o: Option<T>) -> T {
+    use std::process;
+    match o {
+        Some(t) => t,
+        None => process::abort(),
+    }
+}
+```
+
+Ultimately, panics translate into aborts in `wasm32-unknown-unknown` anyways, so
+this gives you the same behavior but without the code bloat.
+
+Alternatively, the [`unreachable` crate][unreachable] provides an unsafe
+[`unchecked_unwrap` extension method][unchecked_unwrap] for `Option` and
+`Result` which tells the Rust compiler to *assume* that the `Option` is `Some`
+or the `Result` is `Ok`. It is undefined behavior what happens if that
+assumption does not hold. You really only want to use this unsafe approach when
+you 110% *know* that the assumption holds, and the compiler just isn't smart
+enough to see it. Even if you go down this route, you should have a debug build
+configuration that still does the checking, and only use unchecked operations in
+release builds.
+
 ### Avoid Allocation or Switch to `wee_alloc`
 
 Rust's default allocator for WebAssembly is a port of `dlmalloc` to Rust. It
