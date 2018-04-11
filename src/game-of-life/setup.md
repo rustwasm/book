@@ -57,7 +57,7 @@ Clone this tutorials code repository, enter its directory, and checkout the
 `chapter-zero` branch:
 
 ```text
-git clone https://github.com/fitzgen/wasm_game_of_life.git
+git clone https://github.com/rustwasm/wasm_game_of_life.git
 cd ./wasm_game_of_life
 git checkout -b chapter-zero origin/chapter-zero
 ```
