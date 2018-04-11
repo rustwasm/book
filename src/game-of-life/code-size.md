@@ -57,6 +57,9 @@ costs:
 opt-level = 'z'
 ```
 
+Note that, surprisingly enough, `opt-level = "s"` can sometimes result in
+smaller binaries than `opt-level = "z"`. Always measure!
+
 ### Use the `wasm-opt` Tool
 
 The [Binaryen][] toolkit is a collection of WebAssembly-specific compiler
