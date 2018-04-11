@@ -190,9 +190,13 @@ find target/release -type f -name '*.ll'
 
 * [LLVM Language Reference Manual](https://llvm.org/docs/LangRef.html)
 
-## More Tools and Techniques
+## More Invasive Tools and Techniques
 
-Here is a collection of techniques you can apply to get smaller code sizes.
+Tweaking build configurations to get smaller `.wasm` binaries is pretty hands
+off. When you need to go the extra mile, however, you are prepared to use more
+invasive techniques, like rewriting source code to avoid bloat. What follows is
+a collection of get-your-hands-dirty techniques you can apply to get smaller
+code sizes.
 
 ### Avoid String Formatting
 
