@@ -251,6 +251,9 @@ enough to see it. Even if you go down this route, you should have a debug build
 configuration that still does the checking, and only use unchecked operations in
 release builds.
 
+[unreachable]: https://crates.io/crates/unreachable
+[unchecked_unwrap]: https://docs.rs/unreachable/1.0.0/unreachable/trait.UncheckedOptionExt.html#tymethod.unchecked_unwrap
+
 ### Avoid Allocation or Switch to `wee_alloc`
 
 Rust's default allocator for WebAssembly is a port of `dlmalloc` to Rust. It
