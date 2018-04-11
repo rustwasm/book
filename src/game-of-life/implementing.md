@@ -39,8 +39,8 @@ garbage-collected heap (as of April 2018, this is expected to change with the
 read and write to the WebAssembly linear memory space, but only as an
 [`ArrayBuffer`][array-buf] of scalar values (`u8`, `i32`, `f64`,
 etc...). WebAssembly functions also take and return scalar values. These are the
-building blocks upon which all WebAssembly and JavaScript communication is
-built.
+building blocks from which all WebAssembly and JavaScript communication is
+constituted.
 
 [host-bindings]: https://github.com/WebAssembly/host-bindings/blob/master/proposals/host-bindings/Overview.md
 [array-buf]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
