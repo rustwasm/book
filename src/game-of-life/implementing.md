@@ -145,6 +145,9 @@ delta-based design is slightly more difficult to implement.*
 
 ## Rust Implementation
 
+In the last chapter, we cloned an initial project template. We will modify that
+project template now.
+
 Let's begin by removing the `alert` import and `greet` function from
 `src/lib.rs`, and replacing them with a type definition for cells:
 
