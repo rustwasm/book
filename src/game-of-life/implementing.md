@@ -177,8 +177,8 @@ pub struct Universe {
 }
 ```
 
-To access the cell at a given row and column, we use translate the row and
-column into an index into the cells vector, as described earlier:
+To access the cell at a given row and column, we translate the row and column
+into an index into the cells vector, as described earlier:
 
 ```rust
 impl Universe {
