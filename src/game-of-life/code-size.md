@@ -132,19 +132,29 @@ pre, code {
 </style>
 
 ```text
-$ svelte paths wee_alloc.wasm 'wee_alloc::alloc_first_fit::h9a72de3af77ef93f'
- Shallow Bytes │ Shallow % │ Retaining Paths
-───────────────┼───────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-           225 ┊     7.99% ┊ wee_alloc::alloc_first_fit::h9a72de3af77ef93f
-               ┊           ┊   ⬑ func[3]
-               ┊           ┊       ⬑ wee_alloc::alloc_with_refill::hb32c1bbce9ebda8e
-               ┊           ┊           ⬑ func[2]
-               ┊           ┊               ⬑ <wee_alloc::size_classes::SizeClassAllocPolicy<'a> as wee_alloc::AllocPolicy>::new_cell_for_free_list::h3987e3054b8224e6
-               ┊           ┊                   ⬑ func[5]
-               ┊           ┊                       ⬑ elem[0]
-               ┊           ┊               ⬑ hello
-               ┊           ┊                   ⬑ func[8]
-               ┊           ┊                       ⬑ export "hello"
+$ svelte top -n 20 wasm_game_of_life_bg.wasm
+ Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────
+          9158 ┊    19.65% ┊ "function names" subsection
+          3251 ┊     6.98% ┊ dlmalloc::dlmalloc::Dlmalloc::malloc::h632d10c184fef6e8
+          2510 ┊     5.39% ┊ <str as core::fmt::Debug>::fmt::he0d87479d1c208ea
+          1737 ┊     3.73% ┊ data[0]
+          1574 ┊     3.38% ┊ data[3]
+          1524 ┊     3.27% ┊ core::fmt::Formatter::pad::h6825605b326ea2c5
+          1413 ┊     3.03% ┊ std::panicking::rust_panic_with_hook::h1d3660f2e339513d
+          1200 ┊     2.57% ┊ core::fmt::Formatter::pad_integral::h06996c5859a57ced
+          1131 ┊     2.43% ┊ core::str::slice_error_fail::h6da90c14857ae01b
+          1051 ┊     2.26% ┊ core::fmt::write::h03ff8c7a2f3a9605
+           931 ┊     2.00% ┊ data[4]
+           864 ┊     1.85% ┊ dlmalloc::dlmalloc::Dlmalloc::free::h27b781e3b06bdb05
+           841 ┊     1.80% ┊ <char as core::fmt::Debug>::fmt::h07742d9f4a8c56f2
+           813 ┊     1.74% ┊ __rust_realloc
+           708 ┊     1.52% ┊ core::slice::memchr::memchr::h6243a1b2885fdb85
+           678 ┊     1.45% ┊ <core::fmt::builders::PadAdapter<'a> as core::fmt::Write>::write_str::h96b72fb7457d3062
+           631 ┊     1.35% ┊ universe_tick
+           631 ┊     1.35% ┊ dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hae6c5c8634e575b8
+           514 ┊     1.10% ┊ std::panicking::default_hook::{{closure}}::hfae0c204085471d5
+           503 ┊     1.08% ┊ <&'a T as core::fmt::Debug>::fmt::hba207e4f7abaece6
 ```
 
 [svelte]: https://github.com/fitzgen/svelte
@@ -237,9 +247,9 @@ function calls.
 
 ### Use the `wasm-snip` Tool
 
-[`wasm-snip`][snip] replaces a WebAssembly function's body with an `unreachable`
-instruction. This is a rather heavy, blunt hammer for functions that kind of
-look like nails if you squint hard enough.
+[`wasm-snip` replaces a WebAssembly function's body with an `unreachable`
+instruction.][snip] This is a rather heavy, blunt hammer for functions that kind
+of look like nails if you squint hard enough.
 
 Maybe you know that some function will never be called at runtime, but the
 compiler can't prove that at compile time? Snip it! Afterwards, run `wasm-opt`
@@ -253,9 +263,6 @@ since panics ultimately translate into traps anyways.
 [snip]: https://github.com/fitzgen/wasm-snip
 
 ## Exercises
-
-* Use `svelte` to find the biggest functions in our Game of Life `.wasm`
-  binary. Which has largest shallow size? Which has the largest retained size?
 
 * Use `wasm-snip` to remove the panicking infrastructure functions from our Game
   of Life's `.wasm` binary. How many bytes does it save?
