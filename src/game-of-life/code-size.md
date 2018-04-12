@@ -123,9 +123,6 @@ input. It analyzes a binary's call graph to answer questions like:
   saved if I removed it and all the functions that become dead code after its
   removal?
 
-*Note: `twiggy` will change its name soon and move into the `rustwasm` Github
-organization.*
-
 <style>
 /* For whatever reason, the defautl mdbook fonts fonts break with the
    following box-drawing characters, hence the manual style. */
