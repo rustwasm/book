@@ -186,7 +186,7 @@ npm run serve
 Navigate your Web browser to [http://localhost:8080/](http://localhost:8080/)
 and you should be greeted with an alert message:
 
-[![Screenshot of the "Hello, Rust and WebAssembly!" Web page alert](/images/game-of-life/setup.png)](/images/game-of-life/setup.png)
+[![Screenshot of the "Hello, Rust and WebAssembly!" Web page alert](./images/game-of-life/setup.png)](./images/game-of-life/setup.png)
 
 Anytime you make changes and want them reflected on
 [http://localhost:8080/](http://localhost:8080/), just re-run the `npm run

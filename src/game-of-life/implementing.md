@@ -486,7 +486,7 @@ npm run server
 If you refresh [http://localhost:8080/](http://localhost:8080/), you should be
 greeted with an exciting display of life!
 
-[![Screenshot of the Game of Life implementation](/images/game-of-life/initial-game-of-life.png)](/images/game-of-life/initial-game-of-life.png)
+[![Screenshot of the Game of Life implementation](./images/game-of-life/initial-game-of-life.png)](./images/game-of-life/initial-game-of-life.png)
 
 You can find the complete source for this implementation in the `chapter-one`
 branch.
