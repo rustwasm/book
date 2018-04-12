@@ -112,9 +112,9 @@ remaining code size is coming from.
 > let size profiling guide our code size shrinking efforts. Fail to do this and
 > you risk wasting your own time!
 
-### The `svelte` Code Size Profiler
+### The `twiggy` Code Size Profiler
 
-[`svelte` is a code size profiler][svelte] that supports WebAssembly as
+[`twiggy` is a code size profiler][twiggy] that supports WebAssembly as
 input. It analyzes a binary's call graph to answer questions like:
 
 * Why was this function included in the binary in the first place?
@@ -123,7 +123,7 @@ input. It analyzes a binary's call graph to answer questions like:
   saved if I removed it and all the functions that become dead code after its
   removal?
 
-*Note: `svelte` will change its name soon and move into the `rustwasm` Github
+*Note: `twiggy` will change its name soon and move into the `rustwasm` Github
 organization.*
 
 <style>
@@ -135,7 +135,7 @@ pre, code {
 </style>
 
 ```text
-$ svelte top -n 20 wasm_game_of_life_bg.wasm
+$ twiggy top -n 20 wasm_game_of_life_bg.wasm
  Shallow Bytes │ Shallow % │ Item
 ───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────
           9158 ┊    19.65% ┊ "function names" subsection
@@ -160,7 +160,7 @@ $ svelte top -n 20 wasm_game_of_life_bg.wasm
            503 ┊     1.08% ┊ <&'a T as core::fmt::Debug>::fmt::hba207e4f7abaece6
 ```
 
-[svelte]: https://github.com/fitzgen/svelte
+[twiggy]: https://github.com/rustwasm/twiggy
 
 ### Manually Inspecting LLVM-IR
 
@@ -205,7 +205,7 @@ only do string formatting in debug mode, and in release mode use static strings.
 
 ### Avoid Panicking
 
-This is definitely easier said than done, but tools like `svelte` and manually
+This is definitely easier said than done, but tools like `twiggy` and manually
 inspecting LLVM-IR can help you figure out which functions are panicking.
 
 Panics do not always appear as a `panic!()` macro invocation. They arise

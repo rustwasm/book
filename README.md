@@ -80,9 +80,9 @@ bundler ecosystem to look something like this:
         * [Design][wasm-bindgen-design]
         * [Open Issues][wasm-bindgen-issues]
 
-    * [`svelte` is a work-in-progress code size profiler for WebAssembly.][svelte]
-        * [Contributing][svelte-contributing]
-        * [Open Issues][svelte-issues]
+    * [`twiggy` is a work-in-progress code size profiler for WebAssembly.][twiggy]
+        * [Contributing][twiggy-contributing]
+        * [Open Issues][twiggy-issues]
 
 * Take a look at [this repo's open issues][issues]
 
@@ -95,9 +95,9 @@ bundler ecosystem to look something like this:
 [wasm-bindgen]: https://github.com/alexcrichton/wasm-bindgen
 [wasm-bindgen-design]: https://github.com/alexcrichton/wasm-bindgen/blob/master/DESIGN.md
 [wasm-bindgen-issues]: https://github.com/alexcrichton/wasm-bindgen/issues
-[svelte]: https://github.com/fitzgen/svelte
-[svelte-contributing]: https://github.com/fitzgen/svelte/blob/master/CONTRIBUTING.md
-[svelte-issues]: https://github.com/fitzgen/svelte/issues
+[twiggy]: https://github.com/rustwasm/twiggy
+[twiggy-contributing]: https://github.com/rustwasm/twiggy/blob/master/CONTRIBUTING.md
+[twiggy-issues]: https://github.com/rustwasm/twiggy/issues
 
 # Status
 
