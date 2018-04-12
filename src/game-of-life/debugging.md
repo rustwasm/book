@@ -108,7 +108,7 @@ frame to the previous one.
 
 [dwarf]: http://dwarfstd.org/
 
-[![Screenshot of debugging the Game of Life](/images/game-of-life/debugging.png)](/images/game-of-life/debugging.png)
+[![Screenshot of debugging the Game of Life](./images/game-of-life/debugging.png)](./images/game-of-life/debugging.png)
 
 ### References
 
