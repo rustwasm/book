@@ -480,7 +480,7 @@ npm run build-debug
 Make sure your development server is still running. If it isn't, start it again:
 
 ```
-npm run server
+npm run serve
 ```
 
 If you refresh [http://localhost:8080/](http://localhost:8080/), you should be
