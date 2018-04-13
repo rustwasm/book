@@ -199,7 +199,7 @@ If you run into this, try restarting the development server.
 > ## Caveat for Chrome Users
 >
 > Note that unfortunately this example does not yet work in Chrome. Chrome has
-> different limits than than Firefox, for example, about instantiating wasm
+> different limits than Firefox, for example, about instantiating wasm
 > modules. Currently the Webpack wasm integration uses `new
 > WebAssembly.Instance` which limits the input module to at most 4K, but
 > frequently (especially in development mode) wasm modules may be larger than
