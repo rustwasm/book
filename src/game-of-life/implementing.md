@@ -396,6 +396,10 @@ the first iteration of the rendering loop:
 requestAnimationFrame(renderLoop);
 ```
 
+This is what it looks like right now:
+
+[![Screenshot of the Game of Life implementation with text rendering](./images/game-of-life/initial-game-of-life-pre.png)](./images/game-of-life/initial-game-of-life-pre.png)
+
 ## Rendering to Canvas Directly from Memory
 
 Generating (and allocating) a `String` in Rust and then having `wasm-bindgen`
