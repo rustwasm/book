@@ -104,7 +104,7 @@ load `bootstrap.js`, which is a very thin wrapper around `index.js`.
 ### `index.js`
 
 The `index.js` is the main entry point for our Web page's JavaScript. It imports
-the project's WebAssemly module, and calls the module's `greet` function.
+the project's WebAssembly module, and calls the module's `greet` function.
 
 ```js
 import { greet } from "./wasm_game_of_life";
