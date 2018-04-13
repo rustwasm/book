@@ -396,7 +396,7 @@ the first iteration of the rendering loop:
 requestAnimationFrame(renderLoop);
 ```
 
-## Quicker rendering with JavaScript
+## Rendering to Canvas Directly from Memory
 
 Generating (and allocating) a `String` in Rust and then having `wasm-bindgen`
 convert it to a valid JavaScript string is expensive. Instead of our current
