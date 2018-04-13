@@ -78,4 +78,4 @@ wasm-bindgen="0.2"
 This is the `wasm-bindgen` crate. We'll be using it very shortly to make our functions work nicely
 with wasm and not have to worry about a lot of nitty gritty details.
 
-We've got our package's metadata all setup so let's actually write some code!
+We've got our package's metadata all set up, so let's actually write some code!
