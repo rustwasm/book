@@ -432,7 +432,7 @@ import { memory } from "./wasm_game_of_life_bg";
 // ...
 
 const getIndex = (row, column) => {
-  return row * height + column;
+  return row * width + column;
 };
 
 const drawCells = () => {
