@@ -183,7 +183,7 @@ into an index into the cells vector, as described earlier:
 ```rust
 impl Universe {
     fn get_index(&self, row: u32, column: u32) -> usize {
-        (row * self.height + column) as usize
+        (row * self.width + column) as usize
     }
 
     // ...
