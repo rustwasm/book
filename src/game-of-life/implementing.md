@@ -127,7 +127,7 @@ To find the array index of the cell at a given row and column in the universe,
 we can use this formula:
 
 ```text
-index(row, column, universe) = row * height(universe) + column
+index(row, column, universe) = row * width(universe) + column
 ```
 
 To expose the universe's cells to JavaScript, we return a pointer to the start
