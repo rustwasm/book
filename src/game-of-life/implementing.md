@@ -130,10 +130,14 @@ we can use this formula:
 index(row, column, universe) = row * height(universe) + column
 ```
 
-Now, to expose the universe's cells to JavaScript, we have several options. The
-easiest is to generate a string representation in Rust, and send that over to
-the JavaScript side. Later in this chapter, we'll implement a more complicated,
-but quicker way of accessing the current universe state from JavaScript.
+We have several ways of exposing the universe's cells to JavaScript. To begin,
+we will implement [`std::fmt::Display`][`Display`] for `Universe`, which we can
+use to generate a Rust `String` of the cells rendered as text characters. This
+Rust String is then copied from the WebAssembly linear memory into a JavaScript
+String in the JavaScript's garbage-collected heap, and is then displayed by
+setting HTML `textContent`. Later in the chapter, we'll evolve this
+implementation to avoid copying the universe's cells between heaps and to render
+to `<canvas>`.
 
 *Another viable design alternative would be for Rust to return a list of every
 cell that changed states after each tick, instead of exposing the whole universe
@@ -269,16 +273,17 @@ impl Universe {
 ```
 
 So far, the state of the universe is represented as a vector of cells. To make
-this accessible to humans, let's implement an easy renderer. The idea is to
-write the universe line by line as text, and for each cell that is alive, print
-the unicode character `◼️` ("black medium square"). For dead cells, we'll print
-`◻️` (a "white medium square").
+this human readable, let's implement a basic text renderer. The idea is to write
+the universe line by line as text, and for each cell that is alive, print the
+unicode character `◼️` ("black medium square"). For dead cells, we'll print `◻️`
+(a "white medium square").
 
 By implementing the [`Display`] trait from Rust's standard library, we can add a
 way to format a structure in a user-facing manner. This will also automatically
-give us a `to_string` method.
+give us a [`to_string`] method.
 
 [Display]: https://doc.rust-lang.org/1.25.0/std/fmt/trait.Display.html
+[`to_string`]: https://doc.rust-lang.org/1.25.0/std/string/trait.ToString.html
 
 ```rust
 use std::fmt;
@@ -287,7 +292,8 @@ impl fmt::Display for Universe {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for line in self.cells.as_slice().chunks(self.width as usize) {
             for &cell in line {
-                write!(f, "{}", if cell == Cell::Dead { "◻️" } else { "◼️" })?;
+                let symbol = if cell == Cell::Dead { "◻️" } else { "◼️" };
+                write!(f, "{}", symbol)?;
             }
             write!(f, "\n")?;
         }
@@ -298,7 +304,7 @@ impl fmt::Display for Universe {
 ```
 
 Finally, we define a constructor that initializes the universe with an
-interesting pattern of live and dead cells, as well as getters 
+interesting pattern of live and dead cells, as well as a `render` method:
 
 ```rust
 /// Public methods, exported to JavaScript.
@@ -382,7 +388,7 @@ draws the current universe to the `<pre>`, and then calls `Universe::tick`.
 
 ```js
 const renderLoop = () => {
-  pre.innerText = universe.render();
+  pre.textContent = universe.render();
   universe.tick();
 
   requestAnimationFrame(renderLoop);
@@ -403,13 +409,15 @@ This is what it looks like right now:
 ## Rendering to Canvas Directly from Memory
 
 Generating (and allocating) a `String` in Rust and then having `wasm-bindgen`
-convert it to a valid JavaScript string is expensive. Instead of our current
-`render` method, we can return a pointer to the start of the array. The
-JavaScript code knows the width and height of the universe, and can read the
-bytes that make up the cells directly. This is a more efficient design, but
-requires us to the conversion from bytes to visual output in JavaScript. Instead
-of rendering unicode text, we'll switch to using the [Canvas API]. We will use
-this design in the rest of the tutorial.
+convert it to a valid JavaScript string makes unnecessary copies of the
+universe's cells. Instead of our current `render` method, we can return a
+pointer to the start of the cells array. The JavaScript code knows the width and
+height of the universe, and can read the bytes that make up the cells directly.
+This design does not copy the universe's cells or tax the JavaScript garbage
+collector with allocations, but we must directly read the cells' bytes from
+WebAssembly's linear memory in JavaScript. Instead of rendering unicode text,
+we'll switch to using the [Canvas API]. We will use this design in the rest of
+the tutorial.
 
 [Canvas API]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 
