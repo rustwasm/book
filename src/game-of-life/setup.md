@@ -13,6 +13,12 @@ You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 
 [rust-install]: https://www.rust-lang.org/en-US/install.html
 
+After you have installed rustup you will also need [Update Rust][rustup update],  [Nightly Rust][rustup install nightly]
+
+[rustup update]: https://www.rust-lang.org/en-US/install.html
+
+[rustup install nightly]: https://doc.rust-lang.org/1.13.0/book/nightly-rust.html
+
 ### The `wasm32-unknown-unknown` Target
 
 Once you have the Rust toolchain installed, you'll want to be able to compile
