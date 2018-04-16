@@ -282,7 +282,7 @@ By implementing the [`Display`] trait from Rust's standard library, we can add a
 way to format a structure in a user-facing manner. This will also automatically
 give us a [`to_string`] method.
 
-[Display]: https://doc.rust-lang.org/1.25.0/std/fmt/trait.Display.html
+[`Display`]: https://doc.rust-lang.org/1.25.0/std/fmt/trait.Display.html
 [`to_string`]: https://doc.rust-lang.org/1.25.0/std/string/trait.ToString.html
 
 ```rust
