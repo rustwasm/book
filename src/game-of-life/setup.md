@@ -24,7 +24,6 @@ command:
 rustup update
 rustup install nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
-
 ```
 
 ### `npm`
