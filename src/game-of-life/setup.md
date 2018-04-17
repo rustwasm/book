@@ -21,6 +21,8 @@ enable this by adding the `wasm32-unknown-unknown` target with the following
 command:
 
 ```
+rustup update
+rustup install nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
