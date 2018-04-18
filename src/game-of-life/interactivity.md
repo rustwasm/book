@@ -2,7 +2,7 @@
 
 We will continue to explore the JavaScript and WebAssembly interface by adding
 some interactive features to our Game of Life implementation. We will enable
-users to toggle toggle whether a cell is alive or dead by clicking on it, and
+users to toggle whether a cell is alive or dead by clicking on it, and
 allow pausing the game, which makes drawing cell patterns a lot easier.
 
 ## Pausing and Resuming the Game
@@ -37,8 +37,8 @@ variable to `null`.
 ```js
 let animationId = null;
 
-// This function is the same as before, except for the
-// result of `requestAnimationFrame` is assignmened to
+// This function is the same as before, except the
+// result of `requestAnimationFrame` is assigned to
 // `animationId`.
 const renderLoop = () => {
   universe.tick();
@@ -87,7 +87,7 @@ playPauseButton.addEventListener("click", event => {
 });
 ```
 
-Finally, we were previously kick starting the game and its animation by calling
+Finally, we were previously kick-starting the game and its animation by calling
 `requestAnimationFrame(renderLoop)` directly, but we want to replace that with a
 call to `play` so that the button gets the correct initial text icon.
 
