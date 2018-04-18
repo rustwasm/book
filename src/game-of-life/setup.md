@@ -44,7 +44,7 @@ Rust and WebAssembly.
 Install `wasm-bindgen` with this command:
 
 ```
-cargo +nightly install wasm-bindgen-cli --version 0.2.1
+cargo +nightly install wasm-bindgen-cli
 ```
 
 [wb]: https://github.com/rustwasm/wasm-bindgen
