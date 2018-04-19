@@ -11,7 +11,7 @@ to npm can be a bit of a hassle. `wasm-pack` is here to make that easier.
 We'll step through creating a simple Rust library, using `wasm-pack` to get it ready for
 distribution, sending it to npm, then using it as a package from npm to verify it works!
 
-As with all software in the early stages this is bleeding edge! Expect some nicks and bruises! If
+As with all software in the early stages, this is bleeding edge! Expect some nicks and bruises! If
 you run into issues or a bug please file an issue over at it's [repo].
 
 [repo]: https://github.com/ashleygwilliams/wasm-pack/issues
