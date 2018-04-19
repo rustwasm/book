@@ -35,13 +35,7 @@ Life:][wikipedia]
 
 Consider the following initial universe:
 
-```
-◻◻◻◻◻
-◻◻■◻◻
-◻◻■◻◻
-◻◻■◻◻
-◻◻◻◻◻
-```
+<img src='../images/game-of-life/initial-universe.png' alt='Initial Universe' width=80 />
 
 We can calculate the next generation by considering each cell. The top left cell
 is dead. Rule (4) is the only transition rule that applies to dead
@@ -65,13 +59,7 @@ generation.
 
 Put it all together, and we get this universe after the next tick:
 
-```
-◻◻◻◻◻
-◻◻◻◻◻
-◻■■■◻
-◻◻◻◻◻
-◻◻◻◻◻
-```
+<img src='../images/game-of-life/next-universe.png' alt='Next Universe' width=80 />
 
 From these simple, deterministic rules, strange and exciting behavior emerges:
 
