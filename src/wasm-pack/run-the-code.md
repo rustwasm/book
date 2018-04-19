@@ -65,7 +65,7 @@ We're almost set. Now we need to setup our JS file so that we can run some wasm 
 Make a file called `index.js` and put this inside of it:
 
 ```javascript
-const js = import("./node_modules/@MYSCOPE/wasm-add/wasm_add.js");
+const js = import("@MYSCOPE/wasm-add/wasm_add.js");
 js.then(js => {
   js.alert_add(3,2);
 });
