@@ -79,14 +79,7 @@ pub fn alert_add(a: i32, b: i32) -> i32 {
 }
 ```
 
-You'll notice that both functions have this `#[no_mangle]` attribute. When we export functions in
-Rust to other languages we need to make sure the name doesn't get changed when compiled so that if
-we want to call `add` that it will be called `add` and not a random compiler generated name. Now
-we've also said that these are both `pub extern fn` by putting the `extern` keyword in there, we
-have marked this as a function that can be called by another language outside of Rust. You can also
-call these functions inside of Rust as we can see inside `alert_add`.
-
-The rest is fairly straightforward if you're familiar with Rust, but if you're not we'll walk
+These functions are fairly straightforward if you're familiar with Rust, but if you're not we'll walk
 through it. Both functions take a value `a` and a value `b`. We have said that both are 32 bit
 integers (`i32`). We then say both will return an `i32`. The last line in a function returns the value
 if there is no semicolon. So in the `add` function the value of `a + b` gets calculated and it's
