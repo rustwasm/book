@@ -49,12 +49,14 @@ This tells webpack that if it's going to start things up use `index.js`. Before 
 we'll need to setup a small html file. Create a new file called `index.html` and put this inside it:
 
 ```html
+<!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta charset="utf-8">
+    <title>wasm-pack example</title>
   </head>
   <body>
-    <script src='./index.js'></script>
+    <script src="./index.js"></script>
   </body>
 </html>
 ```
