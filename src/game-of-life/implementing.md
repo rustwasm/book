@@ -595,6 +595,8 @@ greeted with an exciting display of life!
 You can find the complete source for this implementation in the `chapter-one`
 branch.
 
+Hashlife is an algorithm for computing the long-term fate of a given starting configuration in Conway's Game of Life. You can go to the [wiki page](https://en.wikipedia.org/wiki/Hashlife) to know more about this memoized algorithm.
+
 ## Exercises
 
 * Initialize the universe with a single space ship.
