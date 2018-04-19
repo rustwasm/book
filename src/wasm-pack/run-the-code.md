@@ -31,7 +31,7 @@ we're really just trying to verify that this works!
 Next up we'll need to create a small webpack configuration so that we can use the
 `webpack-dev-server` to serve the wasm file properly. It should be noted that webpack isn't
 a requirement. It's just what was chosen for this tutorial. You just need something to server the
-code! Here's what it should look like:
+code! Here's what your `webpack.config.js` should look like:
 
 ```javascript
 const path = require('path');
