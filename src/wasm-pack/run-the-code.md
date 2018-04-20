@@ -84,7 +84,7 @@ $ npm run serve
 
 Then in a web browser navigate to `http://localhost:8080` you should see something like this:
 
-![An alert box saying "Hello from Rust! 3 + 2 = 5"](/wasm-pack/wasm-pack.png)
+![An alert box saying "Hello from Rust! 3 + 2 = 5"](./wasm-pack/wasm-pack.png)
 
 If you did congrats you've successfully uploaded your first bit of wasm code to npm and used it
 properly!
