@@ -595,7 +595,7 @@ greeted with an exciting display of life!
 You can find the complete source for this implementation in the `chapter-one`
 branch.
 
-Hashlife is an algorithm for computing the long-term fate of a given starting configuration in Conway's Game of Life. You can go to the [wiki page](https://en.wikipedia.org/wiki/Hashlife) to know more about this memoized algorithm.
+There is also a really neat algorithm for implementing the Game of Life called [hashlife](https://en.wikipedia.org/wiki/Hashlife). It uses aggressive memoizing and can actually get *exponentially faster* to compute future generations the longer it runs! Given that, you might be wondering why we didn't implement hashlife in this tutorial. It is out of scope for this text, where we are focusing on Rust and WebAssembly integration, but we highly encourage you to go learn about hashlife on your own!
 
 ## Exercises
 
