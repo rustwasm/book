@@ -80,7 +80,7 @@ bundler ecosystem to look something like this:
         * [Design][wasm-bindgen-design]
         * [Open Issues][wasm-bindgen-issues]
 
-    * [`twiggy` is a work-in-progress code size profiler for WebAssembly.][twiggy]
+    * [`twiggy` is a code size profiler for WebAssembly.][twiggy]
         * [Contributing][twiggy-contributing]
         * [Open Issues][twiggy-issues]
 
