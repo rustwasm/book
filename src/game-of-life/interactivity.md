@@ -176,7 +176,7 @@ branch.
 * Add a button that resets the universe to a random initial state when
   clicked. Another button that resets the universe to all dead cells.
 
-* On `Ctrl + Click`, insert a glider centered on the target cell. On `Shift +
+* On `Ctrl + Click`, insert a [glider](https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)) centered on the target cell. On `Shift +
   Click`, insert a pulsar.
 
 [input-range]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
