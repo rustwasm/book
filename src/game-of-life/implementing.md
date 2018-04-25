@@ -107,21 +107,7 @@ dead cell and `1` is a live cell.
 
 Here is what a 4 by 4 universe looks like in memory:
 
-<style>
-/* For whatever reason, the defautl mdbook fonts fonts break with the
-   following box-drawing characters, hence the manual style. */
-code {
-  font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
-}
-</style>
-
-```
-Indices:   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-         ┏━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┯━━━┓
-  Array: ┃   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ┃
-         ┗━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┷━━━┛
-   Rows: |     row 0     |     row 1     |     row 2     |     row 3     |
-```
+![Screenshot of a 4 by 4 universe](./images/game-of-life/universe.png)
 
 To find the array index of the cell at a given row and column in the universe,
 we can use this formula:
