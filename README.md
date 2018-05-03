@@ -87,7 +87,7 @@ bundler ecosystem to look something like this:
 * Take a look at [this repo's open issues][issues]
 
 [irc]: irc://irc.mozilla.org#rust-wasm
-[web chat]: https://client02.chat.mibbit.com/?channel=%23rust-wasm&server=irc.mozilla.org
+[web chat]: https://client00.chat.mibbit.com/?channel=%23rust-wasm&server=irc.mozilla.org
 [file-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/new
 [o-wasm]: https://github.com/rust-lang/rust/labels/O-wasm
 [tooling]: https://github.com/rust-lang-nursery/rust-wasm/issues/10
