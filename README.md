@@ -117,10 +117,7 @@ The Rust compiler currently supports two wasm-related targets:
 
 The `wasm32-unknown-unknown` target is particularly promising for integrating bits of
 "greenfield" Rust code into JS projects. However, it is also the less mature
-backend:
-
-- It [only supports compiling with optimizations on](https://github.com/aturon/rust-wasm/issues/1).
-- It [requires compiling with a single, massive compilation unit](https://github.com/aturon/rust-wasm/issues/2).
+backend.
 
 ## The Rust standard library
 
