@@ -193,10 +193,7 @@ and you should be greeted with an alert message:
 Anytime you make changes and want them reflected on
 [http://localhost:8080/](http://localhost:8080/), just re-run the `npm run
 build-debug`
-command. [Sometimes the webpack development server be overly aggressive with its caching of the `.wasm`.][webpack-server-wasm-caching]
-If you run into this, try restarting the development server.
-
-[webpack-server-wasm-caching]: https://github.com/webpack/webpack-dev-server/issues/1376
+command.
 
 ## Exercises
 
