@@ -5,8 +5,8 @@ you haven't already you'll need to install [rustup][rustup] the official tool in
 and manage different versions of the Rust compiler. Follow the instructions on the site to get it
 installed on your machine. For the time being, you'll need Rust nightly when working with wasm:
 
-```rust
-rustup default nightly
+```bash
+$ rustup default nightly
 ```
 
 Once that's installed you'll need to get the `wasm32-unknown-unknown` toolchain.
@@ -19,7 +19,7 @@ Next up if you're interested in making small wasm binaries you'll want to
 install the [wasm-gc][wasm-gc] tool to make smaller binaries and to work around bugs
 in the compiler toolchain for now:
 
-```
+```bash
 $ cargo install wasm-gc
 ```
 
