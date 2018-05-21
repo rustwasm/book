@@ -150,7 +150,7 @@ pub enum Cell {
 
 It is important that we have `#[repr(u8)]`, so that each cell is represented as
 a single byte. It is also important that the `Dead` variant is `0` and that the
-`Live` variant is `1`, so that we can easily count a cell's live neighbors with
+`Alive` variant is `1`, so that we can easily count a cell's live neighbors with
 addition.
 
 Next, let's define the universe. The universe has a width and a height, and a
