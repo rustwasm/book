@@ -30,9 +30,6 @@ $ cargo +nightly build --target wasm32-unknown-unknown --release
 # make the binary smaller by removing all unneeded exports, imports, and functions 
 # (working around bugs in rustc toolchain)
 $ wasm-gc target/wasm32-unknown-unknown/release/hello_world.wasm -o hello_world.gc.wasm
-
-# make the binary *even smaller* if you installed `wasm-opt`
-$ wasm-opt -Os hello_world.gc.wasm -o hello_world.gc.opt.wasm
 ```
 
 And we can test it out with:
@@ -42,7 +39,7 @@ And we can test it out with:
 <html>
   <head>
     <script>
-      WebAssembly.instantiateStreaming(fetch('hello_world.gc.opt.wasm'))
+      WebAssembly.instantiateStreaming(fetch('hello_world.gc.wasm'))
         .then(wasm_module => {
             alert(`2 + 1 = ${wasm_module.instance.exports.add_one(2)}`);
         });
@@ -61,7 +58,7 @@ Alternatively, if you are running locally without any webserver.
 <html>
   <head>
     <script>
-      fetch('hello_world.gc.opt.wasm')
+      fetch('hello_world.gc.wasm')
         .then(r => r.arrayBuffer())
         .then(r => WebAssembly.instantiate(r))
         .then(wasm_module => {
