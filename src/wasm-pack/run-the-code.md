@@ -25,7 +25,7 @@ Now we need to create a `package.json` file that looks like this:
 }
 ```
 
-where `MYSCOPE` is whatever you used before. You can expand this to be a more complete file but
+where `MYSCOPE` is your npm username. You can expand this to be a more complete file but
 we're really just trying to verify that this works!
 
 Next up we'll need to create a small webpack configuration so that we can use the
