@@ -6,7 +6,7 @@
 
 > **Note**: this is likely to [change in the near future][export-issue]
 
-[export-issue]: https://github.com/rust-lang-nursery/rust-wasm/issues/29
+[export-issue]: https://github.com/rustwasm/team/issues/29
 
 When using wasm within a JS host, importing and exporting functions from the
 Rust side is straightforward: it works exactly like C. In particular:

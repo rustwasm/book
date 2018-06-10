@@ -38,7 +38,7 @@ This page is meant to be a living document, so feel free to send us a pull reque
 [wasmparser]: https://github.com/yurydelendik/wasmparser.rs
 [wasmtext]: https://github.com/yurydelendik/wasmtext
 [wasmstandalone]: https://github.com/sunfishcode/wasmstandalone
-[wasmsizeprofiler]: https://github.com/rust-lang-nursery/rust-wasm/issues/20
+[wasmsizeprofiler]: https://github.com/rustwasm/team/issues/20
 [ewasm]: https://github.com/ewasm
 [wasm-pack]: https://github.com/ashleygwilliams/wasm-pack
 [wasm-core]: https://github.com/losfair/wasm-core
