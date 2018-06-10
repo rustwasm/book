@@ -15,7 +15,7 @@
         - [Debugging](./game-of-life/debugging.md)
         - [Adding Interactivity](./game-of-life/interactivity.md)
         - [Time Profiling](./game-of-life/time-profiling.md)
-        - [Shrinking `.wasm` Size](./game-of-life/code-size.md)
+        - [Shrinking `wasm` file sizes](./game-of-life/code-size.md)
         - [Publishing](./game-of-life/publishing.md)
     - [wasm-pack](./wasm-pack/introduction.md)
         - [Setup](./wasm-pack/setup.md)

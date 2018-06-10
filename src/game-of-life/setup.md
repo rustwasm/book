@@ -20,7 +20,7 @@ Rust programs to WebAssembly, rather than your machine's native code. You can
 enable this by adding the `wasm32-unknown-unknown` target with the following
 command:
 
-```
+```shell
 rustup update
 rustup install nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
@@ -43,7 +43,7 @@ Rust and WebAssembly.
 
 Install `wasm-bindgen` with this command:
 
-```
+```shell
 cargo +nightly install wasm-bindgen-cli
 ```
 
@@ -58,7 +58,7 @@ for the Web.
 Clone this tutorials code repository, enter its directory, and checkout the
 `chapter-zero` branch:
 
-```text
+```shell
 git clone https://github.com/rustwasm/wasm_game_of_life.git
 cd ./wasm_game_of_life
 git checkout -b chapter-zero origin/chapter-zero
@@ -169,7 +169,7 @@ optimizations applied, and has symbols included for better debugging in your
 browser's developer tools. You can also create a "release" build that has
 optimization passes applied with this command:
 
-```
+```shell
 npm run build-release
 ```
 
@@ -181,7 +181,7 @@ new terminal lets us leave it running in the background, and doesn't block us
 from running other commands in the meantime. In the new terminal, run this
 command:
 
-```
+```shell
 npm run serve
 ```
 
