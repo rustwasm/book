@@ -1,6 +1,10 @@
+sudo: false
 language: rust
 cache:
 - cargo
+install:
+- source ~/.cargo/env || true
+- bash ci/install.sh
 script:
 - mdbook build
 - mdbook test
