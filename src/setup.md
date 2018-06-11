@@ -6,6 +6,16 @@ and manage different versions of the Rust compiler. Follow the instructions on t
 installed on your machine. For the time being, you'll need Rust nightly when working with wasm:
 
 ```bash
+# Install nightly
+$ rustup install nightly
+
+# Install wasm32-unknown-unknown
+$ rustup target add wasm32-unknown-unknown --toolchain nightly
+
+# Sets nightly for the current directory only
+$ rustup override set nightly
+
+# If you want nightly to be set globaly
 $ rustup default nightly
 ```
 
