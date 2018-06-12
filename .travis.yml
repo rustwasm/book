@@ -7,7 +7,6 @@ install:
 - bash ci/install.sh
 script:
 - mdbook build
-- mdbook test
 deploy:
   provider: pages
   skip-cleanup: true
