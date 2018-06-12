@@ -40,8 +40,8 @@ And we can test it out with:
   <head>
     <script>
       WebAssembly.instantiateStreaming(fetch('hello_world.gc.wasm'))
-        .then(wasm_module => {
-            alert(`2 + 1 = ${wasm_module.instance.exports.add_one(2)}`);
+        .then(wasmModule => {
+            alert(`2 + 1 = ${wasmModule.instance.exports.add_one(2)}`);
         });
     </script>
   </head>
@@ -61,8 +61,8 @@ Alternatively, if you are running locally without any webserver.
       fetch('hello_world.gc.wasm')
         .then(r => r.arrayBuffer())
         .then(r => WebAssembly.instantiate(r))
-        .then(wasm_module => {
-            alert(`2 + 1 = ${wasm_module.instance.exports.add_one(2)}`);
+        .then(wasmModule => {
+            alert(`2 + 1 = ${wasmModule.instance.exports.add_one(2)}`);
         });
     </script>
   </head>
