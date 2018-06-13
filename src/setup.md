@@ -9,14 +9,17 @@ installed on your machine. For the time being, you'll need Rust nightly when wor
 # Install nightly
 $ rustup install nightly
 
-# Install wasm32-unknown-unknown
-$ rustup target add wasm32-unknown-unknown --toolchain nightly
-
 # Sets nightly for the current directory only
 $ rustup override set nightly
 
 # If you want nightly to be set globaly
 $ rustup default nightly
+```
+
+Make sure the newest version of `wasm-bindgen-cli` is installed.
+
+```bash
+cargo install wasm-bindgen-cli --force
 ```
 
 Once that's installed you'll need to get the `wasm32-unknown-unknown` toolchain.
