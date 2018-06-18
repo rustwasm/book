@@ -40,7 +40,7 @@ This page is meant to be a living document, so feel free to send us a pull reque
 [wasmstandalone]: https://github.com/sunfishcode/wasmstandalone
 [wasmsizeprofiler]: https://github.com/rustwasm/team/issues/20
 [ewasm]: https://github.com/ewasm
-[wasm-pack]: https://github.com/ashleygwilliams/wasm-pack
+[wasm-pack]: https://github.com/rustwasm/wasm-pack
 [wasm-core]: https://github.com/losfair/wasm-core
 [cervus]: https://github.com/cervus-v/cervus
 [IceCore]: https://github.com/losfair/IceCore
