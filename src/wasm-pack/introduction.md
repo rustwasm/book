@@ -14,4 +14,4 @@ distribution, sending it to npm, then using it as a package from npm to verify i
 As with all software in the early stages, this is bleeding edge! Expect some nicks and bruises! If
 you run into issues or a bug please file an issue over at it's [repo].
 
-[repo]: https://github.com/ashleygwilliams/wasm-pack/issues
+[repo]: https://github.com/rustwasm/wasm-pack/issues
