@@ -6,12 +6,7 @@ it.
 
 [Open issues for improving the Rust and WebAssembly book.][book-issues]
 
-[Open issues related to the book from the old repository.][legacy-book-issues]
-We split the book out from the rustwasm/team (ne rust-lang-nursery/rust-wasm)
-repo, and a bunch of issues about the book still live there.
-
 [book-issues]: https://github.com/rustwasm/book/issues
-[legacy-book-issues]: https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+archived%3Afalse+user%3Arustwasm+label%3Abook+is%3Aopen+
 
 ## Building the Book
 
