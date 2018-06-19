@@ -2,8 +2,8 @@
 
 A basic "hello world" can be generated with:
 
-```
-$ cargo +nightly new --lib hello-world
+```shell
+cargo +nightly new --lib hello-world
 ```
 
 Next up change `Cargo.toml` to have:
@@ -22,14 +22,14 @@ pub extern fn add_one(a: u32) -> u32 {
 }
 ```
 
-Now prepare the wasm binary with:
+Now prepare the Wasm binary with:
 
-```
-$ cargo +nightly build --target wasm32-unknown-unknown --release
+```shell
+cargo +nightly build --target wasm32-unknown-unknown --release
 
 # make the binary smaller by removing all unneeded exports, imports, and functions 
 # (working around bugs in rustc toolchain)
-$ wasm-gc target/wasm32-unknown-unknown/release/hello_world.wasm -o hello_world.gc.wasm
+wasm-gc target/wasm32-unknown-unknown/release/hello_world.wasm -o hello_world.gc.wasm
 ```
 
 And we can test it out with:
@@ -74,8 +74,8 @@ If you have Python 3 installed, you can alternatively serve this file with Pytho
 in web server from `localhost`. Python's web server cannot serve `instantiateStreaming` or 
 `compileStreaming` due to its lack of support for the `application/wasm` MIME type.
 
-```
-$ python3 -m http.server
+```shell
+python3 -m http.server
 ```
 
 Ensure that your browser supports Wasm. Two options:

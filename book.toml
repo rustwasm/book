@@ -1,3 +1,4 @@
 [book]
 title = "Rust and WebAssembly"
 author = "The Rust and WebAssembly Working Group"
+description = "A book about working with WebAseembly (WASM) and Rust"
