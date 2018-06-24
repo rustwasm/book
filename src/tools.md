@@ -20,7 +20,7 @@ Among these tools are a set that aim to allow you to run wasm outside the browse
 - [wasmstandalone] - standalone JIT-based wasm runner in Rust, using Cretonne (the same backend [nebulet] uses). In early development.
 - [wasm-core] - A Rust library with two execution engines (interpreter and JIT) for WASM. Used by [cervus] and [IceCore].
 
-There's also plenty of _space for tooling to be be built or rewritten in Rust_ for better synergy with the ecosystem. Some of them include:
+There's also plenty of _space for tooling to be built or rewritten in Rust_ for better synergy with the ecosystem. Some of them include:
 - [A wasm size profiler][wasmsizeprofiler]
 - A [Wabt] rewrite in Rust
 - Tools for the [ewasm project][ewasm]
