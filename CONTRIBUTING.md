@@ -15,7 +15,13 @@ that don't work, or anything else that's wrong, you can help by filing an issue.
 First, review the [Code of Conduct](
 https://github.com/rustwasm/book/blob/master/CODE_OF_CONDUCT.md). Then check the
 [open issues](https://github.com/rustwasm/book/issues) to see if someone is having 
-the same problem as you. 
+the same problem as you. If they are, and you have an idea for how to fix the problem,
+skip to the section below about submitting a PR! If you don't, please chime in on the
+issue comment thread so that the people working on the project have a better sense of
+how many people are experiencing the issue.
+
+This is a documentation and education project, so discussion about how to improve
+the experience for beginning users are particularly welcome.
 
 ### Opening the Issue on Github
 
@@ -27,6 +33,9 @@ include the following information in your issue:
 ```
 - What did you expect to happen?
 - What happened?
+- What is your operating system?
+- What version of Rust are you running? (`rustc --version`)
+- Is there any other helpful context?
 ```
 
 If the program crashed please provide a full stack trace by setting this:
@@ -35,16 +44,30 @@ If the program crashed please provide a full stack trace by setting this:
   export RUST_BACKTRACE=full
   ```
 
-  and re-running your code so that it crashes again. Paste the output of that
-  in your issue.
-- Any other useful information you think could help diagnose the issue.
+and re-running your code so that it crashes again. Paste the output of that 
+in your issue.
+
 
 ## Submitting a PR
 
+Pull requests are welcome to address all issues, whether you filed them or not! If
+you have an idea for contributing or a problem you want to solve, please do 
+go through the process outlined above for opening an issue before you open
+a pull request. It helps everyone to discuss progress on the repo collaboratively,
+and to avoid duplicate work.
+
+## Conduct
+
+This project is a part of the [`rust-wasm` working group],an official working 
+group of the Rust project. We follow the Rust 
+[Code of Conduct and enforcement policies].
+
+[`rust-wasm` working group]: https://github.com/rustwasm/team
+[Code of Conduct and enforcement policies]: CODE_OF_CONDUCT.md
 
 #### Thanks
 
-Most importantly though, you're using this library which is in and of itself
-a rewarding thing for us. The fact you want to help make it better by reporting
-an issue is great and helpful. Just make sure you help us by following these
-guidelines! Thanks!
+We're excited that you're interested in Rust and WebAssembly! Thank you for 
+helping us make information about these technologies available to everyone. We
+welcome more contributions from you.
+
