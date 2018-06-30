@@ -1,6 +1,6 @@
 # "Hello World" for `wasm32-unknown-unknown`
 
-A basic "hello world" can be generated with:
+We start out by using [cargo](https://doc.rust-lang.org/cargo/) to generate an empty "hello world" project:
 
 ```
 $ cargo +nightly new --lib hello-world
@@ -13,7 +13,7 @@ Next up change `Cargo.toml` to have:
 crate-type = ["cdylib"]
 ```
 
-and edit `src/lib.rs` to contain:
+This is necessary because we're compiling Rust as a dynamic library, to be loaded from JavaScript. We also edit `src/lib.rs` to contain:
 
 ```rust
 #[no_mangle]
@@ -22,36 +22,14 @@ pub extern fn add_one(a: u32) -> u32 {
 }
 ```
 
-Now prepare the wasm binary with:
+Now, we prepare the wasm binary with `wasm-gc`. As previously mentioned, this produces a smaller binary than cargo alone by removing all unneeded exports, imports, and functions.
 
 ```
-$ cargo +nightly build --target wasm32-unknown-unknown --release
 
-# make the binary smaller by removing all unneeded exports, imports, and functions 
-# (working around bugs in rustc toolchain)
 $ wasm-gc target/wasm32-unknown-unknown/release/hello_world.wasm -o hello_world.gc.wasm
 ```
 
-And we can test it out with:
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <script>
-      WebAssembly.instantiateStreaming(fetch('hello_world.gc.wasm'))
-        .then(wasmModule => {
-            alert(`2 + 1 = ${wasmModule.instance.exports.add_one(2)}`);
-        });
-    </script>
-  </head>
-  <body></body>
-</html>
-```
-
-Note: To run with `instantiateStreaming` and `compileStreaming`, you need your webserver to serve `.wasm` file with `application/wasm` MIME type. The [https](https://github.com/thecoshman/http) crate can be used to serve files from `localhost`, and includes the `application/wasm` MIME type out of the box.
-
-Alternatively, if you are running locally without any webserver.
+We can test it out using the following `html` file using `python3`'s builtin `http.server`. Write the following to `index.html`:
 
 ```html
 <!DOCTYPE html>
@@ -70,20 +48,18 @@ Alternatively, if you are running locally without any webserver.
 </html>
 ```
 
-If you have Python 3 installed, you can alternatively serve this file with Python's built 
-in web server from `localhost`. Python's web server cannot serve `instantiateStreaming` or 
-`compileStreaming` due to its lack of support for the `application/wasm` MIME type.
+Then, (assuming you have `python3`) installed, run
 
 ```
 $ python3 -m http.server
 ```
 
-Ensure that your browser supports Wasm. Two options:
-
-- Run this [StackOverflow code snippet](https://stackoverflow.com/a/47880734)
-
-- Search for your browser version's Wasm support on [caniuse.com](https://caniuse.com/#search=wasm)
-
 Open the HTML file with your browser, you should see:
 
 ![Wasm Hello World Screenshot](./images/wasm_hello_world_screenshot.png)
+
+If the example _doesn't_ work, check that your browser supports Wasm. To do so, you can
+
+- Run [this StackOverflow code snippet](https://stackoverflow.com/a/47880734)
+
+- Search for your browser version's Wasm support on [caniuse.com](https://caniuse.com/#search=wasm)
