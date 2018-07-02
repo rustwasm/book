@@ -67,23 +67,6 @@ optimize for the following properties:
    reduce a lot of overhead. `wasm_bindgen` helps us define and work with opaque
    handles to JavaScript `Object`s or boxed Rust structures.
 
-3. **Minimizing the number of times JavaScript calls an exported WebAssembly
-   function, or WebAssembly calls an imported JavaScript function.** These
-   boundary-crossing calls are analogous to syscalls in native development.
-   Calling across the JavaScript↔WebAssembly boundary is pretty fast, but not
-   quite as fast as calling JavaScript→JavaScript or WebAssembly→WebAssembly. In
-   the case of homogeneous calls, engines can often perform optimizations like
-   inlining. With heterogeneous calls, those optimizations are much harder to
-   perform. We don't want to design the interface such that each iteration of
-   our hottest loop is an out-of-line function call.
-
-Sometimes these goals are in conflict. For example, using an opaque handle to
-some JavaScript `Object` from Rust avoids copies and serialization, but involves
-calling JavaScript getters and setters to manipulate it. On the other hand, we
-can avoid calling across the JavaScript↔WebAssembly boundary at the cost of
-serializing, copying, and deserializing the `Object` into the WebAssembly linear
-memory.
-
 As a general rule of thumb, a good JavaScript↔WebAssembly interface design is
 often one where large, long-lived data structures are implemented as Rust types
 that live in the WebAssembly linear memory, and are exposed to JavaScript as
