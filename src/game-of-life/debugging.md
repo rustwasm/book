@@ -90,6 +90,36 @@ trace alongside the logged message when `console.error` is used.
 * [Microsoft Edge Developer Tools — Console](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide/console)
 * [Get Started with the Chrome DevTools Console](https://developers.google.com/web/tools/chrome-devtools/console/get-started)
 
+## Logging Panics
+
+[The `console_error_panic_hook` crate logs unexpected panics to the developer
+console via `console.error`.][panic-hook] Rather than getting cryptic,
+difficult-to-debug `RuntimeError: unreachable executed` error messages, this
+gives you Rust's formatted panic message.
+
+All you need to do is install the hook in an initialization function or common
+code path:
+
+```rust
+extern crate console_error_panic_hook;
+
+// Expose an `init` function to be called by JS after instantiating the wasm
+// module which installs the `console.error` panic hook.
+#[wasm_bindgen]
+pub fn init() {
+    use std::panic;
+    panic::set_hook(Box::new(console_error_panic_hook::hook));
+}
+
+// OR
+
+// Ensure the the panic hook is set on some common code path. Under the hood,
+// this makes sure that it is only installed once.
+console_error_panic_hook::set_once();
+```
+
+[panic-hook]: https://github.com/rustwasm/console_error_panic_hook
+
 ## Using a Debugger
 
 Unfortunately, the debugging story for WebAssembly is still immature. On most
