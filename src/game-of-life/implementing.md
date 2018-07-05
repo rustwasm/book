@@ -428,6 +428,8 @@ Next, let's define some constants just under the `import` line that JavaScript
 will use when rendering the canvas:
 
 ```js
+import { Universe } from "./wasm_game_of_life";
+
 const CELL_SIZE = 5; // px
 const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
