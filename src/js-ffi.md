@@ -26,12 +26,12 @@ primitive numeric types.
 #### From the JS side
 
 Within JS, a wasm binary turns into an ES6 module. It must be *instantiated*
-with a linear memory and set of JS functions matching the expected imports. The
-details of instantiation are available on [MDN][instantiation].
+with linear memory and have a set of JS functions matching the expected
+imports.  The details of instantiation are available on [MDN][instantiation].
 
 [instantiation]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate
 
-The resulting ES6 module will contain all of functions exported from Rust, now
+The resulting ES6 module will contain all of the functions exported from Rust, now
 available as JS functions.
 
 [Here][hello world] is a very simple example of the whole setup in action.
