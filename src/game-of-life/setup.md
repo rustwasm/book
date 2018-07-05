@@ -198,7 +198,3 @@ command.
 ## Exercises
 
 * Modify `index.js` to greet you by your name instead of by "Rust and WebAssembly".
-
-* Modify the `greet` function to take two `&str` parameters. What happens if you
-  don't pass a second argument from `index.js`? *Hint: open your Web browser's
-  developer tools.*
