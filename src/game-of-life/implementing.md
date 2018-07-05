@@ -424,8 +424,8 @@ impl Universe {
 }
 ```
 
-Next, let's define some constants that JavaScript will use when rendering the
-canvas:
+Next, let's define some constants just under the `import` line that JavaScript
+will use when rendering the canvas:
 
 ```js
 const CELL_SIZE = 5; // px
