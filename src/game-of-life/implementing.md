@@ -379,14 +379,13 @@ This is what it looks like right now:
 
 Generating (and allocating) a `String` in Rust and then having `wasm-bindgen`
 convert it to a valid JavaScript string makes unnecessary copies of the
-universe's cells. Instead of our current `render` method, we can return a
-pointer to the start of the cells array. The JavaScript code knows the width and
-height of the universe, and can read the bytes that make up the cells directly.
-This design does not copy the universe's cells or tax the JavaScript garbage
-collector with allocations, but we must directly read the cells' bytes from
-WebAssembly's linear memory in JavaScript. Instead of rendering unicode text,
-we'll switch to using the [Canvas API]. We will use this design in the rest of
-the tutorial.
+universe's cells. As the JavaScript code already knows the width and
+height of the universe, and can read WebAssembly's linear memory that make up
+the cells directly, we'll modify the `render` method to return a pointer to the
+start of the cells array.
+
+Also, instead of rendering unicode text, we'll switch to using the [Canvas
+API]. We will use this design in the rest of the tutorial.
 
 [Canvas API]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 
