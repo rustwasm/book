@@ -27,7 +27,9 @@ Now we need to add this to the top of the file:
 
 ```rust
 #![feature(proc_macro, wasm_import_module, wasm_custom_section)]
+
 extern crate wasm_bindgen;
+
 use wasm_bindgen::prelude::*;
 ```
 
