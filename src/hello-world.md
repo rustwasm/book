@@ -6,14 +6,20 @@ A basic "hello world" can be generated with:
 $ cargo +nightly new --lib hello-world
 ```
 
-Next up change `Cargo.toml` to have:
+Normally Rust compiles code for a library in a format meant for other Rust
+packages. We want our code to work with wasm though, so we specify that it's a
+dynamic library that's C compatible with the following in `Cargo.toml`:
 
 ```toml
 [lib]
 crate-type = ["cdylib"]
 ```
 
-and edit `src/lib.rs` to contain:
+This sounds a bit weird but the `wasm32` target will know to interpret this
+option and instead produce a wasm binary properly. This is meant to get `cargo`
+to pass the right parameters to the compiler!
+
+Next, edit `src/lib.rs` to contain:
 
 ```rust
 #[no_mangle]
