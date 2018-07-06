@@ -395,7 +395,9 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 1 measured; 0 filtered out
 
 This also tells us where the binary lives, and we can run the benchmarks again,
 but this time under our operating system's profiler. In my case, I'm running
-Linux, so `perf` is the profiler I'll use:
+Linux, so [`perf`][perf] is the profiler I'll use:
+
+[perf]: https://perf.wiki.kernel.org/index.php/Main_Page
 
 ```
 $ perf record -g target/release/deps/bench-8474091a05cfa2d9 --bench
