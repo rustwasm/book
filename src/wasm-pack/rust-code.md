@@ -56,11 +56,6 @@ extern {
 }
 ```
 
-First off we use the `#[wasm_bindgen]` attribute. This attribute will handle all the code with
-importing the functions we declare below it. The next is an extern block. This lets us declare
-what JS functions we want to import. We just need to declare the function signature for it. In this
-case we're importing the function `alert` which takes an `&str` as input!
-
 Alright so we have our external bit of code and we have everything imported so let's write the
 actual `add` function, as well as an `add_alert` function that will use `add` in itself but also
 call `alert` to print out the results before returning the value.
