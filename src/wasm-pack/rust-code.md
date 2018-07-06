@@ -88,7 +88,9 @@ This is all the Rust code we need to write. Your `lib.rs` file should look like 
 
 ```rust
 #![feature(proc_macro, wasm_import_module, wasm_custom_section)]
+
 extern crate wasm_bindgen;
+
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
