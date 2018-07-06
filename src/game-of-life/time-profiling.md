@@ -28,8 +28,8 @@ Calling `performance.now` has very little overhead, so we can create simple
 measurements from it without distorting the performance of the rest of the
 system.
 
-For example, we can create a simple FPS counter that we update on each iteration
-of our `renderLoop`:
+For example, we can create a simple frames per second (FPS) counter that we
+update on each iteration of our `renderLoop`:
 
 ```js
 const fps = new class {
