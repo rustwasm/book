@@ -574,6 +574,8 @@ Success!
   this design without allocating a new list of deltas on every tick?
 
 * As our profiling has shown us, 2D `<canvas>` rendering is not particularly
-  fast. Replace the 2D canvas renderer with a WebGL renderer. How much faster is
+  fast. Replace the 2D canvas renderer with a [WebGL][webgl] renderer. How much faster is
   the WebGL version? How large can you make the universe before WebGL rendering
   is a bottleneck?
+
+[webgl]: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API
