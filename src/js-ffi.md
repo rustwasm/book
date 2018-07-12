@@ -9,10 +9,23 @@
 [export-issue]: https://github.com/rustwasm/team/issues/29
 
 When using wasm within a JS host, importing and exporting functions from the
-Rust side is straightforward: it works exactly like C. In particular:
+Rust side is straightforward: it works very similarly to C.
+
+WebAssembly modules declare a sequence of imports, each with a *module name*
+and an *import name*. The module name for an `extern { ... }` block can be specified
+using the [`#[wasm_import_module]`][wasm_import_module] attribute, currently
+it defaults to "env".
+
+Exports have only a single name. In addition to any `extern` functions the
+WebAssembly instance's default linear memory is exported as "memory".
+
+[wasm_import_module]: https://github.com/rust-lang/rust/issues/52090
 
 ```rust
-// import a JS function called `foo`
+#![feature(wasm_import_module)]
+
+// import a JS function called `foo` from the module `mod`
+#[wasm_import_module="mod"]
 extern { fn foo(); }
 
 // export a Rust function called `bar`
