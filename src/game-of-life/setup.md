@@ -116,10 +116,13 @@ greet("Rust and WebAssembly");
 
 ### `src/lib.rs`
 
-The `src/lib.rs` file is the root of the Rust crate that we are compiling to
-WebAssembly. It uses `wasm_bindgen` to interface with JavaScript. It imports the
-`window.alert` JavaScript function, and exports the `greet` Rust function, which
-takes a `name` parameter and alerts a greeting message.
+We will use [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) to
+communicate between Rust/wasm and JavaScript. `wasm-bindgen` currently relies
+on nightly-only features (`proc_macro`, etc...) that we must opt into using.
+
+The lines that follow imports the `window.alert` JavaScript function, and
+exports the `greet` Rust function, which takes a `name` parameter and alerts a
+greeting message.
 
 ```rust
 #![feature(proc_macro, wasm_custom_section, wasm_import_module)]

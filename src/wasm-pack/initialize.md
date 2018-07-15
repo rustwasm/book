@@ -1,7 +1,7 @@
 # Project Initialization
 
 Now that we've installed all of our tools and setup our npm account we can actually start coding!
-We'll be writing up a small crate that adds two numbers and outputs the numbers. While this will
+We'll be writing up a small crate that adds two numbers and outputs the result. While this will
 be a simple example, we're really trying to focus on how to use wasm-pack. You'll be provided links
 to other resources so you can make more complicated code to package and ship them to npm!
 
@@ -58,18 +58,7 @@ have them set. There are more fields that you can add that are more specific to 
 can find [here](https://doc.rust-lang.org/cargo/reference/manifest.html) but for the sake of this
 tutorial that's all you need for that section.
 
-You'll also notice we add a new section titled `[lib]`. In here we added this line:
-
-```toml
-crate-type = ["cdylib"]
-```
-
-Normally Rust compiles the code for the library in a format meant for other Rust packages. We want
-our code to work with wasm though! We specify that it's a dynamic library that's C compatible. This
-sounds a bit weird but the `wasm32` target will know to interpret this option and instead produce
-a wasm binary properly. This is meant to get `cargo` to pass the right parameters to the compiler!
-
-Alright the last thing we added was this to the `[dependencies]` section:
+Alright, the last thing we added was this to the `[dependencies]` section:
 
 ```toml
 wasm-bindgen = "0.2"

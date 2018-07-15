@@ -493,11 +493,13 @@ const drawGrid = () => {
 };
 ```
 
-To draw the cells, we get the cells pointer into the WebAssembly linear memory
-from the universe, construct a `Uint8Array` overlaying the cells buffer, iterate
-over each cell, and draw a white or black rectangle depending on whether the
-cell is dead or alive, respectively. By working with pointers and overlays, we
-avoid copying the cells across the boundary on every tick.
+We can directly access WebAssembly's linear memory via `memory`, which is
+defined in the raw wasm module `wasm_game_of_life_bg`. To draw the cells, we
+get a pointer to the universe's cells, construct a `Uint8Array` overlaying the
+cells buffer, iterate over each cell, and draw a white or black rectangle
+depending on whether the cell is dead or alive, respectively. By working with
+pointers and overlays, we avoid copying the cells across the boundary on every
+tick.
 
 ```js
 // Import the WebAssembly memory at the top of the file.

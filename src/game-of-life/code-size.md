@@ -190,10 +190,10 @@ find target/release -type f -name '*.ll'
 ## More Invasive Tools and Techniques
 
 Tweaking build configurations to get smaller `.wasm` binaries is pretty hands
-off. When you need to go the extra mile, however, you are prepared to use more
-invasive techniques, like rewriting source code to avoid bloat. What follows is
-a collection of get-your-hands-dirty techniques you can apply to get smaller
-code sizes.
+off. When you need to go the extra mile, however, you need to be prepared to
+use more invasive techniques, like rewriting source code to avoid bloat. What
+follows is a collection of get-your-hands-dirty techniques you can apply to get
+smaller code sizes.
 
 ### Avoid String Formatting
 

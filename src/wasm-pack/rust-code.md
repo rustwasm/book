@@ -27,7 +27,9 @@ Now we need to add this to the top of the file:
 
 ```rust
 #![feature(proc_macro, wasm_import_module, wasm_custom_section)]
+
 extern crate wasm_bindgen;
+
 use wasm_bindgen::prelude::*;
 ```
 
@@ -55,11 +57,6 @@ extern {
     fn alert(s: &str);
 }
 ```
-
-First off we use the `#[wasm_bindgen]` attribute. This attribute will handle all the code with
-importing the functions we declare below it. The next is an extern block. This lets us declare
-what JS functions we want to import. We just need to declare the function signature for it. In this
-case we're importing the function `alert` which takes an `&str` as input!
 
 Alright so we have our external bit of code and we have everything imported so let's write the
 actual `add` function, as well as an `add_alert` function that will use `add` in itself but also
@@ -91,7 +88,9 @@ This is all the Rust code we need to write. Your `lib.rs` file should look like 
 
 ```rust
 #![feature(proc_macro, wasm_import_module, wasm_custom_section)]
+
 extern crate wasm_bindgen;
+
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
