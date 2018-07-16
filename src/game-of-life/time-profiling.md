@@ -28,8 +28,8 @@ Calling `performance.now` has very little overhead, so we can create simple
 measurements from it without distorting the performance of the rest of the
 system.
 
-For example, we can create a simple FPS counter that we update on each iteration
-of our `renderLoop`:
+For example, we can create a simple frames per second (FPS) counter that we
+update on each iteration of our `renderLoop`:
 
 ```js
 const fps = new class {
@@ -395,7 +395,9 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 1 measured; 0 filtered out
 
 This also tells us where the binary lives, and we can run the benchmarks again,
 but this time under our operating system's profiler. In my case, I'm running
-Linux, so `perf` is the profiler I'll use:
+Linux, so [`perf`][perf] is the profiler I'll use:
+
+[perf]: https://perf.wiki.kernel.org/index.php/Main_Page
 
 ```
 $ perf record -g target/release/deps/bench-8474091a05cfa2d9 --bench
@@ -572,6 +574,8 @@ Success!
   this design without allocating a new list of deltas on every tick?
 
 * As our profiling has shown us, 2D `<canvas>` rendering is not particularly
-  fast. Replace the 2D canvas renderer with a WebGL renderer. How much faster is
+  fast. Replace the 2D canvas renderer with a [WebGL][webgl] renderer. How much faster is
   the WebGL version? How large can you make the universe before WebGL rendering
   is a bottleneck?
+
+[webgl]: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API
