@@ -122,7 +122,7 @@ WebAssembly. It uses `wasm_bindgen` to interface with JavaScript. It imports the
 takes a `name` parameter and alerts a greeting message.
 
 ```rust
-#![feature(proc_macro, wasm_custom_section, wasm_import_module)]
+#![feature(use_extern_macros, wasm_custom_section, wasm_import_module)]
 
 extern crate wasm_bindgen;
 

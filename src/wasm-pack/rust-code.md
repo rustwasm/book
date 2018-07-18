@@ -26,7 +26,7 @@ We'll use this later to make sure our `add` function works!
 Now we need to add this to the top of the file:
 
 ```rust
-#![feature(proc_macro, wasm_import_module, wasm_custom_section)]
+#![feature(use_extern_macros, wasm_import_module, wasm_custom_section)]
 extern crate wasm_bindgen;
 use wasm_bindgen::prelude::*;
 ```
@@ -85,7 +85,7 @@ value was! We then return what was inside `c`. Neat!
 This is all the Rust code we need to write. Your `lib.rs` file should look like this by now:
 
 ```rust
-#![feature(proc_macro, wasm_import_module, wasm_custom_section)]
+#![feature(use_extern_macros, wasm_import_module, wasm_custom_section)]
 extern crate wasm_bindgen;
 use wasm_bindgen::prelude::*;
 
