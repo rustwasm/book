@@ -1,7 +1,7 @@
-# Conway's Game of Life
+# Tutorial: Conway's Game of Life
 
-This is a longer-form tutorial that incrementally implements [Conway's Game of
-Life][gol] in Rust and WebAssembly.
+This is a tutorial that implements [Conway's Game of Life][gol] in Rust and
+WebAssembly.
 
 [gol]: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
