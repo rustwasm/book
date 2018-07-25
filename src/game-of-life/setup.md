@@ -3,11 +3,7 @@
 This section describes how to set up the toolchain for compiling Rust programs
 to WebAssembly and integrate them into JavaScript.
 
-## Required Tools
-
-You will need the following tools installed to follow along with this tutorial.
-
-### The Rust Toolchain
+## The Rust Toolchain
 
 You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 `cargo`.
@@ -16,7 +12,7 @@ You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 
 [rust-install]: https://www.rust-lang.org/en-US/install.html
 
-### The `wasm32-unknown-unknown` Target
+## The `wasm32-unknown-unknown` Target
 
 Once you have the Rust toolchain installed, you'll want to be able to compile
 Rust programs to WebAssembly, rather than your machine's native code. You can
@@ -29,7 +25,7 @@ rustup install nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
-### `npm`
+## `npm`
 
 `npm` is a package manager for JavaScript. We will use it to install and run a
 JavaScript bundler and development server. At the end of the tutorial, we will
@@ -39,7 +35,7 @@ publish our compiled `.wasm` to the `npm` registry.
 
 [npm-install]: https://www.npmjs.com/get-npm
 
-### `wasm-bindgen`
+## `wasm-bindgen`
 
 [`wasm-bindgen`][wb] generates bidirectional bindings to and from JavaScript for
 Rust and WebAssembly.
