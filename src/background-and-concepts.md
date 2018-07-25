@@ -5,7 +5,7 @@
 WebAssembly is a simple machine model and executable format with an [extensive
 specification].
 
-Although it has currently gathered attention in the JavaScript and web communities in general,
+Although it has currently gathered attention in the JavaScript and Web communities in general,
 it makes no assumptions about its host environment. Thus, it makes sense to think that wasm
 will become an important "portable executable" format used in a variety of contexts in the near
  future (we will dedicate some time to take a closer look at wasm's portability features further in the book).
