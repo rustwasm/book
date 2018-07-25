@@ -2,10 +2,10 @@
 
 - [Introduction](./introduction.md)
 - [Background And Concepts](./background-and-concepts.md)
-- [Setup](./setup.md)
 - [Hello World](./hello-world.md)
 - [Conway's Game of Life](./game-of-life/introduction.md)
     - [Setup](./game-of-life/setup.md)
+    - [Hello, World!](./game-of-life/hello-world.md)
     - [Rules](./game-of-life/rules.md)
     - [Implementing Life](./game-of-life/implementing.md)
     - [Debugging](./game-of-life/debugging.md)
