@@ -13,5 +13,4 @@
     - [Shrinking `.wasm` Size](./game-of-life/code-size.md)
     - [Production and Deployment](./game-of-life/production.md)
 - [Tools](./tools.md)
-- [Workflows](./workflows.md)
 - [JavaScript Interoperation](./js-ffi.md)
