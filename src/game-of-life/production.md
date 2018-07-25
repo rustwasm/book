@@ -1,4 +1,4 @@
-# Production & Deployment
+# Production and Deployment
 
 When we're happy with the project, the next step is to deploy it to a production
 server instead of our development server.
