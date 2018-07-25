@@ -1,6 +1,6 @@
 # Background and Concepts
 
-## Web Assembly
+## WebAssembly
 
 WebAssembly is a simple machine model and executable format with an [extensive
 specification].
