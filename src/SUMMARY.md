@@ -12,5 +12,6 @@
     - [Time Profiling](./game-of-life/time-profiling.md)
     - [Shrinking `.wasm` Size](./game-of-life/code-size.md)
     - [Production and Deployment](./game-of-life/production.md)
+--------------------------------------------------------------------------------
 - [Tools](./tools.md)
 - [JavaScript Interoperation](./js-ffi.md)
