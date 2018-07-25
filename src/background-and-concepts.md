@@ -1,17 +1,18 @@
 # Background and Concepts
 
 ## Web Assembly
+
 WebAssembly is a simple machine model and executable format with an [extensive
 specification].
 
 Although it has currently gathered attention in the JavaScript and web communities in general,
-it makes no assumptions about its host environment. Thus, it makes sense to think that _wasm_
+it makes no assumptions about its host environment. Thus, it makes sense to think that wasm
 will become an important "portable executable" format used in a variety of contexts in the near
- future (we will dedicate some time to take a closer look at _wasm_'s portability features further in the book).
+ future (we will dedicate some time to take a closer look at wasm's portability features further in the book).
 
-As of *today*, however, _wasm_ is mostly related to JavaScript, which comes in many flavors (including both
+As of *today*, however, wasm is mostly related to JavaScript, which comes in many flavors (including both
 browsers and [Node.js]). Due to JS being widespread and easy to access we will focus mostly on using these
-platforms to run Rust-generated _wasm_, but other interpreters are probably going to be released in the near future.
+platforms to run Rust-generated wasm, but other interpreters are probably going to be released in the near future.
 
 As a programming language, WebAssembly is comprised of two formats: The binary format and the text format.
 Both represent a common structure, albeit in different ways. The text format (generally called `wat`) uses
