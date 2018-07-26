@@ -17,7 +17,8 @@ wasm files with the correct [MIME type][MIME]—`application/wasm`.
 
 [MIME]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 
-> **Warning**: MIME type can't be anything else than `application/wasm`. `application/wasm; charset=utf-8` will result in an error
+> **Warning**: MIME type can't be anything else than `application/wasm`. `application/wasm;
+charset=utf-8` will result in an error.
 
 > **Note**: Server configuration varies by operating system, it's recommended 
 you look up a tutorial for your specific operating system and webserver. These
