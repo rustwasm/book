@@ -92,7 +92,7 @@ const renderLoop = () => {
 };
 ```
 
-Finally, dont forget to Add the `fps` element to `index.html`: 
+Finally, dont forget to add the `fps` element to `index.html`: 
 
 ```html
     <div id="fps"><div>
