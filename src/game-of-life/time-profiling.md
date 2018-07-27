@@ -98,7 +98,7 @@ Finally, dont forget to Add the `fps` element to `index.html` :
     <div id="fps"><div>
 ```
 
-And Voila! Now you have an FPS counter !
+And Voila! Now you have an FPS counter!
 
 [perf-now]: https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
 
