@@ -30,7 +30,8 @@ system.
 
 For example, we can create a simple frames per second (FPS) counter that we
 update on each iteration of our `renderLoop`.
-Create `fps.js` then add :
+
+We start by adding an `fps` object to `index.js` :
 
 ```js
 const fps = new class {
@@ -75,13 +76,10 @@ max of last 100 = ${Math.round(max)}
 `.trim();
   }
 };
-export {fps};
 ```
-In `index.js` add at the top level :
-```js
-import {fps} from "./fps";
-```
-Now in `renderLoop` we update our (FPS):
+
+Next we call the `fps` `render` function on each iteration of `renderLoop` :
+
 ```js
 const renderLoop = () => {
     fps.render(); //new
@@ -90,13 +88,16 @@ const renderLoop = () => {
     drawCells();
     drawGrid();
 
-    animationId=requestAnimationFrame(renderLoop);
+    animationId = requestAnimationFrame(renderLoop);
 };
 ```
-Dont forget to Add the `fps` element to `index.html` : 
+
+Finally, dont forget to Add the `fps` element to `index.html` : 
+
 ```html
     <div id="fps"><div>
 ```
+
 And Voila! Now you have an FPS counter !
 
 [perf-now]: https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
