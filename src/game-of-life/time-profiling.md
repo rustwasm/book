@@ -29,7 +29,8 @@ measurements from it without distorting the performance of the rest of the
 system.
 
 For example, we can create a simple frames per second (FPS) counter that we
-update on each iteration of our `renderLoop`:
+update on each iteration of our `renderLoop`.
+Create `fps.js` then add :
 
 ```js
 const fps = new class {
@@ -74,7 +75,29 @@ max of last 100 = ${Math.round(max)}
 `.trim();
   }
 };
+export {fps};
 ```
+In `index.js` add at the top level :
+```js
+import {fps} from "./fps";
+```
+Now in `renderLoop` we update our (FPS):
+```js
+const renderLoop = () => {
+    fps.render(); //new
+    
+    universe.tick(); 
+    drawCells();
+    drawGrid();
+
+    animationId=requestAnimationFrame(renderLoop);
+};
+```
+Dont forget to Add the `fps` element to `index.html` : 
+```html
+    <div id="fps"><div>
+```
+And Voila! Now you have an FPS counter !
 
 [perf-now]: https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
 
