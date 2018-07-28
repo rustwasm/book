@@ -13,6 +13,7 @@ However, since Rust has the potential to be used for both development and toolin
 - [wasmparser] - A wasm binary decoder with optional validation, in Rust
 - [wasmtext] - prints wasm modules in text format, in Rust
 - [wasm-pack] - Package up your wasm for distribution on npm
+- [twiggy] - A wasm code size profiler.
 
 Among these tools are a set that aim to allow you to run wasm outside the browser:
 - [rustwasm] - A wasm interpreter in Rust
@@ -21,7 +22,6 @@ Among these tools are a set that aim to allow you to run wasm outside the browse
 - [wasm-core] - A Rust library with two execution engines (interpreter and JIT) for WASM. Used by [cervus] and [IceCore].
 
 There's also plenty of _space for tooling to be built or rewritten in Rust_ for better synergy with the ecosystem. Some of them include:
-- [A wasm size profiler][wasmsizeprofiler]
 - A [Wabt] rewrite in Rust
 - Tools for the [ewasm project][ewasm]
 
@@ -38,7 +38,7 @@ This page is meant to be a living document, so feel free to send us a pull reque
 [wasmparser]: https://github.com/yurydelendik/wasmparser.rs
 [wasmtext]: https://github.com/yurydelendik/wasmtext
 [wasmstandalone]: https://github.com/sunfishcode/wasmstandalone
-[wasmsizeprofiler]: https://github.com/rustwasm/team/issues/20
+[twiggy]: https://github.com/rustwasm/twiggy
 [ewasm]: https://github.com/ewasm
 [wasm-pack]: https://github.com/rustwasm/wasm-pack
 [wasm-core]: https://github.com/losfair/wasm-core
