@@ -244,7 +244,7 @@ impl Universe {
 So far, the state of the universe is represented as a vector of cells. To make
 this human readable, let's implement a basic text renderer. The idea is to write
 the universe line by line as text, and for each cell that is alive, print the
-unicode character `◼️` ("black medium square"). For dead cells, we'll print `◻️`
+Unicode character `◼️` ("black medium square"). For dead cells, we'll print `◻️`
 (a "white medium square").
 
 By implementing the [`Display`] trait from Rust's standard library, we can add a
@@ -384,7 +384,7 @@ height of the universe, and can read WebAssembly's linear memory that make up
 the cells directly, we'll modify the `render` method to return a pointer to the
 start of the cells array.
 
-Also, instead of rendering unicode text, we'll switch to using the [Canvas
+Also, instead of rendering Unicode text, we'll switch to using the [Canvas
 API]. We will use this design in the rest of the tutorial.
 
 [Canvas API]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API

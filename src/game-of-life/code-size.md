@@ -124,7 +124,7 @@ input. It analyzes a binary's call graph to answer questions like:
   removal?
 
 <style>
-/* For whatever reason, the defautl mdbook fonts fonts break with the
+/* For whatever reason, the default mdbook fonts fonts break with the
    following box-drawing characters, hence the manual style. */
 pre, code {
   font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
@@ -292,8 +292,8 @@ fn whatever(t: &MyTrait) { ... }
 
 Then dynamic dispatch via virtual calls is used, and only a single version of
 the function is emitted in the `.wasm`. The downside is the loss of the compiler
-optimzation opportunities and the added cost of indirect, dynamically dispatched
-function calls.
+optimization opportunities and the added cost of indirect, dynamically
+dispatched function calls.
 
 ### Use the `wasm-snip` Tool
 

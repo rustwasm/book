@@ -104,7 +104,7 @@ And Voila! Now you have an FPS counter!
 
 ### Developer Tools Profilers
 
-All Web browsers' builtin developer tools include a profiler. These profilers
+All Web browsers' built-in developer tools include a profiler. These profilers
 display which functions are taking the most time with the usual kinds of
 visualizations like call trees and flame graphs. If you [build with debug
 symbols][symbols], then these profilers should display the Rust function names
