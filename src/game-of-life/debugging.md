@@ -148,7 +148,7 @@ frame to the previous one.
 
 ## Avoid the Need to Debug WebAssembly in the First Place
 
-While some bugs are specific to interfaceing JavaScript and WebAssembly,
+While some bugs are specific to interfacing JavaScript and WebAssembly,
 experience says that most are not. Try to reproduce bugs as normal Rust
 `#[test]` functions, where you can leverage your OS's mature native tooling when
 debugging. Use testing crates like [`quickcheck`][quickcheck] to exercise the
