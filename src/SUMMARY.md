@@ -15,3 +15,4 @@
 --------------------------------------------------------------------------------
 - [Tools](./tools.md)
 - [JavaScript Interoperation](./js-ffi.md)
+- [Project Templates](./project-templates.md)
