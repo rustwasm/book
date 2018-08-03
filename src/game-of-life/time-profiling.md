@@ -83,8 +83,8 @@ Next we call the `fps` `render` function on each iteration of `renderLoop`:
 ```js
 const renderLoop = () => {
     fps.render(); //new
-    
-    universe.tick(); 
+
+    universe.tick();
     drawCells();
     drawGrid();
 
@@ -92,7 +92,7 @@ const renderLoop = () => {
 };
 ```
 
-Finally, don't forget to add the `fps` element to `index.html`: 
+Finally, don't forget to add the `fps` element to `index.html`:
 
 ```html
     <div id="fps"><div>
@@ -114,7 +114,7 @@ heavily, the results might end up a bit perplexing.
 
 [symbols]: ./game-of-life/debugging.html#building-with-debug-symbols
 
-[![Screenshot of profiler with Rust symbols](./images/game-of-life/profiler-with-rust-names.png)](./images/game-of-life/profiler-with-rust-names.png)
+[![Screenshot of profiler with Rust symbols](../images/game-of-life/profiler-with-rust-names.png)](../images/game-of-life/profiler-with-rust-names.png)
 
 #### Resources
 
@@ -172,12 +172,12 @@ let _timer = Timer::new("Universe::tick");
 The time of how long each call to `Universe::tick` took are now logged in the
 console:
 
-[![Screenshot of console.time logs](./images/game-of-life/console-time.png)](./images/game-of-life/console-time.png)
+[![Screenshot of console.time logs](../images/game-of-life/console-time.png)](../images/game-of-life/console-time.png)
 
 Additionally, `console.time` and `console.timeEnd` pairs will show up in your
 browser's profiler's "timeline" or "waterfall" view:
 
-[![Screenshot of console.time logs](./images/game-of-life/console-time-in-profiler.png)](./images/game-of-life/console-time-in-profiler.png)
+[![Screenshot of console.time logs](../images/game-of-life/console-time-in-profiler.png)](../images/game-of-life/console-time-in-profiler.png)
 
 ### Using `#[bench]` with Native Code
 
@@ -202,17 +202,17 @@ leaves sixteen milliseconds for the whole process of rendering a frame. That's
 not just our JavaScript and WebAssembly, but also everything else the browser is
 doing, such as painting.
 
-[![Screenshot of a waterfall view of rendering a frame](./images/game-of-life/drawCells-before-waterfall.png)](./images/game-of-life/drawCells-before-waterfall.png)
+[![Screenshot of a waterfall view of rendering a frame](../images/game-of-life/drawCells-before-waterfall.png)](../images/game-of-life/drawCells-before-waterfall.png)
 
 If we look at what happens within a single animation frame, we see that the
 `CanvasRenderingContext2D.fillStyle` setter is very expensive!
 
-[![Screenshot of a flamegraph view of rendering a frame](./images/game-of-life/drawCells-before-flamegraph.png)](./images/game-of-life/drawCells-before-flamegraph.png)
+[![Screenshot of a flamegraph view of rendering a frame](../images/game-of-life/drawCells-before-flamegraph.png)](../images/game-of-life/drawCells-before-flamegraph.png)
 
 And we can confirm that this isn't an abnormality by looking at the call tree's
 aggregation of many frames:
 
-[![Screenshot of a flamegraph view of rendering a frame](./images/game-of-life/drawCells-before-calltree.png)](./images/game-of-life/drawCells-before-calltree.png)
+[![Screenshot of a flamegraph view of rendering a frame](../images/game-of-life/drawCells-before-calltree.png)](../images/game-of-life/drawCells-before-calltree.png)
 
 Nearly 40% of our time is spent in this setter!
 
@@ -294,12 +294,12 @@ After saving these changes and refreshing
 If we take another profile, we can see that only about ten milliseconds are
 spent in each animation frame now.
 
-[![Screenshot of a waterfall view of rendering a frame after the drawCells changes](./images/game-of-life/drawCells-after-waterfall.png)](./images/game-of-life/drawCells-after-waterfall.png)
+[![Screenshot of a waterfall view of rendering a frame after the drawCells changes](../images/game-of-life/drawCells-after-waterfall.png)](../images/game-of-life/drawCells-after-waterfall.png)
 
 Breaking down a single frame, we see that the `fillStyle` cost is gone, and most
 of our frame's time is spent within `fillRect`, drawing each cell's rectangle.
 
-[![Screenshot of a flamegraph view of rendering a frame after the drawCells changes](./images/game-of-life/drawCells-after-flamegraph.png)](./images/game-of-life/drawCells-after-flamegraph.png)
+[![Screenshot of a flamegraph view of rendering a frame after the drawCells changes](../images/game-of-life/drawCells-after-flamegraph.png)](../images/game-of-life/drawCells-after-flamegraph.png)
 
 ## Making Time Run Faster
 
@@ -371,7 +371,7 @@ majority of time is spent actually calculating the next generation of
 cells. Allocating and freeing a vector on every tick appears to have negligible
 cost, surprisingly. Another reminder to always guide our efforts with profiling!
 
-[![Screenshot of a Universe::tick timer results](./images/game-of-life/console-time-in-universe-tick.png)](./images/game-of-life/console-time-in-universe-tick.png)
+[![Screenshot of a Universe::tick timer results](../images/game-of-life/console-time-in-universe-tick.png)](../images/game-of-life/console-time-in-universe-tick.png)
 
 Let's write a native code `#[bench]` doing the same thing that our WebAssembly
 is doing, but where we can use more mature profiling tools. Here is the new
@@ -437,12 +437,12 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 1 measured; 0 filtered out
 Loading up the profile with `perf report` shows that all of our time is spent in
 `Universe::tick`, as expected:
 
-[![Screenshot of perf report](./images/game-of-life/bench-perf-report.png)](./images/game-of-life/bench-perf-report.png)
+[![Screenshot of perf report](../images/game-of-life/bench-perf-report.png)](../images/game-of-life/bench-perf-report.png)
 
 `perf` will annotate which instructions in a function time is being spent at if
 you press `a`:
 
-[![Screenshot of perf's instruction annotation](./images/game-of-life/bench-perf-annotate.png)](./images/game-of-life/bench-perf-annotate.png)
+[![Screenshot of perf's instruction annotation](../images/game-of-life/bench-perf-annotate.png)](../images/game-of-life/bench-perf-annotate.png)
 
 This tells us that 26.67% of time is being spent summing neighboring cells'
 values, 23.41% of time is spent getting the neighbor's column index, and another
@@ -583,7 +583,7 @@ milliseconds.
 
 Success!
 
-[![Screenshot of a waterfall view of rendering a frame after replacing modulos with branches](./images/game-of-life/waterfall-after-branches-and-unrolling.png)](./images/game-of-life/waterfall-after-branches-and-unrolling.png)
+[![Screenshot of a waterfall view of rendering a frame after replacing modulos with branches](../images/game-of-life/waterfall-after-branches-and-unrolling.png)](../images/game-of-life/waterfall-after-branches-and-unrolling.png)
 
 ## Exercises
 

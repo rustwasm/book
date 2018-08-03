@@ -90,7 +90,7 @@ dead cell and `1` is a live cell.
 
 Here is what a 4 by 4 universe looks like in memory:
 
-![Screenshot of a 4 by 4 universe](./images/game-of-life/universe.png)
+![Screenshot of a 4 by 4 universe](../images/game-of-life/universe.png)
 
 To find the array index of the cell at a given row and column in the universe,
 we can use this formula:
@@ -373,7 +373,7 @@ requestAnimationFrame(renderLoop);
 
 This is what it looks like right now:
 
-[![Screenshot of the Game of Life implementation with text rendering](./images/game-of-life/initial-game-of-life-pre.png)](./images/game-of-life/initial-game-of-life-pre.png)
+[![Screenshot of the Game of Life implementation with text rendering](../images/game-of-life/initial-game-of-life-pre.png)](../images/game-of-life/initial-game-of-life-pre.png)
 
 ## Rendering to Canvas Directly from Memory
 
@@ -562,7 +562,7 @@ npm run serve
 If you refresh [http://localhost:8080/](http://localhost:8080/), you should be
 greeted with an exciting display of life!
 
-[![Screenshot of the Game of Life implementation](./images/game-of-life/initial-game-of-life.png)](./images/game-of-life/initial-game-of-life.png)
+[![Screenshot of the Game of Life implementation](../images/game-of-life/initial-game-of-life.png)](../images/game-of-life/initial-game-of-life.png)
 
 You can find the complete source for this implementation in the `chapter-one`
 branch.
