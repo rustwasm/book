@@ -13,5 +13,6 @@
     - [Shrinking `.wasm` Size](./game-of-life/code-size.md)
     - [Production and Deployment](./game-of-life/production.md)
 --------------------------------------------------------------------------------
+- [Crates You Should Know](./crates.md)
 - [Tools](./tools.md)
 - [JavaScript Interoperation](./js-ffi.md)
