@@ -25,7 +25,7 @@ For example with nginx, [add `application/wasm wasm;` to `/etc/nginx/mime.types`
 ][nginx-mime]. Then reload nginx with `sudo nginx -s reload` to pick up the
 configuration change.
 
-[nginx-mime]: http://nginx.org/en/docs/http/ngx_http_core_module.html#types
+[nginx-mime]: https://nginx.org/en/docs/http/ngx_http_core_module.html#types
 
 For Apache [add `AddType application/wasm .wasm` to the root of your apache
 config][apache-mime], likely located at either `/etc/apache2/apache2.conf` or

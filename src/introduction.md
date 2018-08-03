@@ -4,5 +4,5 @@ This small book describes how to use [Rust] and [WebAssembly] together.
 pull request!][repo]
 
 [Rust]: https://www.rust-lang.org
-[WebAssembly]: http://webassembly.org/
+[WebAssembly]: https://webassembly.org/
 [repo]: https://github.com/rustwasm/book
