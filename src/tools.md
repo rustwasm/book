@@ -1,47 +1,84 @@
-# Tools
+# Tools You Should Know
 
-Now that we've have learned how to generate our first WebAssembly "Hello World" with Rust, 
-it is time to check out what tooling is available in the language. 
-There are several great tools already written for WebAssembly (most of them written in C++). 
-[Wabt], for instance, is a suite of tools built to be a starting point for manipulating WebAssembly files.
+This is a curated list of awesome tools you should know about when doing Rust
+and WebAssembly development.
 
-However, since Rust has the potential to be used for both development and tooling for WebAssembly, several tools written in it have popped up in the ecosystem:
-- [wasm-gc] - a small command to gc a wasm module and remove all unneeded exports, imports, functions, etc.
-- [wasm-nm] - list the symbols within a wasm file.
-- [wasm-snip] - replaces a wasm function body with unreachable
-- [parity-wasm] - wasm (de)serialization in Rust
-- [wasmparser] - A wasm binary decoder with optional validation, in Rust
-- [wasmtext] - prints wasm modules in text format, in Rust
-- [wasm-pack] - Package up your wasm for distribution on npm
-- [twiggy] - A wasm code size profiler.
+## Development, Build, and Workflow Orchestration
 
-Among these tools are a set that aim to allow you to run wasm outside the browser:
-- [rustwasm] - A wasm interpreter in Rust
-- [wasmi] - Another wasm interpreter in Rust, from Parity
-- [wasmstandalone] - standalone JIT-based wasm runner in Rust, using Cretonne (the same backend [nebulet] uses). In early development.
-- [wasm-core] - A Rust library with two execution engines (interpreter and JIT) for WASM. Used by [cervus] and [IceCore].
+### `wasm-pack` | [repository](https://github.com/rustwasm/wasm-pack)
 
-There's also plenty of _space for tooling to be built or rewritten in Rust_ for better synergy with the ecosystem. Some of them include:
-- A [Wabt] rewrite in Rust
-- Tools for the [ewasm project][ewasm]
+`wasm-pack` seeks to be a one-stop shop for building and working with Rust-
+generated WebAssembly that you would like to interoperate with JavaScript, on
+the Web or with Node.js. `wasm-pack` helps you build and publish Rust-generated
+WebAssembly to the npm registry to be used alongside any other JavaScript
+package in workflows that you already use.
 
-This page is meant to be a living document, so feel free to send us a pull request adding new incredible WebAssembly tools we might have missed or when they are released in the future!
+## Optimizing and Manipulating `.wasm` Binaries
 
+### `wasm-opt` | [repository](https://github.com/WebAssembly/binaryen)
 
-[Wabt]: https://github.com/WebAssembly/wabt
-[wasm-gc]: https://github.com/alexcrichton/wasm-gc
-[wasm-nm]: https://github.com/fitzgen/wasm-nm
-[wasm-snip]: https://github.com/fitzgen/wasm-snip
-[rustwasm]: https://github.com/joshuawarner32/rust-wasm
-[wasmi]: https://github.com/paritytech/wasmi
-[parity-wasm]: https://github.com/paritytech/parity-wasm
-[wasmparser]: https://github.com/yurydelendik/wasmparser.rs
-[wasmtext]: https://github.com/yurydelendik/wasmtext
-[wasmstandalone]: https://github.com/sunfishcode/wasmstandalone
-[twiggy]: https://github.com/rustwasm/twiggy
-[ewasm]: https://github.com/ewasm
-[wasm-pack]: https://github.com/rustwasm/wasm-pack
-[wasm-core]: https://github.com/losfair/wasm-core
-[cervus]: https://github.com/cervus-v/cervus
-[IceCore]: https://github.com/losfair/IceCore
-[nebulet]: https://github.com/nebulet/nebulet
+The `wasm-opt` tool reads WebAssembly as input, runs transformation,
+optimization, and/or instrumentation passes on it, and then emits the
+transformed WebAssembly as output. Running it on the `.wasm` binaries produced
+by LLVM by way of `rustc` will usually create `.wasm` binaries that are both
+smaller and execute faster. This tool is a part of the `binaryen` project.
+
+### `wasm2asm` | [repository](https://github.com/WebAssembly/binaryen)
+
+The `wasm2asm` tool compiles WebAssembly into "almost asm.js". This is great for
+supporting browsers that don't have a WebAssembly implementation, such as
+Internet Explorer 11. This tool is a part of the `binaryen` project.
+
+> Note: it is planned to rename this tool to `wasm2js`, but that renaming still
+> hasn't happened at the time of writing.
+
+### `wasm-gc` | [repository](https://github.com/alexcrichton/wasm-gc)
+
+A small tool to garbage collect a WebAssembly module and remove all unneeded
+exports, imports, functions, etc. This is effectively a `--gc-sections` linker
+flag for WebAssembly.
+
+You don't usually need to use this tool yourself because of two reasons:
+
+1. `rustc` now has a new enough version of `lld` that it supports the
+   `--gc-sections` flag for WebAssembly. This is automatically enabled for LTO
+   builds.
+2. The `wasm-bindgen` CLI tool runs `wasm-gc` for you automatically.
+
+### `wasm-snip` | [repository](https://github.com/rustwasm/wasm-snip)
+
+`wasm-snip` replaces a WebAssembly function's body with an `unreachable`
+instruction.
+
+Maybe you know that some function will never be called at runtime, but the
+compiler can't prove that at compile time? Snip it! Then run `wasm-gc` again and
+all the functions it transitively called (which could also never be called at
+runtime) will get removed too.
+
+This is useful for forcibly removing Rust's panicking infrastructure in
+non-debug production builds.
+
+## Inspecting `.wasm` Binaries
+
+### `twiggy` | [repository](https://github.com/rustwasm/twiggy)
+
+`twiggy` is a code size profiler for `.wasm` binaries. It analyzes a binary's
+call graph to answer questions like:
+
+* Why was this function included in the binary in the first place? I.e. which
+  exported functions are transitively calling it?
+* What is the retained size of this function? I.e. how much space would be saved
+  if I removed it and all the functions that become dead code after its removal.
+
+Use `twiggy` to make your binaries slim!
+
+### `wasm-objdump` | [repository](https://github.com/WebAssembly/wabt)
+
+Print low-level details about a `.wasm` binary and each of its sections. Also
+supports disassembling into the WAT text format. It's like `objdump` but for
+WebAssembly. This is a part of the WABT project.
+
+### `wasm-nm` | [repository](https://github.com/fitzgen/wasm-nm)
+
+List the imported, exported, and private function symbols defined within a
+`.wasm` binary. It's like `nm` but for WebAssembly.
