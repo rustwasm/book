@@ -14,5 +14,5 @@
     - [Production and Deployment](./game-of-life/production.md)
 --------------------------------------------------------------------------------
 - [Crates You Should Know](./crates.md)
-- [Tools](./tools.md)
+- [Tools You Should Know](./tools.md)
 - [JavaScript Interoperation](./js-ffi.md)
