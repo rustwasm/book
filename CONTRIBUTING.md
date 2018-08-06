@@ -19,9 +19,8 @@ how many people are experiencing the issue.
 
 This is a documentation and education project, so discussion about how to improve
 the experience for beginning users are particularly welcome. We greatly value the 
-perspective of new users. If you found something was confusing please file an issue!
-
-You can [create a new issue here][new-issues]. Please fill out the template to give the
+perspective of new users. If you found something was confusing please file an issue
+[here][new-issues]. Please fill out the template to give the
 people addressing your issue as much information as possible.
 
 
