@@ -4,6 +4,9 @@ This repo contains documentation on using Rust for wasm, common workflows, how
 to get started and more. It acts as a guide for how to do some neat things with
 it.
 
+If you would like to start learning how to use Rust and WebAssembly together
+immediately, you can read the book [online here][book].
+
 [Open issues for improving the Rust and WebAssembly book.][book-issues]
 
 [book-issues]: https://github.com/rustwasm/book/issues
@@ -47,3 +50,4 @@ to read them then you can read them from the `src` directory.
 
 [mdbook]: https://github.com/rust-lang-nursery/mdBook
 [rustup]: https://github.com/rust-lang-nursery/rustup.rs/
+[book]: https://rustwasm.github.io/book/game-of-life/introduction.html
