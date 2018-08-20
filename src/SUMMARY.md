@@ -16,3 +16,4 @@
 - [Crates You Should Know](./crates.md)
 - [Tools You Should Know](./tools.md)
 - [JavaScript Interoperation](./js-ffi.md)
+- [Project Templates](./project-templates.md)
