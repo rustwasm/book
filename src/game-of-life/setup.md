@@ -12,17 +12,26 @@ You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 
 [rust-install]: https://www.rust-lang.org/en-US/install.html
 
-## The `wasm32-unknown-unknown` Target
+## `wasm-pack`
 
-Once you have the Rust toolchain installed, you'll want to be able to compile
-Rust programs to WebAssembly, rather than your machine's native code. You can
-enable this by adding the `wasm32-unknown-unknown` target with the following
-command:
+[`wasm-pack` is your one-stop shop for building, publishing, and working with
+Rust-generated WebAssembly that inter-operates with JavaScript.][wasm-pack]
+
+Install `wasm-pack` with this command:
 
 ```
-rustup update
-rustup install nightly
-rustup target add wasm32-unknown-unknown --toolchain nightly
+cargo install wasm-pack
+```
+
+## `cargo-generate`
+
+[`cargo-generate` helps you get up and running quickly with a new Rust project
+by leveraging a pre-existing git repository as a template.][cargo-generate]
+
+Install `cargo-generate` with this command:
+
+```
+cargo install cargo-generate
 ```
 
 ## `npm`
@@ -34,16 +43,5 @@ publish our compiled `.wasm` to the `npm` registry.
 [Follow these instructions to install `npm`.][npm-install]
 
 [npm-install]: https://www.npmjs.com/get-npm
-
-## `wasm-bindgen`
-
-[`wasm-bindgen`][wb] generates bidirectional bindings to and from JavaScript for
-Rust and WebAssembly.
-
-Install `wasm-bindgen` with this command:
-
-```
-cargo +nightly install wasm-bindgen-cli
-```
-
-[wb]: https://github.com/rustwasm/wasm-bindgen
+[wasm-pack]: https://github.com/rustwasm/wasm-pack
+[cargo-generate]: https://github.com/ashleygwilliams/cargo-generate
