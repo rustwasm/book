@@ -1,9 +1,9 @@
-# Production and Deployment
+# Deploying our Game of Life Web Application to Production
 
 When we're happy with the project, the next step is to deploy it to a production
-server instead of our development server. This is generally the same with Rust
-and WebAssembly as it is with anything else: put the files somewhere where they
-are exposed to the Web via an HTTP server!
+server instead of our local development server. This is generally the same with
+Rust and WebAssembly as it is with anything else: put the files somewhere where
+they are exposed to the Web via an HTTP server!
 
 We make sure our wasm module is an up-to-date build by running `wasm-pack` from
 within the `wasm-game-of-life` directory:
