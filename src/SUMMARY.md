@@ -11,6 +11,7 @@
     - [Adding Interactivity](./game-of-life/interactivity.md)
     - [Time Profiling](./game-of-life/time-profiling.md)
     - [Shrinking `.wasm` Size](./game-of-life/code-size.md)
+    - [Publishing to npm](./game-of-life/publishing-to-npm.md)
     - [Production and Deployment](./game-of-life/production.md)
 --------------------------------------------------------------------------------
 - [Reference](./reference/index.md)
