@@ -8,13 +8,14 @@ allow pausing the game, which makes drawing cell patterns a lot easier.
 ## Pausing and Resuming the Game
 
 Let's add a button to toggle whether the game is playing or paused. To
-`index.html`, add the button right above the `<canvas>`:
+`wasm-game-of-life/www/index.html`, add the button right above the `<canvas>`:
 
 ```html
 <button id="play-pause"></button>
 ```
 
-In the JavaScript, we will make the following changes:
+In the `wasm-game-of-life/www/index.js` JavaScript, we will make the following
+changes:
 
 * Keep track of the identifier returned by the latest call to
   `requestAnimationFrame`, so that we can cancel the animation by calling
@@ -96,7 +97,7 @@ call to `play` so that the button gets the correct initial text icon.
 play();
 ```
 
-Refresh [http://localhost:8080/](http://localhost:8080/) and you should now be
+Refresh [http://localhost:8080/](http://localhost:8080/) and we should now be
 able to pause and resume the game by clicking on the button!
 
 ## Toggling a Cell's State on `"click"` Events
@@ -104,7 +105,8 @@ able to pause and resume the game by clicking on the button!
 Now that we can pause the game, it's time to add the ability to mutate the cells
 by clicking on them.
 
-To toggle a cell is to flip its state from alive to dead or from dead to alive:
+To toggle a cell is to flip its state from alive to dead or from dead to
+alive. Add a `toggle` method to `Cell` in `wasm-game-of-life/src/lib.rs`:
 
 ```rust
 impl Cell {
@@ -137,10 +139,10 @@ impl Universe {
 This method is defined within the `impl` block that is annotated with
 `#[wasm_bindgen]` so that it can be called by JavaScript.
 
-In JavaScript, we listen to click events on the `<canvas>` element, translate
-the click event's page-relative coordinates into canvas-relative coordinates,
-and then into a row and column, invoke the `toggle_cell` method, and finally
-redraw the scene.
+In `wasm-game-of-life/www/index.js`, we listen to click events on the `<canvas>`
+element, translate the click event's page-relative coordinates into
+canvas-relative coordinates, and then into a row and column, invoke the
+`toggle_cell` method, and finally redraw the scene.
 
 ```js
 canvas.addEventListener("click", event => {
@@ -162,11 +164,9 @@ canvas.addEventListener("click", event => {
 });
 ```
 
-Refresh [http://localhost:8080/](http://localhost:8080/) again and you can now
-draw your own patterns by clicking on the cells and toggling their state.
-
-You can find the complete source for this implementation in the `chapter-two`
-branch.
+Rebuild with `wasm-pack init` in `wasm-game-of-life`, then refresh
+[http://localhost:8080/](http://localhost:8080/) again and we can now draw our
+own patterns by clicking on the cells and toggling their state.
 
 ## Exercises
 
@@ -176,7 +176,8 @@ branch.
 * Add a button that resets the universe to a random initial state when
   clicked. Another button that resets the universe to all dead cells.
 
-* On `Ctrl + Click`, insert a [glider](https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)) centered on the target cell. On `Shift +
-  Click`, insert a pulsar.
+* On `Ctrl + Click`, insert a
+  [glider](https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)) centered on
+  the target cell. On `Shift + Click`, insert a pulsar.
 
 [input-range]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range

@@ -1,25 +1,44 @@
-# Production and Deployment
+# Deploying our Game of Life Web Application to Production
 
 When we're happy with the project, the next step is to deploy it to a production
-server instead of our development server.
+server instead of our local development server. This is generally the same with
+Rust and WebAssembly as it is with anything else: put the files somewhere where
+they are exposed to the Web via an HTTP server!
 
-The first step is to run:
+We make sure our wasm module is an up-to-date build by running `wasm-pack` from
+within the `wasm-game-of-life` directory:
 
 ```
-npm run bundle
+wasm-pack init
 ```
 
-This creates a release build of our Rust code and uses webpack to bundle it
-alongside our JavaScript and HTML, which it outputs into the `dist` directory.
+And then we bundle our JavaScript and and HTML by running `webpack` within the
+`wasm-game-of-life/www` directory:
+
+```
+./node_modules/.bin/webpack
+```
+
+This bundles the whole Web application—the `.wasm` binary, JavaScript files, and
+our HTML—and outputs it into the `wasm-game-of-life/www/dist` directory. Its
+contents should looks something like this:
+
+```
+wasm-game-of-life/www/dist/
+├── 0.bootstrap.js
+├── 357c6c6c57e15cecdc07.module.wasm
+├── bootstrap.js
+└── index.html
+```
 
 To use our application from a server, it must be properly configured to serve
-wasm files with the correct [MIME type][MIME]—`application/wasm`.
+`.wasm` files with the correct [MIME type][MIME]—`application/wasm`.
 
 [MIME]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 
 > **Note**: Server configuration varies by operating system, it's recommended
-you look up a tutorial for your specific operating system and webserver. These
-examples assume an environment like Debian/Ubuntu or CentOS/Red Hat/Fedora.
+> you look up a tutorial for your specific operating system and webserver. These
+> examples assume an environment like Debian/Ubuntu or CentOS/Red Hat/Fedora.
 
 For example with nginx, [add `application/wasm wasm;` to `/etc/nginx/mime.types`
 ][nginx-mime]. Then reload nginx with `sudo nginx -s reload` to pick up the

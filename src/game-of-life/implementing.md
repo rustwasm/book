@@ -120,9 +120,11 @@ In the last chapter, we cloned an initial project template. We will modify that
 project template now.
 
 Let's begin by removing the `alert` import and `greet` function from
-`src/lib.rs`, and replacing them with a type definition for cells:
+`wasm-game-of-life/src/lib.rs`, and replacing them with a type definition for
+cells:
 
 ```rust
+#[wasm_bindgen]
 #[repr(u8)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Cell {
@@ -244,7 +246,7 @@ impl Universe {
 So far, the state of the universe is represented as a vector of cells. To make
 this human readable, let's implement a basic text renderer. The idea is to write
 the universe line by line as text, and for each cell that is alive, print the
-Unicode character `◼️` ("black medium square"). For dead cells, we'll print `◻️`
+Unicode character `◼` ("black medium square"). For dead cells, we'll print `◻`
 (a "white medium square").
 
 By implementing the [`Display`] trait from Rust's standard library, we can add a
@@ -261,7 +263,7 @@ impl fmt::Display for Universe {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for line in self.cells.as_slice().chunks(self.width as usize) {
             for &cell in line {
-                let symbol = if cell == Cell::Dead { "◻️" } else { "◼️" };
+                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
                 write!(f, "{}", symbol)?;
             }
             write!(f, "\n")?;
@@ -310,38 +312,46 @@ impl Universe {
 
 With that, the Rust half of our Game of Life implementation is complete!
 
+Recompile it to WebAssembly by running `wasm-pack init` within the
+`wasm-game-of-life` directory.
+
 ## Rendering with JavaScript
 
-First, let's add a `<pre>` element to our HTML to render the universe to:
+First, let's add a `<pre>` element to `wasm-game-of-life/www/index.html` to
+render the universe into, just above the `<script>` tag:
 
 ```html
 <body>
-    <pre id="game-of-life-canvas"></pre>
-    <script src='./bootstrap.js'></script>
+  <pre id="game-of-life-canvas"></pre>
+  <script src="./bootstrap.js"></script>
 </body>
 ```
 
-Additionally, we want the `<pre>` centered in the middle of the Web page. We
-can use CSS flex boxes to accomplish this task. Add the following `<style>` tag
-inside `index.html`'s `<head>`:
+Additionally, we want the `<pre>` centered in the middle of the Web page. We can
+use CSS flex boxes to accomplish this task. Add the following `<style>` tag
+inside `wasm-game-of-life/www/index.html`'s `<head>`:
 
 ```html
 <style>
-    body {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
 ```
 
-At the top of `index.js`, let's fix our import to bring in the `Universe` rather
-than the old `greet` function:
+At the top of `wasm-game-of-life/www/index.js`, let's fix our import to bring in
+the `Universe` rather than the old `greet` function:
 
 ```js
-import { Universe } from "./wasm_game_of_life";
+import { Universe } from "wasm-game-of-life";
 ```
 
 Also, let's get that `<pre>` element we just added and instantiate a new
@@ -352,8 +362,11 @@ const pre = document.getElementById("game-of-life-canvas");
 const universe = Universe.new();
 ```
 
-The JavaScript runs in a `requestAnimationFrame` loop. On each iteration, it
-draws the current universe to the `<pre>`, and then calls `Universe::tick`.
+The JavaScript runs in [a `requestAnimationFrame`
+loop][requestAnimationFrame]. On each iteration, it draws the current universe
+to the `<pre>`, and then calls `Universe::tick`.
+
+[requestAnimationFrame]: https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
 
 ```js
 const renderLoop = () => {
@@ -371,7 +384,9 @@ the first iteration of the rendering loop:
 requestAnimationFrame(renderLoop);
 ```
 
-This is what it looks like right now:
+Make sure your development server is still running (run `npm run start` inside
+`wasm-game-of-life/www`) and this is what
+[http://localhost:8080/](http://localhost:8080/) should look like:
 
 [![Screenshot of the Game of Life implementation with text rendering](../images/game-of-life/initial-game-of-life-pre.png)](../images/game-of-life/initial-game-of-life-pre.png)
 
@@ -389,20 +404,21 @@ API]. We will use this design in the rest of the tutorial.
 
 [Canvas API]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 
-First, let's replace the `pre` we added earlier with a `<canvas>` we will render
-into (it too should be within the `<body>`, before the `<script>` that loads our
-JavaScript):
+Inside `wasm-game-of-life/www/index.html`, let's replace the `<pre>` we added
+earlier with a `<canvas>` we will render into (it too should be within the
+`<body>`, before the `<script>` that loads our JavaScript):
 
 ```html
 <body>
-    <canvas id="game-of-life-canvas"></canvas>
-    <script src='./bootstrap.js'></script>
+  <canvas id="game-of-life-canvas"></canvas>
+  <script src='./bootstrap.js'></script>
 </body>
 ```
 
 To get the necessary information from the Rust implementation, we'll need to add
 some more getter functions for a universe's width, height, and pointer to its
-cells array. All of these are exposed to JavaScript as well.
+cells array. All of these are exposed to JavaScript as well. Make these
+additions to `wasm-game-of-life/src/lib.rs`:
 
 ```rust
 /// Public methods, exported to JavaScript.
@@ -424,24 +440,21 @@ impl Universe {
 }
 ```
 
-Next, let's define some constants just under the `import` line that JavaScript
-will use when rendering the canvas:
+Next, in `wasm-game-of-life/www/index.js`, let's also import `Cell` from
+`wasm-game-of-life`, and define some constants that we will use when rendering
+to the canvas:
 
 ```js
-import { Universe } from "./wasm_game_of_life";
+import { Universe, Cell } from "wasm-game-of-life";
 
 const CELL_SIZE = 5; // px
 const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
-
-// These must match `Cell::Alive` and `Cell::Dead` in `src/lib.rs`.
-const DEAD = 0;
-const ALIVE = 1;
 ```
 
-Now, let's rewrite our current JS code (except for the import) to no longer
-write to the `<pre>` but instead draw to the `<canvas>`:
+Now, let's rewrite the rest of this JavaScript code to no longer write to the
+`<pre>`'s `textContent` but instead draw to the `<canvas>`:
 
 ```js
 // Construct the universe, and get its width and height.
@@ -474,7 +487,6 @@ form the grid.
 ```js
 const drawGrid = () => {
   ctx.beginPath();
-  ctx.lineWidth = 1 / window.devicePixelRatio;
   ctx.strokeStyle = GRID_COLOR;
 
   // Vertical lines.
@@ -503,7 +515,7 @@ tick.
 
 ```js
 // Import the WebAssembly memory at the top of the file.
-import { memory } from "./wasm_game_of_life_bg";
+import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
 
 // ...
 
@@ -521,7 +533,7 @@ const drawCells = () => {
     for (let col = 0; col < width; col++) {
       const idx = getIndex(row, col);
 
-      ctx.fillStyle = cells[idx] === DEAD
+      ctx.fillStyle = cells[idx] === Cell.Dead
         ? DEAD_COLOR
         : ALIVE_COLOR;
 
@@ -547,16 +559,18 @@ requestAnimationFrame(renderLoop);
 
 ## It Works!
 
-Rebuild the WebAssembly and bindings glue:
+Rebuild the WebAssembly and bindings glue by running this command from within
+the root `wasm-game-of-life` directory:
 
 ```
-npm run build-debug
+wasm-pack init
 ```
 
-Make sure your development server is still running. If it isn't, start it again:
+Make sure your development server is still running. If it isn't, start it again
+from within the `wasm-game-of-life/www` directory:
 
 ```
-npm run serve
+npm run start
 ```
 
 If you refresh [http://localhost:8080/](http://localhost:8080/), you should be
@@ -564,10 +578,13 @@ greeted with an exciting display of life!
 
 [![Screenshot of the Game of Life implementation](../images/game-of-life/initial-game-of-life.png)](../images/game-of-life/initial-game-of-life.png)
 
-You can find the complete source for this implementation in the `chapter-one`
-branch.
-
-There is also a really neat algorithm for implementing the Game of Life called [hashlife](https://en.wikipedia.org/wiki/Hashlife). It uses aggressive memoizing and can actually get *exponentially faster* to compute future generations the longer it runs! Given that, you might be wondering why we didn't implement hashlife in this tutorial. It is out of scope for this text, where we are focusing on Rust and WebAssembly integration, but we highly encourage you to go learn about hashlife on your own!
+As an aside, there is also a really neat algorithm for implementing the Game of
+Life called [hashlife](https://en.wikipedia.org/wiki/Hashlife). It uses
+aggressive memoizing and can actually get *exponentially faster* to compute
+future generations the longer it runs! Given that, you might be wondering why we
+didn't implement hashlife in this tutorial. It is out of scope for this text,
+where we are focusing on Rust and WebAssembly integration, but we highly
+encourage you to go learn about hashlife on your own!
 
 ## Exercises
 
@@ -576,13 +593,30 @@ There is also a really neat algorithm for implementing the Game of Life called [
 * Instead of hard-coding the initial universe, generate a random one, where each
   cell has a fifty-fifty chance of being alive or dead.
 
-  *Hint: use `wasm_bindgen` to import the `Math.random` JavaScript function:*
+  *Hint: use [the `js-sys` crate](https://crates.io/crates/js-sys) to import
+  [the `Math.random` JavaScript
+  function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random).*
+
+  *First, add `js-sys` as a dependency in `wasm-game-of-life/Cargo.toml`:*
+
+  ```toml
+  # ...
+  [dependencies]
+  js-sys = "0.2"
+  # ...
+  ```
+
+  *Then, use the `js_sys::Math::random` function to flip a coin:*
 
   ```rust
-  #[wasm_bindgen]
-  extern {
-      #[wasm_bindgen(js_namespace = Math)]
-      fn random() -> f64;
+  extern crate js_sys;
+
+  // ...
+
+  if js_sys::Math::random() < 0.5 {
+      // Alive...
+  } else {
+      // Dead...
   }
   ```
 

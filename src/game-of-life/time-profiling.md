@@ -31,7 +31,7 @@ system.
 For example, we can create a simple frames per second (FPS) counter that we
 update on each iteration of our `renderLoop`.
 
-We start by adding an `fps` object to `index.js`:
+We start by adding an `fps` object to `wasm-game-of-life/www/index.js`:
 
 ```js
 const fps = new class {
@@ -92,13 +92,24 @@ const renderLoop = () => {
 };
 ```
 
-Finally, don't forget to add the `fps` element to `index.html`:
+Finally, don't forget to add the `fps` element to
+`wasm-game-of-life/www/index.html`, just above the `<canvas>`:
 
 ```html
-    <div id="fps"><div>
+<div id="fps"></div>
 ```
 
-And Voila! Now you have an FPS counter!
+And add CSS to make its formatting nice:
+
+```css
+#fps {
+  white-space: pre;
+  font-family: monospace;
+}
+```
+
+And voila! Refresh [http://localhost:8080](http://localhost:8080) and now we
+have an FPS counter!
 
 [perf-now]: https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
 
@@ -127,7 +138,8 @@ heavily, the results might end up a bit perplexing.
 The `console.time` and `console.timeEnd` functions allow you to log the timing
 of named operations to the browser's developer tools console.
 
-You can import them into Rust with this `wasm-bindgen` declaration:
+You can import them into Rust with this `wasm-bindgen` declaration in
+`wasm-game-of-life/src/lib.rs`:
 
 ```rust
 #[wasm_bindgen]
@@ -193,8 +205,9 @@ confirm this, or else you risk wasting your time optimizing code that isn't hot.
 ## Growing our Game of Life Universe
 
 What happens if we make our Game of Life universe larger? Replacing the 64 by 64
-universe with a 128 by 128 universe results in FPS dropping from a smooth 60 to
-a choppy 40-ish on my machine.
+universe with a 128 by 128 universe (by modifying `Universe::new` in
+`wasm-game-of-life/src/lib.rs`) results in FPS dropping from a smooth 60 to a
+choppy 40-ish on my machine.
 
 If we record a profile and look at the waterfall view, we see that each
 animation frame is taking over 20 milliseconds. Recall that 60 frames per second
@@ -220,8 +233,8 @@ Nearly 40% of our time is spent in this setter!
 > bottleneck, but it wasn't. Always let profiling guide your focus, since time
 > may be spent in places you don't expect it to be.
 
-In the `drawCells` function, `fillStyle` is set once for every cell in the
-universe, on every animation frame:
+In the `drawCells` function in `wasm-game-of-life/www/index.js`, the `fillStyle`
+property is set once for every cell in the universe, on every animation frame:
 
 ```js
 for (let row = 0; row < height; row++) {
@@ -255,7 +268,7 @@ ctx.fillStyle = ALIVE_COLOR;
 for (let row = 0; row < height; row++) {
   for (let col = 0; col < width; col++) {
     const idx = getIndex(row, col);
-    if (cells[idx] !== ALIVE) {
+    if (cells[idx] !== Cell.Alive) {
       continue;
     }
 
@@ -273,7 +286,7 @@ ctx.fillStyle = DEAD_COLOR;
 for (let row = 0; row < height; row++) {
   for (let col = 0; col < width; col++) {
     const idx = getIndex(row, col);
-    if (cells[idx] !== DEAD) {
+    if (cells[idx] !== Cell.Dead) {
       continue;
     }
 
@@ -305,7 +318,8 @@ of our frame's time is spent within `fillRect`, drawing each cell's rectangle.
 
 Some folks don't like waiting around, and would prefer if instead of one tick of
 the universe occurred per animation frame, nine ticks did. We can modify the
-`renderLoop` function in `index.js` to do this quite easily:
+`renderLoop` function in `wasm-game-of-life/www/index.js` to do this quite
+easily:
 
 ```js
 for (let i = 0; i < 9; i++) {
@@ -375,7 +389,7 @@ cost, surprisingly. Another reminder to always guide our efforts with profiling!
 
 Let's write a native code `#[bench]` doing the same thing that our WebAssembly
 is doing, but where we can use more mature profiling tools. Here is the new
-`benches/bench.rs`:
+`wasm-game-of-life/benches/bench.rs`:
 
 ```rust
 #![feature(test)]
@@ -451,7 +465,8 @@ most expensive instructions, the second and third are both costly `div`
 instructions. These `div`s implement the modulo indexing logic in
 `Universe::live_neighbor_count`.
 
-Recall the `live_neighbor_count` definition:
+Recall the `live_neighbor_count` definition inside
+`wasm-game-of-life/src/lib.rs`:
 
 ```rust
 fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
@@ -574,8 +589,7 @@ WebAssembly intentionally maps closely to common hardware architectures, but we
 do need to make sure that this native code speed up translates into a
 WebAssembly speed up as well.
 
-Let's reinstate all the `#[wasm_bindgen]` annotations, rebuild the `.wasm` with
-`npm run build-release`, and refresh
+Let's rebuild the `.wasm` with `wasm-pack init` and refresh
 [http://localhost:8080/](http://localhost:8080/). On my machine, the page is
 running at 60 frames per second again, and recording another profile with the
 browser's profiler reveals that each animation frame is taking about ten

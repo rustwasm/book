@@ -9,23 +9,20 @@ belt for when things go wrong.
 
 If you don't have debug symbols enabled, then the `"name"` section won't be
 present in the compiled `.wasm` binary, and stack traces will have function
-names like `wasm[42]` rather than
+names like `wasm-function[42]` rather than
 `wasm_game_of_life::Universe::live_neighbor_count`.
 
-When using a "debug" build (aka `npm run build-debug`) debug symbols are enabled
-by default.
+When using a "debug" build (aka `wasm-pack init --debug`) debug symbols are
+enabled by default.
 
 With a "release" build, debug symbols are not enabled by default. To enable
 debug symbols, ensure that you `debug = true` in the `[profile.release]` section
-of your `Cargo.toml`:
+of your `wasm-game-of-life/Cargo.toml`:
 
 ```toml
 [profile.release]
 debug = true
 ```
-
-The project template we've been working with adds this to `Cargo.toml` by
-default, for convenience.
 
 ## Logging
 
@@ -49,7 +46,7 @@ macro_rules! log {
 
 Then, we can start logging messages to the console by inserting calls to `log`
 in Rust code. For example, to log each cell's state, live neighbors count, and
-next state, we could modify our code like this:
+next state, we could modify `wasm-game-of-life/src/lib.rs` like this:
 
 ```diff
 diff --git a/src/lib.rs b/src/lib.rs
@@ -79,7 +76,7 @@ index f757641..a30e107 100755
          }
 ```
 
-Alternatively, the `console.error` function has the same interface as
+Alternatively, the `console.error` function has the same signature as
 `console.log`, but developer tools tend to also capture and display a stack
 trace alongside the logged message when `console.error` is used.
 
@@ -97,25 +94,17 @@ console via `console.error`.][panic-hook] Rather than getting cryptic,
 difficult-to-debug `RuntimeError: unreachable executed` error messages, this
 gives you Rust's formatted panic message.
 
-All you need to do is install the hook in an initialization function or common
-code path:
+Our `wasm-pack-template` comes with an optional, enabled-by-default dependency
+on `console_error_panic_hook` that is configured in
+`wasm-game-of-life/src/utils.rs`. All we need to do is install the hook in an
+initialization function or common code path. We can call it inside the
+`Universe::new` constructor in `wasm-game-of-life/src/lib.rs`:
 
 ```rust
-extern crate console_error_panic_hook;
-
-// Expose an `init` function to be called by JS after instantiating the wasm
-// module which installs the `console.error` panic hook.
-#[wasm_bindgen]
-pub fn init() {
-    use std::panic;
-    panic::set_hook(Box::new(console_error_panic_hook::hook));
+pub fn new() -> Universe {
+    utils::set_panic_hook();
+    // ...
 }
-
-// OR
-
-// Ensure the the panic hook is set on some common code path. Under the hood,
-// this makes sure that it is only installed once.
-console_error_panic_hook::set_once();
 ```
 
 [panic-hook]: https://github.com/rustwasm/console_error_panic_hook
@@ -157,8 +146,8 @@ finding and fixing bugs if you can isolate them in a smaller test cases that
 don't require interacting with JavaScript.
 
 Note that in order to run the `#[test]`s without compiler and linker errors, you
-will need to comment out the `#![wasm_bindgen]` annotations and `crate-type =
-"cdylib"` bits.
+will need to comment out the `crate-type = "cdylib"` bits in
+`wasm-game-of-life/Cargo.toml`.
 
 [quickcheck]: https://crates.io/crates/quickcheck
 
@@ -169,10 +158,5 @@ will need to comment out the `#![wasm_bindgen]` annotations and `crate-type =
 
 * Introduce a `panic!()` in the `Universe::new` method. Inspect the panic's
   backtrace in your Web browser's JavaScript debugger. Disable debug symbols,
-  rebuild, and inspect the stack trace again. Not as useful, is it?
-
-* Checkout the `chapter-one-with-bug` branch. Rebuild and reload the Web
-  page. It should now be obvious that this branch's implementation contains a
-  bug, and every cell is apparently alive. This is a Real World(tm) bug that
-  your author made when initially creating the example code. Find the bug and
-  fix it. *Don't look at the commit history! That's cheating ;-)*
+  rebuild without the `console_error_panic_hook` optional dependency, and
+  inspect the stack trace again. Not as useful is it?

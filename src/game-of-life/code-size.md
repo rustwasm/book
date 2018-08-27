@@ -87,19 +87,19 @@ wasm-opt -O3 -o output.wasm input.wasm
 ### How small do these build configurations get our Game of Life `.wasm` binary?
 
 With the default release build configuration (without debug symbols), our
-WebAssembly binary is 240,605 bytes:
+WebAssembly binary is 29,410 bytes:
 
 ```
-$ wc -c wasm_game_of_life_bg.wasm
-240605 wasm_game_of_life_bg.wasm
+$ wc -c pkg/wasm_game_of_life_bg.wasm
+29410 pkg/wasm_game_of_life_bg.wasm
 ```
 
 After enabling LTO, setting `opt-level = "z"`, and running `wasm-opt -Oz`, the
-resulting `.wasm` binary shrinks to only 37,424 bytes!
+resulting `.wasm` binary shrinks to only 17,317 bytes!
 
 ```
-$ wc -c wasm_game_of_life_bg.wasm
-37424 wasm_game_of_life_bg.wasm
+$ wc -c pkg/wasm_game_of_life_bg.wasm
+17317 pkg/wasm_game_of_life_bg.wasm
 ```
 
 ## Size Profiling
@@ -132,7 +132,7 @@ pre, code {
 </style>
 
 ```text
-$ twiggy top -n 20 wasm_game_of_life_bg.wasm
+$ twiggy top -n 20 pkg/wasm_game_of_life_bg.wasm
  Shallow Bytes │ Shallow % │ Item
 ───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────
           9158 ┊    19.65% ┊ "function names" subsection
@@ -266,6 +266,10 @@ situations where you need *some* kind of allocator, but do not need a
 particularly fast allocator, and will happily trade allocation speed for smaller
 code size.
 
+Note that the `wasm-pack-template` we started our Game of Life implementation
+with has a cargo feature to enable or disable `wee_alloc` as the global
+allocator.
+
 [wee_alloc]: https://github.com/rustwasm/wee_alloc
 
 ### Use Trait Objects Instead of Generic Type Parameters
@@ -317,8 +321,9 @@ since panics ultimately translate into traps anyways.
 * Use `wasm-snip` to remove the panicking infrastructure functions from our Game
   of Life's `.wasm` binary. How many bytes does it save?
 
-* Switch our Game of Life crate over to using `wee_alloc` as its global
-  allocator. How much size was shaved off of the `.wasm` binary?
+* Build our Game of Life crate with and without `wee_alloc` as its global
+  allocator. How much size does using `wee_alloc` shave off of the `.wasm`
+  binary?
 
 * We only ever instantiate a single `Universe`, so rather than providing a
   constructor, we can export operations that manipulate a single `static mut`
