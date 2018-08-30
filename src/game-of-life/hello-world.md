@@ -244,6 +244,24 @@ import * as wasm from "hello-wasm-pack";
 wasm.greet();
 ```
 
+### Install the dependencies
+
+First, ensure that the local development server and its dependencies are
+installed by running `npm install` within the `wasm-game-of-life/www`
+subdirectory:
+
+```text
+npm install
+```
+
+This command only needs to be run once, and will install the `webpack`
+JavaScript bundler and its development server.
+
+> Note that `webpack` is not required for working with Rust and WebAssembly, it
+> is just the bundler and development server we've chosen for convenience
+> here. Parcel and Rollup should also support importing WebAssembly as
+> ECMAScript modules.
+
 ### Using our Local `wasm-game-of-life` Package in `www`
 
 Rather than use the `hello-wasm-pack` package from npm, we want to use our local
@@ -277,22 +295,6 @@ wasm.greet();
 Our Web page is now ready to be served locally!
 
 ## Serving Locally
-
-First, ensure that the local development server and its dependencies are
-installed by running `npm install` within the `wasm-game-of-life/www`
-subdirectory:
-
-```text
-npm install
-```
-
-This command only needs to be run once, and will install the `webpack`
-JavaScript bundler and its development server.
-
-> Note that `webpack` is not required for working with Rust and WebAssembly, it
-> is just the bundler and development server we've chosen for convenience
-> here. Parcel and Rollup should also support importing WebAssembly as
-> ECMAScript modules.
 
 Next, open a new terminal for the development server. Running the server in a
 new terminal lets us leave it running in the background, and doesn't block us
