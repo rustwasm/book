@@ -42,6 +42,13 @@ publish our compiled `.wasm` to the `npm` registry.
 
 [Follow these instructions to install `npm`.][npm-install]
 
+If you already have `npm` installed, make sure it is up to date with this
+command:
+
+```
+npm install npm@latest -g
+```
+
 [npm-install]: https://www.npmjs.com/get-npm
 [wasm-pack]: https://github.com/rustwasm/wasm-pack
 [cargo-generate]: https://github.com/ashleygwilliams/cargo-generate
