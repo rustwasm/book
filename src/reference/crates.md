@@ -14,7 +14,7 @@ category.][wasm-category]
 JavaScript. It allows one to import JavaScript things into Rust and export Rust
 things to JavaScript.
 
-### `wasm-bindgen-features` | [crates.io](https://crates.io/crates/wasm-bindgen-futures) | [repository](https://github.com/rustwasm/wasm-bindgen/tree/master/crates/futures)
+### `wasm-bindgen-futures` | [crates.io](https://crates.io/crates/wasm-bindgen-futures) | [repository](https://github.com/rustwasm/wasm-bindgen/tree/master/crates/futures)
 
 `wasm-bindgen-futures` is a bridge connecting JavaSript `Promise`s and Rust
 `Future`s. It can convert in both directions and is useful when working with
