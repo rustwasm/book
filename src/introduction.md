@@ -1,3 +1,5 @@
+# Rust 🦀 and WebAssembly 🕸
+
 This small book describes how to use [Rust] and [WebAssembly] together.
 
 [This book is open source! Find a typo? Did we overlook something? Send us a
