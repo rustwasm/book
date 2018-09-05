@@ -272,9 +272,13 @@ First, run `npm link` inside the `wasm-game-of-life/pkg` directory, so that the
 local package can be depended upon by other local packages without publishing
 them to npm:
 
-```
+```bash
 npm link
 ```
+
+> 🐞 Did you get `EACCESS` or permissions errors when running `npm link`? [How
+> to Prevent Permissions Errors with
+> `npm`.](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
 
 Second, use the `npm link`ed version of the `wasm-game-of-life` from the `www`
 package by running this command within `wasm-game-of-life/www`:
