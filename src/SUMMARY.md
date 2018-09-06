@@ -2,6 +2,8 @@
 
 - [Introduction](./introduction.md)
 - [Background And Concepts](./background-and-concepts.md)
+  - [What is WebAssembly?](./what-is-webassembly.md)
+--------------------------------------------------------------------------------
 - [Tutorial](./game-of-life/introduction.md)
     - [Setup](./game-of-life/setup.md)
     - [Hello, World!](./game-of-life/hello-world.md)
