@@ -14,8 +14,9 @@ Don't know JavaScript, HTML, or CSS? [Learn about them on MDN.][mdn]
 
 ## How to read this book
 
-You should familiarize yourself with the [background and concepts][background]
-first.
+You should read [the motivation for using Rust and WebAssembly
+together][why-rust-wasm], as well as familiarize yourself with the [background
+and concepts][background] first.
 
 The [tutorial][] is written to be read from start to finish. You should follow
 along: writing, compiling, and running the tutorial's code yourself. If you
@@ -35,6 +36,7 @@ pull request!**][repo]
 [WebAssembly]: https://webassembly.org/
 [trpl]: https://doc.rust-lang.org/book/second-edition/index.html
 [mdn]: https://developer.mozilla.org/en-US/docs/Learn
+[why-rust-wasm]: ./why-rust-and-webassembly.html
 [background]: ./background-and-concepts.html
 [tutorial]: ./game-of-life/introduction.html
 [reference]: ./reference/index.html
