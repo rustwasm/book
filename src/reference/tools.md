@@ -23,14 +23,11 @@ transformed WebAssembly as output. Running it on the `.wasm` binaries produced
 by LLVM by way of `rustc` will usually create `.wasm` binaries that are both
 smaller and execute faster. This tool is a part of the `binaryen` project.
 
-### `wasm2asm` | [repository](https://github.com/WebAssembly/binaryen)
+### `wasm2js` | [repository](https://github.com/WebAssembly/binaryen)
 
-The `wasm2asm` tool compiles WebAssembly into "almost asm.js". This is great for
+The `wasm2js` tool compiles WebAssembly into "almost asm.js". This is great for
 supporting browsers that don't have a WebAssembly implementation, such as
 Internet Explorer 11. This tool is a part of the `binaryen` project.
-
-> Note: it is planned to rename this tool to `wasm2js`, but that renaming still
-> hasn't happened at the time of writing.
 
 ### `wasm-gc` | [repository](https://github.com/alexcrichton/wasm-gc)
 
