@@ -3,6 +3,8 @@
 This section will show you how to build and run your first Rust and WebAssembly
 program: a Web page that alerts "Hello, World!"
 
+Make sure you have followed the [setup instructions](setup.html) before beginning.
+
 ## Clone the Project Template
 
 The project template comes pre-configured with sane defaults, so you can quickly
