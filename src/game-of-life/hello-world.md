@@ -87,7 +87,7 @@ We use `wasm-pack` to orchestrate the following build steps:
 To do all of that, run this command inside the project directory:
 
 ```
-wasm-pack init
+wasm-pack build
 ```
 
 When the build has completed, we can find its artifacts in the `pkg` directory,

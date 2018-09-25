@@ -312,7 +312,7 @@ impl Universe {
 
 With that, the Rust half of our Game of Life implementation is complete!
 
-Recompile it to WebAssembly by running `wasm-pack init` within the
+Recompile it to WebAssembly by running `wasm-pack build` within the
 `wasm-game-of-life` directory.
 
 ## Rendering with JavaScript
@@ -563,7 +563,7 @@ Rebuild the WebAssembly and bindings glue by running this command from within
 the root `wasm-game-of-life` directory:
 
 ```
-wasm-pack init
+wasm-pack build
 ```
 
 Make sure your development server is still running. If it isn't, start it again

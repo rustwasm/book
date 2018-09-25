@@ -14,14 +14,10 @@ You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 
 ## `wasm-pack`
 
-[`wasm-pack` is your one-stop shop for building, publishing, and working with
-Rust-generated WebAssembly that inter-operates with JavaScript.][wasm-pack]
+`wasm-pack` is your one-stop shop for building, testing, and publishing
+Rust-generated WebAssembly.
 
-Install `wasm-pack` with this command:
-
-```
-cargo install wasm-pack
-```
+[Get `wasm-pack` here!][wasm-pack-install]
 
 ## `cargo-generate`
 
@@ -52,3 +48,4 @@ npm install npm@latest -g
 [npm-install]: https://www.npmjs.com/get-npm
 [wasm-pack]: https://github.com/rustwasm/wasm-pack
 [cargo-generate]: https://github.com/ashleygwilliams/cargo-generate
+[wasm-pack-install]: https://rustwasm.github.io/wasm-pack/installer/
