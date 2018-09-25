@@ -589,7 +589,7 @@ WebAssembly intentionally maps closely to common hardware architectures, but we
 do need to make sure that this native code speed up translates into a
 WebAssembly speed up as well.
 
-Let's rebuild the `.wasm` with `wasm-pack init` and refresh
+Let's rebuild the `.wasm` with `wasm-pack build` and refresh
 [http://localhost:8080/](http://localhost:8080/). On my machine, the page is
 running at 60 frames per second again, and recording another profile with the
 browser's profiler reveals that each animation frame is taking about ten

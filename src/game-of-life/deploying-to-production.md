@@ -9,7 +9,7 @@ We make sure our wasm module is an up-to-date build by running `wasm-pack` from
 within the `wasm-game-of-life` directory:
 
 ```
-wasm-pack init
+wasm-pack build
 ```
 
 And then we bundle our JavaScript and and HTML by running `webpack` within the

@@ -21,7 +21,7 @@ Make sure that the `wasm-game-of-life/pkg` build is up to date by running
 `wasm-pack` inside the `wasm-game-of-life` directory:
 
 ```
-wasm-pack init
+wasm-pack build
 ```
 
 Take a moment to check out the contents of `wasm-game-of-life/pkg` now, this is
@@ -50,7 +50,7 @@ name = "wasm-game-of-life-my-username"
 Then, rebuild and publish again:
 
 ```
-wasm-pack init
+wasm-pack build
 wasm-pack publish
 ```
 
