@@ -27,6 +27,11 @@ Raw `wasm-bindgen` imports for all the JavaScript global types and methods, such
 as `Object`, `Function`, `eval`, etc. These APIs are portable across all
 standard ECMAScript environments, not just the Web, such as Node.js.
 
+### `web-sys` | [crates.io](https://crates.io/crates/web-sys) | [repository](https://github.com/rustwasm/wasm-bindgen/tree/master/crates/web-sys)
+
+Raw `wasm-bindgen` imports for all the Web's APIs, such as DOM manipulation,
+`setTimeout`, Web GL, Web Audio, etc.
+
 ## Error Reporting
 
 ### `console_error_panic_hook` | [crates.io](https://crates.io/crates/console_error_panic_hook) | [repository](https://github.com/rustwasm/console_error_panic_hook)
