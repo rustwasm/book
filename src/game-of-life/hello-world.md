@@ -318,7 +318,7 @@ and you should be greeted with an alert message:
 
 Anytime you make changes and want them reflected on
 [http://localhost:8080/](http://localhost:8080/), just re-run the `wasm-pack
-init` command within the `wasm-game-of-life` directory.
+build` command within the `wasm-game-of-life` directory.
 
 ## Exercises
 
