@@ -44,8 +44,8 @@ let animationId = null;
 const renderLoop = () => {
   universe.tick();
 
-  drawCells();
   drawGrid();
+  drawCells();
 
   animationId = requestAnimationFrame(renderLoop);
 };
@@ -159,8 +159,8 @@ canvas.addEventListener("click", event => {
 
   universe.toggle_cell(row, col);
 
-  drawCells();
   drawGrid();
+  drawCells();
 });
 ```
 

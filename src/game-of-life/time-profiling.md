@@ -85,8 +85,8 @@ const renderLoop = () => {
     fps.render(); //new
 
     universe.tick();
-    drawCells();
     drawGrid();
+    drawCells();
 
     animationId = requestAnimationFrame(renderLoop);
 };
