@@ -1,8 +1,8 @@
 # JavaScript Interoperation
 
-### Importing and exporting JS functions
+## Importing and Exporting JS Functions
 
-#### From the Rust side
+### From the Rust Side
 
 When using wasm within a JS host, importing and exporting functions from the
 Rust side is straightforward: it works very similarly to C.
@@ -30,7 +30,7 @@ pub extern fn bar() { /* ... */ }
 Because of wasm's limited value types, these functions must operate only on
 primitive numeric types.
 
-#### From the JS side
+### From the JS Side
 
 Within JS, a wasm binary turns into an ES6 module. It must be *instantiated*
 with linear memory and have a set of JS functions matching the expected
@@ -45,7 +45,7 @@ available as JS functions.
 
 [hello world]: https://www.hellorust.com/demos/add/index.html
 
-### Going beyond numerics
+## Going Beyond Numerics
 
 When using wasm within JS, there is a sharp split between the wasm module's
 memory and the JS memory:
