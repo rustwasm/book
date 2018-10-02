@@ -36,7 +36,7 @@ Within JS, a wasm binary turns into an ES6 module. It must be *instantiated*
 with linear memory and have a set of JS functions matching the expected
 imports.  The details of instantiation are available on [MDN][instantiation].
 
-[instantiation]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate
+[instantiation]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming
 
 The resulting ES6 module will contain all of the functions exported from Rust, now
 available as JS functions.
