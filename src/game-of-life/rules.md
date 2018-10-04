@@ -76,5 +76,26 @@ From these simple, deterministic rules, strange and exciting behavior emerges:
 * Compute by hand the next tick of our example universe. Notice anything
   familiar?
 
+  <details>
+    <summary>Answer</summary>
+
+    It should be the initial state of the example universe:
+
+    <img src='../images/game-of-life/initial-universe.png' alt='Initial Universe' width=80 />
+
+    This pattern is *periodic*: it returns to the initial state after every two
+    ticks.
+
+  </details>
+
 * Can you find an initial universe that is stable? That is, a universe in which
   every generation is always the same.
+
+  <details>
+    <summar>Answer</summary>
+
+    There are an infinite number of stable universes! The trivially stable
+    universe is the empty universe. A two-by-two square of live cells is also a
+    stable universe.
+
+  </details>
