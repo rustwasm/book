@@ -324,7 +324,8 @@ build` command within the `wasm-game-of-life` directory.
 
 * Modify the `greet` function in `wasm-game-of-life/src/lib.rs` to take a `name:
   &str` parameter that customizes the alerted message, rebuild the `.wasm`
-  binary, and pass your name to the function from JavaScript. Refresh
+  binary, and pass your name to the `greet` function from inside
+  `wasm-game-of-life/www/index.js`. Refresh
   [http://localhost:8080/](http://localhost:8080/) in your Web browser and you
   should see a customized greeting!
 
