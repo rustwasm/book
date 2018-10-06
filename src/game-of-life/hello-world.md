@@ -48,7 +48,7 @@ and the `crate-type` properly initialized for generating `.wasm` libraries.
 The `src/lib.rs` file is the root of the Rust crate that we are compiling to
 WebAssembly. It uses `wasm-bindgen` to interface with JavaScript. It imports the
 `window.alert` JavaScript function, and exports the `greet` Rust function, which
-takes a `name` parameter and alerts a greeting message.
+alerts a greeting message.
 
 ```rust
 extern crate cfg_if;
