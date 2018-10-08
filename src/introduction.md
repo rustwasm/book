@@ -34,7 +34,7 @@ pull request!**][repo]
 
 [Rust]: https://www.rust-lang.org
 [WebAssembly]: https://webassembly.org/
-[trpl]: https://doc.rust-lang.org/book/second-edition/index.html
+[trpl]: https://doc.rust-lang.org/book/2018-edition/index.html
 [mdn]: https://developer.mozilla.org/en-US/docs/Learn
 [why-rust-wasm]: ./why-rust-and-webassembly.html
 [background]: ./background-and-concepts.html
