@@ -44,8 +44,8 @@ let animationId = null;
 const renderLoop = () => {
   universe.tick();
 
-  drawCells();
   drawGrid();
+  drawCells();
 
   animationId = requestAnimationFrame(renderLoop);
 };
@@ -159,12 +159,12 @@ canvas.addEventListener("click", event => {
 
   universe.toggle_cell(row, col);
 
-  drawCells();
   drawGrid();
+  drawCells();
 });
 ```
 
-Rebuild with `wasm-pack init` in `wasm-game-of-life`, then refresh
+Rebuild with `wasm-pack build` in `wasm-game-of-life`, then refresh
 [http://localhost:8080/](http://localhost:8080/) again and we can now draw our
 own patterns by clicking on the cells and toggling their state.
 

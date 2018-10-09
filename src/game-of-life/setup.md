@@ -10,18 +10,22 @@ You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 
 [Follow these instructions to install the Rust toolchain.][rust-install]
 
-[rust-install]: https://www.rust-lang.org/en-US/install.html
+The Rust and WebAssembly experience is riding the Rust release trains to stable!
+That means we don't require any experimental feature flags. However, we do
+require Rust 1.30 or newer, and currently the Rust `stable` branch is at
+1.29. Therefore, use the `beta` branch until the release trains roll over on
+2018-10-25:
+
+```
+rustup default beta
+```
 
 ## `wasm-pack`
 
-[`wasm-pack` is your one-stop shop for building, publishing, and working with
-Rust-generated WebAssembly that inter-operates with JavaScript.][wasm-pack]
+`wasm-pack` is your one-stop shop for building, testing, and publishing
+Rust-generated WebAssembly.
 
-Install `wasm-pack` with this command:
-
-```
-cargo install wasm-pack
-```
+[Get `wasm-pack` here!][wasm-pack-install]
 
 ## `cargo-generate`
 
@@ -42,6 +46,15 @@ publish our compiled `.wasm` to the `npm` registry.
 
 [Follow these instructions to install `npm`.][npm-install]
 
+If you already have `npm` installed, make sure it is up to date with this
+command:
+
+```
+npm install npm@latest -g
+```
+
+[rust-install]: https://www.rust-lang.org/en-US/install.html
 [npm-install]: https://www.npmjs.com/get-npm
 [wasm-pack]: https://github.com/rustwasm/wasm-pack
 [cargo-generate]: https://github.com/ashleygwilliams/cargo-generate
+[wasm-pack-install]: https://rustwasm.github.io/wasm-pack/installer/

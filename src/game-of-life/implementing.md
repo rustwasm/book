@@ -312,7 +312,7 @@ impl Universe {
 
 With that, the Rust half of our Game of Life implementation is complete!
 
-Recompile it to WebAssembly by running `wasm-pack init` within the
+Recompile it to WebAssembly by running `wasm-pack build` within the
 `wasm-game-of-life` directory.
 
 ## Rendering with JavaScript
@@ -563,7 +563,7 @@ Rebuild the WebAssembly and bindings glue by running this command from within
 the root `wasm-game-of-life` directory:
 
 ```
-wasm-pack init
+wasm-pack build
 ```
 
 Make sure your development server is still running. If it isn't, start it again
@@ -624,3 +624,103 @@ encourage you to go learn about hashlife on your own!
   comes at the cost of wasting memory. Each byte is eight bits, but we only
   require a single bit to represent whether each cell is alive or dead. Refactor
   the data representation so that each cell uses only a single bit of space.
+
+  <details>
+    <summary>Answer</summary>
+
+    In Rust, you can use [the `fixedbitset` crate and its `FixedBitSet`
+    type](https://crates.io/crates/fixedbitset) to represent cells instead of
+    `Vec<Cell>`:
+
+    ```rust
+    // Make sure you also added the dependency to Cargo.toml!
+    extern crate fixedbitset;
+    use fixedbitset::FixedBitSet;
+
+    // ...
+
+    #[wasm_bindgen]
+    pub struct Universe {
+        width: u32,
+        height: u32,
+        cells: FixedBitSet,
+    }
+    ```
+
+    To update a cell in the next tick of the universe, we use the `set` method
+    of `FixedBitSet`:
+
+    ```rust
+    next.set(idx, match next_cell {
+        Cell::Alive => true,
+        Cell::Dead => false,
+    });
+    ```
+
+    To pass a pointer to the start of the bits to JavaScript, you can convert
+    the `FixedBitSet` to a slice and then convert the slice to a pointer:
+
+    ```rust
+    #[wasm_bindgen]
+    impl Universe {
+        // ...
+
+        pub fn cells(&self) -> *const Cell {
+            self.cells.as_slice().as_ptr()
+        }
+    }
+    ```
+
+    In JavaScript, constructing a `Uint8Array` from Wasm memory is the same as
+    before, except that the length of the array is not `width * height` anymore,
+    but `width * height / 8` since we have a cell per bit rather than per byte:
+
+    ```js
+    const cells = new Uint8Array(memory.buffer, cellsPtr, width * height / 8);
+    ```
+
+    Given an index and `Uint8Array`, you can determine whether the
+    *n<sup>th</sup>* bit is set with the following function:
+
+    ```js
+    const bitIsSet = (n, arr) => {
+      let byte = Math.floor(n / 8);
+      let mask = 1 << (n % 8);
+      return (arr[byte] & mask) == mask;
+    };
+    ```
+
+    Given all that, the new version of `drawCells` looks like this:
+
+    ```js
+    const drawCells = () => {
+      const cellsPtr = universe.cells();
+
+      // This is updated!
+      const cells = new Uint8Array(memory.buffer, cellsPtr, width * height / 8);
+
+      ctx.beginPath();
+
+      for (let row = 0; row < height; row++) {
+        for (let col = 0; col < width; col++) {
+          const idx = getIndex(row, col);
+
+          // This is updated!
+          ctx.fillStyle = bitIsSet(idx, cells)
+            ? ALIVE_COLOR
+            : DEAD_COLOR;
+
+          ctx.fillRect(
+            col * (CELL_SIZE + 1) + 1,
+            row * (CELL_SIZE + 1) + 1,
+            CELL_SIZE,
+            CELL_SIZE
+          );
+        }
+      }
+
+      ctx.stroke();
+    };
+    ```
+
+  </details>

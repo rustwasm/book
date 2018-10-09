@@ -3,6 +3,8 @@
 This section will show you how to build and run your first Rust and WebAssembly
 program: a Web page that alerts "Hello, World!"
 
+Make sure you have followed the [setup instructions](setup.html) before beginning.
+
 ## Clone the Project Template
 
 The project template comes pre-configured with sane defaults, so you can quickly
@@ -46,7 +48,7 @@ and the `crate-type` properly initialized for generating `.wasm` libraries.
 The `src/lib.rs` file is the root of the Rust crate that we are compiling to
 WebAssembly. It uses `wasm-bindgen` to interface with JavaScript. It imports the
 `window.alert` JavaScript function, and exports the `greet` Rust function, which
-takes a `name` parameter and alerts a greeting message.
+alerts a greeting message.
 
 ```rust
 extern crate cfg_if;
@@ -76,7 +78,7 @@ later in the tutorial. We can ignore it for now.
 
 We use `wasm-pack` to orchestrate the following build steps:
 
-* Ensure that we have a nightly Rust compiler and the `wasm32-unknown-unknown`
+* Ensure that we have Rust 1.30 or newer and the `wasm32-unknown-unknown`
   target installed via `rustup`,
 * Compile our Rust sources into a WebAssembly `.wasm` binary via `cargo`,
 * Use `wasm-bindgen` to generate the JavaScript API for using our Rust-generated
@@ -85,7 +87,7 @@ We use `wasm-pack` to orchestrate the following build steps:
 To do all of that, run this command inside the project directory:
 
 ```
-wasm-pack init
+wasm-pack build
 ```
 
 When the build has completed, we can find its artifacts in the `pkg` directory,
@@ -272,9 +274,13 @@ First, run `npm link` inside the `wasm-game-of-life/pkg` directory, so that the
 local package can be depended upon by other local packages without publishing
 them to npm:
 
-```
+```bash
 npm link
 ```
+
+> 🐞 Did you get `EACCESS` or permissions errors when running `npm link`? [How
+> to Prevent Permissions Errors with
+> `npm`.](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
 
 Second, use the `npm link`ed version of the `wasm-game-of-life` from the `www`
 package by running this command within `wasm-game-of-life/www`:
@@ -312,15 +318,16 @@ and you should be greeted with an alert message:
 
 Anytime you make changes and want them reflected on
 [http://localhost:8080/](http://localhost:8080/), just re-run the `wasm-pack
-init` command within the `wasm-game-of-life` directory.
+build` command within the `wasm-game-of-life` directory.
 
 ## Exercises
 
 * Modify the `greet` function in `wasm-game-of-life/src/lib.rs` to take a `name:
-  &str` parameter that customizes the alerted message, rebuild the `.wasm`
-  binary with `wasm-pack init`, and pass your name to the `greet` function from
-  JavaScript. Refresh [http://localhost:8080/](http://localhost:8080/) in your
-  Web browser and you should see a customized greeting!
+  &str` parameter that customizes the alerted message, and pass your name to the
+  `greet` function from inside `wasm-game-of-life/www/index.js`. Rebuild the
+  `.wasm` binary with `wasm-pack build`, then refresh
+  [http://localhost:8080/](http://localhost:8080/) in your Web browser and you
+  should see a customized greeting!
 
   <details>
     <summary>Answer</summary>

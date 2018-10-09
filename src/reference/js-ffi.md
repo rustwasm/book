@@ -1,8 +1,8 @@
 # JavaScript Interoperation
 
-### Importing and exporting JS functions
+## Importing and Exporting JS Functions
 
-#### From the Rust side
+### From the Rust Side
 
 When using wasm within a JS host, importing and exporting functions from the
 Rust side is straightforward: it works very similarly to C.
@@ -30,13 +30,13 @@ pub extern fn bar() { /* ... */ }
 Because of wasm's limited value types, these functions must operate only on
 primitive numeric types.
 
-#### From the JS side
+### From the JS Side
 
 Within JS, a wasm binary turns into an ES6 module. It must be *instantiated*
 with linear memory and have a set of JS functions matching the expected
 imports.  The details of instantiation are available on [MDN][instantiation].
 
-[instantiation]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate
+[instantiation]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming
 
 The resulting ES6 module will contain all of the functions exported from Rust, now
 available as JS functions.
@@ -45,7 +45,7 @@ available as JS functions.
 
 [hello world]: https://www.hellorust.com/demos/add/index.html
 
-### Going beyond numerics
+## Going Beyond Numerics
 
 When using wasm within JS, there is a sharp split between the wasm module's
 memory and the JS memory:
@@ -71,3 +71,42 @@ write idiomatic Rust function signatures that map to idiomatic JS functions,
 automatically.
 
 [wasm-bindgen]: https://github.com/alexcrichton/wasm-bindgen
+
+## Custom Sections
+
+Custom sections allow embedding named arbitrary data into a wasm module. The
+section data is set at compile time and is read directly from the wasm module,
+it cannot be modified at runtime.
+
+In Rust, custom sections are static arrays (`[T; size]`) exposed with the
+`#[link_section]` attribute:
+
+```rust
+#[link_section = "hello"]
+pub static SECTION: [u8; 24] = *b"This is a custom section";
+```
+
+This adds a custom section named `hello` to the wasm file, the rust variable
+name `SECTION` is arbitrary, changing it wouldn't alter the behaviour. The
+contents are bytes of text here but could be any arbitrary data.
+
+The custom sections can be read on the JS side using the
+[`WebAssembly.Module.customSections`] function, it takes a wasm Module and the
+section name as arguments and returns an Array of [`ArrayBuffer`]s. Multiple
+sections may be specified using the same name, in which case they will all
+appear in this array.
+
+```js
+WebAssembly.compileStreaming(fetch("sections.wasm"))
+.then(mod => {
+  const sections = WebAssembly.Module.customSections(mod, "hello");
+
+  const decoder = new TextDecoder();
+  const text = decoder.decode(sections[0]);
+
+  console.log(text); // -> "This is a custom section"
+});
+```
+
+[`ArrayBuffer`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
+[`WebAssembly.Module.customSections`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Module/customSections

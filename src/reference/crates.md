@@ -14,11 +14,23 @@ category.][wasm-category]
 JavaScript. It allows one to import JavaScript things into Rust and export Rust
 things to JavaScript.
 
+### `wasm-bindgen-futures` | [crates.io](https://crates.io/crates/wasm-bindgen-futures) | [repository](https://github.com/rustwasm/wasm-bindgen/tree/master/crates/futures)
+
+`wasm-bindgen-futures` is a bridge connecting JavaSript `Promise`s and Rust
+`Future`s. It can convert in both directions and is useful when working with
+asynchronous tasks in Rust, and allows interacting with DOM events and I/O
+operations.
+
 ### `js-sys` | [crates.io](https://crates.io/crates/js-sys) | [repository](https://github.com/rustwasm/wasm-bindgen/tree/master/crates/js-sys)
 
 Raw `wasm-bindgen` imports for all the JavaScript global types and methods, such
 as `Object`, `Function`, `eval`, etc. These APIs are portable across all
 standard ECMAScript environments, not just the Web, such as Node.js.
+
+### `web-sys` | [crates.io](https://crates.io/crates/web-sys) | [repository](https://github.com/rustwasm/wasm-bindgen/tree/master/crates/web-sys)
+
+Raw `wasm-bindgen` imports for all the Web's APIs, such as DOM manipulation,
+`setTimeout`, Web GL, Web Audio, etc.
 
 ## Error Reporting
 

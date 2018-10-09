@@ -12,7 +12,7 @@ present in the compiled `.wasm` binary, and stack traces will have function
 names like `wasm-function[42]` rather than
 `wasm_game_of_life::Universe::live_neighbor_count`.
 
-When using a "debug" build (aka `wasm-pack init --debug`) debug symbols are
+When using a "debug" build (aka `wasm-pack build --debug`) debug symbols are
 enabled by default.
 
 With a "release" build, debug symbols are not enabled by default. To enable

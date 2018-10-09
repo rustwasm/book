@@ -316,6 +316,42 @@ since panics ultimately translate into traps anyways.
 
 [snip]: https://github.com/fitzgen/wasm-snip
 
+## Help, my `*.wasm` is still too big!
+
+Even after employing many of the above techniques, your wasm binary may still be
+larger than you expect or larger than you want. If you find yourself in this
+situation, it's up to you how to evaluate it!
+
+It's important to remember though that code size likely isn't the end-all-be-all
+metric you're interested in, but rather something much more vague and hard to
+measure like "time to first interaction". While code size plays a dominant
+factor in this measurement (can't do anything if you don't even have all the
+code yet!) it's not the only factor.
+
+WebAssembly is typically served to users gzip'd so you'll want to be sure to
+compare differences in gzip'd size for transfer times over the wire, but also
+keep in mind that. The WebAssembly binary format is quite amenable to gzip
+compression, often getting over 50% reductions in size.
+
+Additionally, keep in mind that WebAssembly's binary format is optimized for
+very fast parsing and processing. Browsers nowadays have "baseline compilers"
+which parses WebAssembly and emits compiled code as fast as wasm can come in
+over the network. This means that [if you're using
+`instantiateStreaming`][hacks] the second the web request is done the
+WebAssembly module is probably ready to go.  JS, on the other hand, can often
+take longer to not only parse but also get up to speed with JIT compilation and
+such.
+
+And finally, remember that WebAssembly is also far more optimized than JS for
+execution speed. You'll want to be sure to measure for runtime comparisons
+between JS and WebAssembly to factor that in to how important code size is.
+
+All this to say basically don't dismay immediately if your `*.wasm` file is
+larget than expected! Code size may end up only being one of many factors in the
+end-to-end story.
+
+[hacks]: https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/
+
 ## Exercises
 
 * Use `wasm-snip` to remove the panicking infrastructure functions from our Game

@@ -3,9 +3,8 @@
 This chapter introduces how to profile Web pages using Rust and WebAssembly
 where the goal is improving throughput or latency.
 
-> ⚡ Always make sure you are using a `--release` build when profiling! With our
-> project template, that means using `npm run build-release` instead of `npm run
-> build-debug`.
+> ⚡ Always make sure you are using an optimized build when profiling! `wasm-pack
+> build` will build with optimizations by default.
 
 ## Available Tools
 
@@ -85,8 +84,8 @@ const renderLoop = () => {
     fps.render(); //new
 
     universe.tick();
-    drawCells();
     drawGrid();
+    drawCells();
 
     animationId = requestAnimationFrame(renderLoop);
 };
@@ -589,7 +588,7 @@ WebAssembly intentionally maps closely to common hardware architectures, but we
 do need to make sure that this native code speed up translates into a
 WebAssembly speed up as well.
 
-Let's rebuild the `.wasm` with `wasm-pack init` and refresh
+Let's rebuild the `.wasm` with `wasm-pack build` and refresh
 [http://localhost:8080/](http://localhost:8080/). On my machine, the page is
 running at 60 frames per second again, and recording another profile with the
 browser's profiler reveals that each animation frame is taking about ten
