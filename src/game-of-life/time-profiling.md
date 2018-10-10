@@ -417,12 +417,12 @@ We also have to comment out all the `#[wasm_bindgen]` annotations, and the
 `"cdylib"` bits from `Cargo.toml` or else building native code will fail and
 have link errors.
 
-With all that in place, we can run `cargo bench > before.txt` to compile and run our
-benchmark! The `> before.txt` part will take the output from `cargo bench` and put in a file
+With all that in place, we can run `cargo bench | tee before.txt` to compile and run our
+benchmark! The `| tee before.txt` part will take the output from `cargo bench` and put in a file
 called `before.txt`.
 
 ```
-$ cargo bench > before.txt
+$ cargo bench | tee before.txt
     Finished release [optimized + debuginfo] target(s) in 0.0 secs
      Running target/release/deps/wasm_game_of_life-91574dfbe2b5a124
 
@@ -562,7 +562,7 @@ fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
 Now let's run the benchmarks again! This time output it to `after.txt`.
 
 ```
-$ cargo bench > after.txt
+$ cargo bench | tee after.txt
    Compiling wasm_game_of_life v0.1.0 (file:///home/fitzgen/wasm_game_of_life)
     Finished release [optimized + debuginfo] target(s) in 0.82 secs
      Running target/release/deps/wasm_game_of_life-91574dfbe2b5a124
