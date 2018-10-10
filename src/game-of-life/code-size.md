@@ -347,7 +347,7 @@ execution speed. You'll want to be sure to measure for runtime comparisons
 between JS and WebAssembly to factor that in to how important code size is.
 
 All this to say basically don't dismay immediately if your `*.wasm` file is
-larget than expected! Code size may end up only being one of many factors in the
+larger than expected! Code size may end up only being one of many factors in the
 end-to-end story.
 
 [hacks]: https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/
