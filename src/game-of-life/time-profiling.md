@@ -386,6 +386,13 @@ cost, surprisingly. Another reminder to always guide our efforts with profiling!
 
 [![Screenshot of a Universe::tick timer results](../images/game-of-life/console-time-in-universe-tick.png)](../images/game-of-life/console-time-in-universe-tick.png)
 
+The next section requires the `nightly` compiler. It's required because of
+the [test feature gate](https://doc.rust-lang.org/unstable-book/library-features/test.html)
+we're going to use for the benchmarks. Another tool we will install is [cargo benchcmp][benchcmp].
+It's a small utility for comparing micro-benchmarks produced by `cargo bench`.
+
+[benchcmp]: https://github.com/BurntSushi/cargo-benchcmp
+
 Let's write a native code `#[bench]` doing the same thing that our WebAssembly
 is doing, but where we can use more mature profiling tools. Here is the new
 `wasm-game-of-life/benches/bench.rs`:
@@ -410,11 +417,12 @@ We also have to comment out all the `#[wasm_bindgen]` annotations, and the
 `"cdylib"` bits from `Cargo.toml` or else building native code will fail and
 have link errors.
 
-With all that in place, we can run `cargo bench` to compile and run our
-benchmark!
+With all that in place, we can run `cargo bench | tee before.txt` to compile and run our
+benchmark! The `| tee before.txt` part will take the output from `cargo bench` and put in a file
+called `before.txt`.
 
 ```
-$ cargo bench
+$ cargo bench | tee before.txt
     Finished release [optimized + debuginfo] target(s) in 0.0 secs
      Running target/release/deps/wasm_game_of_life-91574dfbe2b5a124
 
@@ -551,10 +559,10 @@ fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
 }
 ```
 
-Now let's run the benchmarks again!
+Now let's run the benchmarks again! This time output it to `after.txt`.
 
 ```
-$ cargo bench
+$ cargo bench | tee after.txt
    Compiling wasm_game_of_life v0.1.0 (file:///home/fitzgen/wasm_game_of_life)
     Finished release [optimized + debuginfo] target(s) in 0.82 secs
      Running target/release/deps/wasm_game_of_life-91574dfbe2b5a124
@@ -571,10 +579,7 @@ test universe_ticks ... bench:      87,258 ns/iter (+/- 14,632)
 test result: ok. 0 passed; 0 failed; 0 ignored; 1 measured; 0 filtered out
 ```
 
-That looks a whole lot better! We can see just how much better it is with the
-[`cargo benchcmp`][benchcmp] tool:
-
-[benchcmp]: https://github.com/BurntSushi/cargo-benchcmp
+That looks a whole lot better! We can see just how much better it is with the `benchcmp` tool and the two text files we created before:
 
 ```
 $ cargo benchcmp before.txt after.txt
