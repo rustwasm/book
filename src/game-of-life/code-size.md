@@ -98,7 +98,7 @@ the `names` section of the wasm binary. The `wasm-pack` tool, however, removes
 debuginfo by default. Additionally `wasm-opt` removes the `names` section by
 default unless `-g` is also specified.
 
-This means that if you follow the above steps you should by deafult not have
+This means that if you follow the above steps you should by default not have
 either debuginfo or the names section in the wasm binary. If, however, you are
 manually otherwise preserving this debug information in the wasm binary be sure
 to be mindful of this!
