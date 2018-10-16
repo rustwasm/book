@@ -14,17 +14,6 @@ each option, and in the cases where we trade runtime speed for code size,
 profile and measure to make an informed decision about whether the trade is
 worth it.
 
-### Disable Debug Symbols
-
-The section containing function name strings for debugging takes up more space
-than you might think. If you aren't debugging or profiling, and want to generate
-a small `.wasm` binary, then disable these names with this `Cargo.toml` setting:
-
-```toml
-[profile.release]
-debug = false
-```
-
 ### Compiling with Link Time Optimizations (LTO)
 
 In `Cargo.toml`, add `lto = true` in the `[profile.release]` section:
@@ -101,6 +90,18 @@ resulting `.wasm` binary shrinks to only 17,317 bytes!
 $ wc -c pkg/wasm_game_of_life_bg.wasm
 17317 pkg/wasm_game_of_life_bg.wasm
 ```
+
+### Notes about Debug Information
+
+One of the biggest contributors to wasm binary size can be debug information and
+the `names` section of the wasm binary. The `wasm-pack` tool, however, removes
+debuginfo by default. Additionally `wasm-opt` removes the `names` section by
+default unless `-g` is also specified.
+
+This means that if you follow the above steps you should by default not have
+either debuginfo or the names section in the wasm binary. If, however, you are
+manually otherwise preserving this debug information in the wasm binary be sure
+to be mindful of this!
 
 ## Size Profiling
 
