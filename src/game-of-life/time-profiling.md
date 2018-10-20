@@ -203,6 +203,12 @@ confirm this, or else you risk wasting your time optimizing code that isn't hot.
 
 ## Growing our Game of Life Universe
 
+> ⚠️ This section utilizes example screenshots from Firefox. While all modern
+> browsers have similar tools, there might be slight nuances to working with
+> different developer tools. The profile information you extract will be
+> essentially the same, but your mileage might vary in terms of the views you
+> see and the naming of different tools.
+
 What happens if we make our Game of Life universe larger? Replacing the 64 by 64
 universe with a 128 by 128 universe (by modifying `Universe::new` in
 `wasm-game-of-life/src/lib.rs`) results in FPS dropping from a smooth 60 to a
@@ -218,6 +224,14 @@ doing, such as painting.
 
 If we look at what happens within a single animation frame, we see that the
 `CanvasRenderingContext2D.fillStyle` setter is very expensive!
+
+> ⚠️ In Firefox, if you see a line that simply says "DOM" instead of the
+> `CanvasRenderingContext2D.fillStyle` mentioned above, you may need to turn on
+> the option for "Show Gecko Platform Data" in your performance developer tools
+> options:
+>
+> [![Turning on Show Gecko Platform Data](../images/game-of-life/profiler-firefox-show-gecko-platform.png)](../images/game-of-life/profiler-firefox-show-gecko-platform.png)
+
 
 [![Screenshot of a flamegraph view of rendering a frame](../images/game-of-life/drawCells-before-flamegraph.png)](../images/game-of-life/drawCells-before-flamegraph.png)
 
@@ -313,6 +327,7 @@ of our frame's time is spent within `fillRect`, drawing each cell's rectangle.
 
 [![Screenshot of a flamegraph view of rendering a frame after the drawCells changes](../images/game-of-life/drawCells-after-flamegraph.png)](../images/game-of-life/drawCells-after-flamegraph.png)
 
+[^1]:  
 ## Making Time Run Faster
 
 Some folks don't like waiting around, and would prefer if instead of one tick of
