@@ -122,7 +122,7 @@ instead of something like `wasm-function[123]`. Note that these profilers
 *won't* show inlined functions, and since Rust and LLVM rely on inlining so
 heavily, the results might end up a bit perplexing.
 
-[symbols]: ./game-of-life/debugging.html#building-with-debug-symbols
+[symbols]: ./debugging.html#building-with-debug-symbols
 
 [![Screenshot of profiler with Rust symbols](../images/game-of-life/profiler-with-rust-names.png)](../images/game-of-life/profiler-with-rust-names.png)
 
