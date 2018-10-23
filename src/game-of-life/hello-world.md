@@ -229,7 +229,7 @@ its local development server working.
 
 ### `wasm-game-of-life/www/index.html`
 
-This is the root HTML file for the the Web page. It doesn't do much other than
+This is the root HTML file for the Web page. It doesn't do much other than
 load `bootstrap.js`, which is a very thin wrapper around `index.js`.
 
 ```html
