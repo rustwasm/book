@@ -22,3 +22,4 @@
   - [Tools You Should Know](./reference/tools.md)
   - [Project Templates](./reference/project-templates.md)
   - [JavaScript Interoperation](./reference/js-ffi.md)
+  - [Which Crates Will Work Off-the-Shelf with WebAssembly?](./reference/which-crates-work-with-wasm.md)
