@@ -83,8 +83,10 @@ pub fn greet() {
 
 ### `wasm-game-of-life/src/utils.rs`
 
-The `src/utils.rs` module provides a couple included batteries that we will use
-later in the tutorial. We can ignore it for now.
+The `src/ustils.rs` module provides common utilities to make working with Rust
+compiled to WebAssembly easier. We will take a look at some of these utilities
+in more detail later in the tutorial, such as when we look at [debugging our wasm
+code](debugging.html), but we can ignore this file for now.
 
 ## Build the Project
 
