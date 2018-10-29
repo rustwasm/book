@@ -327,7 +327,6 @@ of our frame's time is spent within `fillRect`, drawing each cell's rectangle.
 
 [![Screenshot of a flamegraph view of rendering a frame after the drawCells changes](../images/game-of-life/drawCells-after-flamegraph.png)](../images/game-of-life/drawCells-after-flamegraph.png)
 
-[^1]:  
 ## Making Time Run Faster
 
 Some folks don't like waiting around, and would prefer if instead of one tick of
