@@ -12,13 +12,7 @@ You will need the standard Rust toolchain, including `rustup`, `rustc`, and
 
 The Rust and WebAssembly experience is riding the Rust release trains to stable!
 That means we don't require any experimental feature flags. However, we do
-require Rust 1.30 or newer, and currently the Rust `stable` branch is at
-1.29. Therefore, use the `beta` branch until the release trains roll over on
-2018-10-25:
-
-```
-rustup default beta
-```
+require Rust 1.30 or newer.
 
 ## `wasm-pack`
 
