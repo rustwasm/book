@@ -10,9 +10,13 @@ crates which avoid these things tend to be portable to WebAssembly and usually
 ### C and System Library Dependencies
 
 There are no system libraries in wasm, so any crate that tries to bind to a
-system library won't work. Using C libraries will also probably fail to work,
-since wasm doesn't have a stable ABI for cross-language communication, and
-cross-language linking for wasm is very finicky.
+system library won't work.
+
+Using C libraries will also probably fail to work, since wasm doesn't have a
+stable ABI for cross-language communication, and cross-language linking for wasm
+is very finicky. Everyone wants this to work eventually, especially since
+`clang` is shipping their `wasm32` target by default now, but the story isn't
+quite there yet.
 
 ### File I/O
 

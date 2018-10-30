@@ -114,6 +114,10 @@ impl ReadMyThing for NativeReadMyThing {
 
 ### Avoid Spawning Threads
 
+Wasm doesn't support threads yet (but [experimental work is
+ongoing](https://rustwasm.github.io/2018/10/24/multithreading-rust-and-wasm.html)),
+so attempts to spawn threads in wasm will panic.
+
 You can use `#[cfg(..)]`s to enable threaded and non-threaded code paths
 depending on if the target is WebAssembly or not:
 
@@ -134,6 +138,11 @@ fn do_work() {
 }
 ```
 
+Another option is to factor out thread spawning from your library and allow
+users to "bring their own threads" similar to factoring out file I/O and
+allowing users to bring their own I/O. This has the side effect of playing nice
+with applications that want to own their own custom thread pool.
+
 ## Maintaining Ongoing Support for WebAssembly
 
 ### Building for `wasm32-unknown-unknown` in CI
@@ -144,6 +153,19 @@ CI script run these commands:
 ```
 rustup target add wasm32-unknown-unknown
 cargo check --target wasm32-unknown-unknown
+```
+
+For example, you can add this to your `.travis.yml` configuration for Travis CI:
+
+```yaml
+
+matrix:
+  include:
+    - language: rust
+      rust: stable
+      name: "check wasm32 support"
+      install: rustup target add wasm32-unknown-unknown
+      script: cargo check --target wasm32-unknown-unknown
 ```
 
 ### Testing in Node.js and Headless Browsers
