@@ -42,10 +42,10 @@ let animationId = null;
 // result of `requestAnimationFrame` is assigned to
 // `animationId`.
 const renderLoop = () => {
-  universe.tick();
-
   drawGrid();
   drawCells();
+
+  universe.tick();
 
   animationId = requestAnimationFrame(renderLoop);
 };
