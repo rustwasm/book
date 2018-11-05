@@ -554,8 +554,17 @@ To start the rendering process, we'll use the same code as above to start the
 first iteration of the rendering loop:
 
 ```js
+drawGrid();
+drawCells();
 requestAnimationFrame(renderLoop);
 ```
+
+Note that we call `drawGrid()` and `drawCells()` here _before_ we call
+`requestAnimationFrame()`. The reason we do this is so that the _initial_ state
+of the universe is drawn before we make modifications. If we instead simply
+called `requestAnimationFrame(renderLoop)`, we'd end up with a situation where
+the first frame that was drawn would actually be _after_ the first call to
+`universe.tick()`, which is the second "tick" of the life of these cells.
 
 ## It Works!
 
