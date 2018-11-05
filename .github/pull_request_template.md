@@ -1,6 +1,9 @@
 ✋ A similar PR may already be submitted!
 Please search 🔎 among the [open pull requests][open-prs] before creating one.
 
+Updating the Game of Life tutorial's code? Also send a PR to
+[`rustwasm/wasm_game_of_life`!](https://github.com/rustwasm/wasm_game_of_life)
+
 Now that you've checked, it's time to create your PR. 📝
 Thanks for submitting! 🙏
 
