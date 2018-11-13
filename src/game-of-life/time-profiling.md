@@ -1,34 +1,15 @@
 # Time Profiling
 
-This chapter introduces how to profile Web pages using Rust and WebAssembly
-where the goal is improving throughput or latency.
+In this chapter, we will improve the performance of our Game of Life
+implementation. We will use time profiling to guide our efforts.
 
-> ⚡ Always make sure you are using an optimized build when profiling! `wasm-pack
-> build` will build with optimizations by default.
+Familiarize yourself with [the available tools for time profiling Rust and
+WebAssembly code](../reference/time-profiling.md) before continuing.
 
-## Available Tools
+## Creating a Frames Per Second Timer with the `window.performance.now` Function
 
-### The `performance.now()` Timer
-
-The [`performance.now()`][perf-now] function returns a monotonic timestamp
-measured in milliseconds since the Web page was loaded. We can use it to time
-various operations, and we can access it from Rust with the following
-`wasm_bindgen` import declaration:
-
-```rust
-#[wasm_bindgen]
-extern {
-    #[wasm_bindgen(js_namespace = performance)]
-    fn now() -> f64;
-}
-```
-
-Calling `performance.now` has very little overhead, so we can create simple
-measurements from it without distorting the performance of the rest of the
-system.
-
-For example, we can create a simple frames per second (FPS) counter that we
-update on each iteration of our `renderLoop`.
+This FPS timer will be useful as we investigate speeding up our Game of Life's
+rendering.
 
 We start by adding an `fps` object to `wasm-game-of-life/www/index.js`:
 
@@ -112,63 +93,42 @@ have an FPS counter!
 
 [perf-now]: https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
 
-### Developer Tools Profilers
+### Time Each `Universe::tick` with `console.time` and `console.timeEnd`
 
-All Web browsers' built-in developer tools include a profiler. These profilers
-display which functions are taking the most time with the usual kinds of
-visualizations like call trees and flame graphs. If you [build with debug
-symbols][symbols], then these profilers should display the Rust function names
-instead of something like `wasm-function[123]`. Note that these profilers
-*won't* show inlined functions, and since Rust and LLVM rely on inlining so
-heavily, the results might end up a bit perplexing.
+To measure how long each invocation of `Universe::tick` takes, we can use
+`console.time` and `console.timeEnd` via the `web-sys` crate.
 
-[symbols]: ./debugging.html#building-with-debug-symbols
+First, add `web-sys` as a dependency to `wasm-game-of-life/Cargo.toml`:
 
-[![Screenshot of profiler with Rust symbols](../images/game-of-life/profiler-with-rust-names.png)](../images/game-of-life/profiler-with-rust-names.png)
-
-#### Resources
-
-* [Firefox Developer Tools — Performance](https://developer.mozilla.org/en-US/docs/Tools/Performance)
-* [Microsoft Edge Developer Tools — Performance](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide/performance)
-* [Chrome DevTools JavaScript Profiler](https://developers.google.com/web/tools/chrome-devtools/rendering-tools/js-execution)
-
-### The `console.time` and `console.timeEnd` Functions
-
-The `console.time` and `console.timeEnd` functions allow you to log the timing
-of named operations to the browser's developer tools console.
-
-You can import them into Rust with this `wasm-bindgen` declaration in
-`wasm-game-of-life/src/lib.rs`:
-
-```rust
-#[wasm_bindgen]
-extern {
-    #[wasm_bindgen(js_namespace = console)]
-    fn time(name: &str);
-
-    #[wasm_bindgen(js_namespace = console)]
-    fn timeEnd(name: &str);
-}
+```toml
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+]
 ```
 
 Because there should be a corresponding `console.timeEnd` invocation for every
-`console.time` call, it is convenient to wrap them both up in an RAII type:
+`console.time` call, it is convenient to wrap them both up in an [RAII][] type:
 
 ```rust
+extern crate web_sys;
+use web_sys::console;
+
 pub struct Timer<'a> {
     name: &'a str,
 }
 
 impl<'a> Timer<'a> {
     pub fn new(name: &'a str) -> Timer<'a> {
-        time(name);
+        console::time_with_label(name);
         Timer { name }
     }
 }
 
 impl<'a> Drop for Timer<'a> {
     fn drop(&mut self) {
-        timeEnd(self.name);
+        console::time_end_with_label(self.name);
     }
 }
 ```
@@ -187,19 +147,10 @@ console:
 
 Additionally, `console.time` and `console.timeEnd` pairs will show up in your
 browser's profiler's "timeline" or "waterfall" view:
-
+pp
 [![Screenshot of console.time logs](../images/game-of-life/console-time-in-profiler.png)](../images/game-of-life/console-time-in-profiler.png)
 
-### Using `#[bench]` with Native Code
-
-The same way we can often leverage our operating system's native code debugging
-tools by writing `#[test]`s rather than debugging on the Web, we can leverage
-our operating system's native code profiling tools by writing `#[bench]`
-functions.
-
-However! Make sure that you know the bottleneck is in the WebAssembly before
-investing much energy in native code profiling! Use your browser's profiler to
-confirm this, or else you risk wasting your time optimizing code that isn't hot.
+[RAII]: https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization
 
 ## Growing our Game of Life Universe
 
@@ -231,7 +182,6 @@ If we look at what happens within a single animation frame, we see that the
 > options:
 >
 > [![Turning on Show Gecko Platform Data](../images/game-of-life/profiler-firefox-show-gecko-platform.png)](../images/game-of-life/profiler-firefox-show-gecko-platform.png)
-
 
 [![Screenshot of a flamegraph view of rendering a frame](../images/game-of-life/drawCells-before-flamegraph.png)](../images/game-of-life/drawCells-before-flamegraph.png)
 
