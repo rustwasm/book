@@ -15,7 +15,6 @@
     - [Time Profiling](./game-of-life/time-profiling.md)
     - [Shrinking `.wasm` Size](./game-of-life/code-size.md)
     - [Publishing to npm](./game-of-life/publishing-to-npm.md)
-    - [Deploying to Production](./game-of-life/deploying-to-production.md)
 --------------------------------------------------------------------------------
 - [Reference](./reference/index.md)
   - [Crates You Should Know](./reference/crates.md)
@@ -24,3 +23,4 @@
   - [JavaScript Interoperation](./reference/js-ffi.md)
   - [Which Crates Will Work Off-the-Shelf with WebAssembly?](./reference/which-crates-work-with-wasm.md)
   - [How to Add WebAssembly Support to a General-Purpose Crate](./reference/add-wasm-support-to-crate.md)
+  - [Deploying Rust and WebAssembly to Production](./reference/deploying-to-production.md)
