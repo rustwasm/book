@@ -20,6 +20,7 @@
   - [Crates You Should Know](./reference/crates.md)
   - [Tools You Should Know](./reference/tools.md)
   - [Project Templates](./reference/project-templates.md)
+  - [Debugging](./reference/debugging.md)
   - [Time Profiling](./reference/time-profiling.md)
   - [JavaScript Interoperation](./reference/js-ffi.md)
   - [Which Crates Will Work Off-the-Shelf with WebAssembly?](./reference/which-crates-work-with-wasm.md)

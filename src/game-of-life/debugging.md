@@ -1,71 +1,90 @@
 # Debugging
 
 Before we write much more code, we will want to have some debugging tools in our
-belt for when things go wrong.
+belt for when things go wrong. Take a moment to review the [reference page
+listing tools and approaches available for debugging Rust-generated
+WebAssembly][reference-debugging].
 
-## Building with Debug Symbols
+[reference-debugging]: ../reference/debugging.html
 
-> ⚡ When debugging, always make sure you are building with debug symbols!
+## Enable Logging for Panics
 
-If you don't have debug symbols enabled, then the `"name"` section won't be
-present in the compiled `.wasm` binary, and stack traces will have function
-names like `wasm-function[42]` rather than
-`wasm_game_of_life::Universe::live_neighbor_count`.
+[If our code panics, we want informative error messages to appear in the
+developer console.](../reference/debugging.html#logging-panics)
 
-When using a "debug" build (aka `wasm-pack build --debug`) debug symbols are
-enabled by default.
-
-With a "release" build, debug symbols are not enabled by default. To enable
-debug symbols, ensure that you `debug = true` in the `[profile.release]` section
-of your `wasm-game-of-life/Cargo.toml`:
-
-```toml
-[profile.release]
-debug = true
-```
-
-## Logging
-
-Logging is one of the most effective tools we have for proving and disproving
-hypotheses about why our programs are buggy. On the Web, the `console.log`
-function is the way to log messages to the browser's developer tools console. We
-can use `wasm_bindgen` to import a reference to it, like this:
+Our `wasm-pack-template` comes with an optional, enabled-by-default dependency
+on [the `console_error_panic_hook` crate][panic-hook] that is configured in
+`wasm-game-of-life/src/utils.rs`. All we need to do is install the hook in an
+initialization function or common code path. We can call it inside the
+`Universe::new` constructor in `wasm-game-of-life/src/lib.rs`:
 
 ```rust
-#[wasm_bindgen]
-extern {
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(msg: &str);
+pub fn new() -> Universe {
+    utils::set_panic_hook();
+
+    // ...
 }
+```
+
+[panic-hook]: https://github.com/rustwasm/console_error_panic_hook
+
+## Add Logging to our Game of Life
+
+Let's [use the `console.log` function via the `web-sys` crate to add some
+logging][logging] about each cell in our `Universe::tick` function.
+
+First, add `web-sys` as a dependency and enable its `"console"` feature in
+`wasm-game-of-life/Cargo.toml`:
+
+```toml
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+]
+```
+
+For ergonomics, we'll wrap the `console.log` function up in a `println!`-style
+macro:
+
+[logging]: ../reference/debugging.html#logging-with-the-console-apis
+
+```rust
+extern crate web_sys;
 
 // A macro to provide `println!(..)`-style syntax for `console.log` logging.
 macro_rules! log {
-    ($($t:tt)*) => (log(&format!($($t)*)))
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
 }
 ```
 
-Then, we can start logging messages to the console by inserting calls to `log`
-in Rust code. For example, to log each cell's state, live neighbors count, and
-next state, we could modify `wasm-game-of-life/src/lib.rs` like this:
+Now, we can start logging messages to the console by inserting calls to `log` in
+Rust code. For example, to log each cell's state, live neighbors count, and next
+state, we could modify `wasm-game-of-life/src/lib.rs` like this:
 
 ```diff
 diff --git a/src/lib.rs b/src/lib.rs
 index f757641..a30e107 100755
 --- a/src/lib.rs
 +++ b/src/lib.rs
-@@ -63,6 +63,11 @@ impl Universe {
+@@ -123,6 +122,14 @@ impl Universe {
                  let cell = self.cells[idx];
                  let live_neighbors = self.live_neighbor_count(row, col);
 
 +                log!(
 +                    "cell[{}, {}] is initially {:?} and has {} live neighbors",
-+                    row, col, cell, live_neighbors
++                    row,
++                    col,
++                    cell,
++                    live_neighbors
 +                );
 +
                  let next_cell = match (cell, live_neighbors) {
                      // Rule 1: Any live cell with fewer than two live neighbours
                      // dies, as if caused by underpopulation.
-@@ -80,6 +85,8 @@ impl Universe {
+@@ -140,6 +147,8 @@ impl Universe {
                      (otherwise, _) => otherwise,
                  };
 
@@ -76,80 +95,34 @@ index f757641..a30e107 100755
          }
 ```
 
-Alternatively, the `console.error` function has the same signature as
-`console.log`, but developer tools tend to also capture and display a stack
-trace alongside the logged message when `console.error` is used.
+## Using a Debugger to Pause Between Each Tick
 
-### References
+[Browser's stepping debuggers are useful for inspecting the JavaScript that our
+Rust-generated WebAssembly interacts
+with.](../reference/debugging.html#using-a-debugger)
 
-* [The `console` object](https://developer.mozilla.org/en-US/docs/Web/API/Console)
-* [Firefox Developer Tools — Web Console](https://developer.mozilla.org/en-US/docs/Tools/Web_Console)
-* [Microsoft Edge Developer Tools — Console](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide/console)
-* [Get Started with the Chrome DevTools Console](https://developers.google.com/web/tools/chrome-devtools/console/get-started)
+For example, we can use the debugger to pause on each iteration of our
+`renderLoop` function by placing [a JavaScript `debugger;` statement][dbg-stmt]
+above our call to `universe.tick()`.
 
-## Logging Panics
+```js
+const renderLoop = () => {
+  debugger;
+  universe.tick();
 
-[The `console_error_panic_hook` crate logs unexpected panics to the developer
-console via `console.error`.][panic-hook] Rather than getting cryptic,
-difficult-to-debug `RuntimeError: unreachable executed` error messages, this
-gives you Rust's formatted panic message.
+  drawGrid();
+  drawCells();
 
-Our `wasm-pack-template` comes with an optional, enabled-by-default dependency
-on `console_error_panic_hook` that is configured in
-`wasm-game-of-life/src/utils.rs`. All we need to do is install the hook in an
-initialization function or common code path. We can call it inside the
-`Universe::new` constructor in `wasm-game-of-life/src/lib.rs`:
-
-```rust
-pub fn new() -> Universe {
-    utils::set_panic_hook();
-    // ...
-}
+  requestAnimationFrame(renderLoop);
+};
 ```
 
-[panic-hook]: https://github.com/rustwasm/console_error_panic_hook
+This provides us with a convenient checkpoint for inspecting logged messages,
+and comparing the currently rendered frame to the previous one.
 
-## Using a Debugger
-
-Unfortunately, the debugging story for WebAssembly is still immature. On most
-Unix systems, [DWARF][dwarf] is used to encode the information that a debugger
-needs to provide source-level inspection of a running program. There is an
-alternative format that encodes similar information on Windows. Currently, there
-is no equivalent for WebAssembly. Therefore, debuggers currently provide limited
-utility, and we end up stepping through raw WebAssembly instructions emitted by
-the compiler, rather than the Rust source text we authored.
-
-Nonetheless, debuggers are still useful for inspecting the JavaScript that
-interacts with our WebAssembly. For example, we can use the debugger to pause on
-each iteration of our `renderLoop` function. This provides us with a convenient
-checkpoint for inspecting logged messages, and comparing the currently rendered
-frame to the previous one.
-
-[dwarf]: http://dwarfstd.org/
+[dbg-stmt]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger
 
 [![Screenshot of debugging the Game of Life](../images/game-of-life/debugging.png)](../images/game-of-life/debugging.png)
-
-### References
-
-* [Firefox Developer Tools — Debugger](https://developer.mozilla.org/en-US/docs/Tools/Debugger)
-* [Microsoft Edge Developer Tools — Debugger](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide/debugger)
-* [Get Started with Debugging JavaScript in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/javascript/)
-
-## Avoid the Need to Debug WebAssembly in the First Place
-
-While some bugs are specific to interfacing JavaScript and WebAssembly,
-experience says that most are not. Try to reproduce bugs as normal Rust
-`#[test]` functions, where you can leverage your OS's mature native tooling when
-debugging. Use testing crates like [`quickcheck`][quickcheck] to exercise the
-interface you expose to JavaScript. Ultimately, you will have an easier time
-finding and fixing bugs if you can isolate them in a smaller test cases that
-don't require interacting with JavaScript.
-
-Note that in order to run the `#[test]`s without compiler and linker errors, you
-will need to comment out the `crate-type = "cdylib"` bits in
-`wasm-game-of-life/Cargo.toml`.
-
-[quickcheck]: https://crates.io/crates/quickcheck
 
 ## Exercises
 
