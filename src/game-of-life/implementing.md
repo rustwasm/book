@@ -606,28 +606,31 @@ encourage you to go learn about hashlife on your own!
   [the `Math.random` JavaScript
   function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random).*
 
-  *First, add `js-sys` as a dependency in `wasm-game-of-life/Cargo.toml`:*
-
-  ```toml
-  # ...
-  [dependencies]
-  js-sys = "0.2"
-  # ...
-  ```
-
-  *Then, use the `js_sys::Math::random` function to flip a coin:*
-
-  ```rust
-  extern crate js_sys;
-
-  // ...
-
-  if js_sys::Math::random() < 0.5 {
-      // Alive...
-  } else {
-      // Dead...
-  }
-  ```
+  <details>
+    <summary>Answer</summary>
+    *First, add `js-sys` as a dependency in `wasm-game-of-life/Cargo.toml`:*
+  
+    ```toml
+    # ...
+    [dependencies]
+    js-sys = "0.3"
+    # ...
+    ```
+  
+    *Then, use the `js_sys::Math::random` function to flip a coin:*
+  
+    ```rust
+    extern crate js_sys;
+  
+    // ...
+  
+    if js_sys::Math::random() < 0.5 {
+        // Alive...
+    } else {
+        // Dead...
+    }
+    ```
+  </details>
 
 * Representing each cell with a byte makes iterating over cells easy, but it
   comes at the cost of wasting memory. Each byte is eight bits, but we only
