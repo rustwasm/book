@@ -395,7 +395,7 @@ Make sure your development server is still running (run `npm run start` inside
 Now that we have our game working in the browser let's talk about testing our wasm functions.
 
 We are going to test our `tick` function to make sure that it gives us the output that we expect.
-First, we'll want to create some setter functions for inside our `impl Universe` in the `src/lib.rs` file. We are going to create a `set_width` and a `set_height` function so we can create `Universe`s of different sizes.
+First, we'll want to create some setter functions for inside our `impl Universe` in the `wasm_game_of_life/src/lib.rs` file. We are going to create a `set_width` and a `set_height` function so we can create `Universe`s of different sizes.
 
 ```rust
 #[wasm_bindgen]
@@ -462,14 +462,14 @@ pub fn expected_spaceship() -> Universe {
 }
 ```
 
-Now we're going to create our test in the `tests/web.rs` file.
+Now we're going to create our test in the `wasm_game_of_life/tests/web.rs` file.
 
 Before we do that, there is already one working test in the file. You can confirm that your wasm tests are working by running
 ```
 wasm-pack test --chrome --headless
 ```
 
-In the `tests/web.rs` file we need to export our `wasm_game_of_life` crate and the functions we want to use.
+In the `wasm_game_of_life/tests/web.rs` file we need to export our `wasm_game_of_life` crate and the functions we want to use.
 
 ```rust
 extern crate wasm_game_of_life;
