@@ -390,6 +390,112 @@ Make sure your development server is still running (run `npm run start` inside
 
 [![Screenshot of the Game of Life implementation with text rendering](../images/game-of-life/initial-game-of-life-pre.png)](../images/game-of-life/initial-game-of-life-pre.png)
 
+## Testing our Game of Life
+
+Now that we have our game working in the browser let's talk about testing our wasm functions.
+
+We are going to test our `tick` function to make sure that it gives us the output that we expect.
+First, we'll want to create some setter functions for inside our `impl Universe` in the `src/lib.rs` file. We are going to create a `set_width` and a `set_height` function so we can create `Universe`s of different sizes.
+
+```rust
+#[wasm_bindgen]
+impl Universe { 
+    // ...
+
+    pub fn set_width(mut self, width: u32) -> Self {
+        self.width = width;
+        // Reinitialize cells with new width and the universe's height.
+        // Set all the cells to dead.
+        self.cells = (0..width * self.height).map(|_i| Cell::Dead).collect();
+        self
+    }
+
+    pub fn set_height(mut self, height: u32) -> Self {
+        self.height = height;
+        // Reinitialize cells with new height and the universe's width.
+        // Set all the cells to dead.
+        self.cells = (0..self.width * height).map(|_i| Cell::Dead).collect();
+        self
+    }
+
+}
+```
+
+Now we are going to make some public functions for our `Universe`. We aren't going to make them wasm functions, however. Our wasm functions cannot return borrowed references or take dynamically sized vectors as function arguments. Try making them wasm functions and take a look at the errors you get.
+
+```rust
+pub fn cells(u: &Universe) -> &[Cell] {
+    &u.cells
+}
+
+/// Pass a vector of indices to set only those cells to be alive.
+pub fn set_cells(u: &mut Universe, indices: Vec<u32>) -> &mut Universe {
+    let input_cells: Vec<Cell> = (0..u.width * u.height)
+        .map(|i| {
+            if indices.contains(&i) {
+                Cell::Alive
+            } else {
+                Cell::Dead
+            }
+        })
+        .collect();
+    u.cells = input_cells;
+    u
+}
+```
+
+The last step for our test setup is to create a builder for our input spaceship for the `tick` function and the expected spaceship we will get after one tick. Since we're initializing a smaller 6 by 6 unit universe, the position of the spaceship before and after the tick was calculated manually. You can also confirm for yourself that the indices of the input spaceship after one tick are the same as the expected spaceship.
+
+```rust
+#[wasm_bindgen]
+pub fn input_spaceship() -> Universe {
+    let mut universe = Universe::new().set_width(6).set_height(6);
+    set_cells(&mut universe, vec![8, 15, 19, 20, 21]);
+    universe
+}
+
+#[wasm_bindgen]
+pub fn expected_spaceship() -> Universe {
+    let mut universe = Universe::new().set_width(6).set_height(6);
+    set_cells(&mut universe, vec![13, 15, 20, 21, 26]);
+    universe
+}
+```
+
+Now we're going to create our test in the `tests/web.rs` file.
+
+Before we do that, there is already one working test in the file. You can confirm that your wasm tests are working by running
+```
+wasm-pack test --chrome --headless
+```
+
+In the `tests/web.rs` file we need to export our `wasm_game_of_life` crate and the functions we want to use.
+
+```rust
+extern crate wasm_game_of_life;
+use wasm_game_of_life::{expected_spaceship, input_spaceship, cells};
+```
+
+Now we will add the function we want to test. Here is the implementation for our `test_tick` function. We add the `#[wasm_bindgen_test]` attribute so we can execute our test code in wasm.
+
+```rust
+#[wasm_bindgen_test]
+pub fn test_tick() {
+    // Let's create a smaller Universe with a small spaceship to test!
+    let mut input_universe = input_spaceship();
+
+    // This is what our spaceship should look like
+    // after one tick in our universe.
+    let expected_universe = expected_spaceship();
+
+    //// Call `tick` and then see if the cells in the `Universe`s are the same.
+    input_universe.tick();
+    assert_eq!(cells(&input_universe), cells(&expected_universe));
+}
+```
+
+We can run the test using `wasm-pack test --firefox --headless` and see our tests pass.
+
 ## Rendering to Canvas Directly from Memory
 
 Generating (and allocating) a `String` in Rust and then having `wasm-bindgen`
