@@ -392,10 +392,10 @@ Make sure your development server is still running (run `npm run start` inside
 
 ## Testing our Game of Life
 
-Now that we have our game working in the browser let's talk about testing our wasm functions.
+Now that we have our Rust implementation of the Game of Life rendering in the browser with JavaScript, let's talk about testing our Rust compiled to WebAssembly functions.
 
 We are going to test our `tick` function to make sure that it gives us the output that we expect.
-First, we'll want to create some setter functions for inside our `impl Universe` in the `wasm_game_of_life/src/lib.rs` file. We are going to create a `set_width` and a `set_height` function so we can create `Universe`s of different sizes.
+First, we'll want to create some setter functions inside our `impl Universe` in the `wasm_game_of_life/src/lib.rs` file. We are going to create a `set_width` and a `set_height` function so we can create `Universe`s of different sizes.
 
 ```rust
 #[wasm_bindgen]
@@ -421,7 +421,7 @@ impl Universe {
 }
 ```
 
-Now we are going to make some public functions for our `Universe`. We aren't going to make them wasm functions, however. Our wasm functions cannot return borrowed references or take dynamically sized vectors as function arguments. Try making them wasm functions and take a look at the errors you get.
+Now we are going to make some public Rust functions for our `Universe`. We aren't going to compile them to WebAssembly, however. Rust compiled into WebAssembly functions cannot return borrowed references or take dynamically sized vectors as function arguments. Try compiling the Rust to WebAssembly by adding the `#[wasm_bindgen]` attribute and take a look at the errors you get.
 
 ```rust
 pub fn cells(u: &Universe) -> &[Cell] {
@@ -444,7 +444,7 @@ pub fn set_cells(u: &mut Universe, indices: Vec<u32>) -> &mut Universe {
 }
 ```
 
-The last step for our test setup is to create a builder for our input spaceship for the `tick` function and the expected spaceship we will get after one tick. Since we're initializing a smaller 6 by 6 unit universe, the position of the spaceship before and after the tick was calculated manually. You can also confirm for yourself that the indices of the input spaceship after one tick are the same as the expected spaceship.
+The last step for our test setup is to create a spaceship builder function. We'll want one for our input spaceship that we'll call the `tick` function on and we'll want the expected spaceship we will get after one tick. Since we're initializing a smaller 6 by 6 unit universe, the position of the spaceship before and after the tick was calculated manually. You can also confirm for yourself that the indices of the input spaceship after one tick are the same as the expected spaceship.
 
 ```rust
 #[wasm_bindgen]
@@ -464,19 +464,16 @@ pub fn expected_spaceship() -> Universe {
 
 Now we're going to create our test in the `wasm_game_of_life/tests/web.rs` file.
 
-Before we do that, there is already one working test in the file. You can confirm that your wasm tests are working by running
-```
-wasm-pack test --chrome --headless
-```
+Before we do that, there is already one working test in the file. You can confirm that the Rust test functions compiled to WebAssembly are working by running `wasm-pack test --chrome --headless` in the `wasm-game-of-life` directory.
 
-In the `wasm_game_of_life/tests/web.rs` file we need to export our `wasm_game_of_life` crate and the functions we want to use.
+In the `wasm_game_of_life/tests/web.rs` file, we need to export our `wasm_game_of_life` crate and the functions we want to use.
 
 ```rust
 extern crate wasm_game_of_life;
 use wasm_game_of_life::{expected_spaceship, input_spaceship, cells};
 ```
 
-Now we will add the function we want to test. Here is the implementation for our `test_tick` function. We add the `#[wasm_bindgen_test]` attribute so we can execute our test code in wasm.
+Now we will write the implementation for our `test_tick` function. We create an instance of our `input_spaceship()` and our `expected_spaceship`. We call `tick` on the `input_universe`. Finally, we use the `assert_eq!` macro to call the public Rust functions `cells` to ensure that `input_universe` and `expected_universe` have the same `Cell` array values. We add the `#[wasm_bindgen_test]` attribute to our code block so we can compile our Rust test code to WebAssembly and use `wasm-build test` to test the WebAssembly code.
 
 ```rust
 #[wasm_bindgen_test]
@@ -488,13 +485,13 @@ pub fn test_tick() {
     // after one tick in our universe.
     let expected_universe = expected_spaceship();
 
-    //// Call `tick` and then see if the cells in the `Universe`s are the same.
+    // Call `tick` and then see if the cells in the `Universe`s are the same.
     input_universe.tick();
     assert_eq!(cells(&input_universe), cells(&expected_universe));
 }
 ```
 
-We can run the test using `wasm-pack test --firefox --headless` and see our tests pass.
+Run the tests within the `wasm-game-of-life` directory by running `wasm-pack test --firefox --headless`.
 
 ## Rendering to Canvas Directly from Memory
 
