@@ -658,14 +658,39 @@ encourage you to go learn about hashlife on your own!
         cells: FixedBitSet,
     }
     ```
+    
+    The Universe constructor can be adjusted the following way:
+    
+    ```rust
+    pub fn new() -> Universe {
+        let width = 64;
+        let height = 64;
+
+        let size = (width * height) as usize;
+        let mut cells = FixedBitSet::with_capacity(size);
+
+        for i in 0..size {
+            cells.set(i, i % 2 == 0 || i % 7 == 0);
+        }
+
+        Universe {
+            width,
+            height,
+            cells,
+        }
+    }
+    ```
 
     To update a cell in the next tick of the universe, we use the `set` method
     of `FixedBitSet`:
 
     ```rust
-    next.set(idx, match next_cell {
-        Cell::Alive => true,
-        Cell::Dead => false,
+    next.set(idx, match (cell, live_neighbors) {
+        (true, x) if x < 2 => false,
+        (true, 2) | (true, 3) => true,
+        (true, x) if x > 3 => false,
+        (false, 3) => true,
+        (otherwise, _) => otherwise
     });
     ```
 
@@ -677,7 +702,7 @@ encourage you to go learn about hashlife on your own!
     impl Universe {
         // ...
 
-        pub fn cells(&self) -> *const Cell {
+        pub fn cells(&self) -> *const u32 {
             self.cells.as_slice().as_ptr()
         }
     }
@@ -698,7 +723,7 @@ encourage you to go learn about hashlife on your own!
     const bitIsSet = (n, arr) => {
       let byte = Math.floor(n / 8);
       let mask = 1 << (n % 8);
-      return (arr[byte] & mask) == mask;
+      return (arr[byte] & mask) === mask;
     };
     ```
 
