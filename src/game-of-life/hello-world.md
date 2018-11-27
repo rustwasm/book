@@ -193,12 +193,18 @@ publish our package to npm.
 To take our `wasm-game-of-life` package and use it in a Web page, we use [the
 `create-wasm-app` JavaScript project template][create-wasm-app].
 
+### Global install template
+
+```
+npm install -g create-wasm-app
+```
+
 [create-wasm-app]: https://github.com/rustwasm/create-wasm-app
 
 Run this command within the `wasm-game-of-life` directory:
 
 ```
-npm init wasm-app www
+create-wasm-app www
 ```
 
 Here's what our new `wasm-game-of-life/www` subdirectory contains:
