@@ -39,8 +39,8 @@ impl Universe {
 We are going to create another `impl Universe` block inside our
 `wasm_game_of_life/src/lib.rs` file without the `#[wasm_bindgen]` attribute.
 There are a few functions we need for testing that we don't want to expose to
-our JavaScript functions. Rust generated WebAssembly functions cannot return
-borrowed references. Try compiling the Rust generated WebAssembly with the
+our JavaScript. Rust-generated WebAssembly functions cannot return
+borrowed references. Try compiling the Rust-generated WebAssembly with the
 attribute and take a look at the errors you get.
 
 We are going to write the implementation of `get_cells` to get the contents of
@@ -71,8 +71,8 @@ Now we're going to create our test in the `wasm_game_of_life/tests/web.rs` file.
 Before we do that, there is already one working test in the file. You can
 confirm that the Rust-generated WebAssembly test is working by running
 `wasm-pack test --chrome --headless` in the `wasm-game-of-life` directory.
-You can also use `--firefox`, `--safari`, `--node`, and other browsers to test
-your code.
+You can also use the `--firefox`, `--safari`, and `--node` options to
+test your code in those browsers.
 
 In the `wasm_game_of_life/tests/web.rs` file, we need to export our
 `wasm_game_of_life` crate and the `Universe` type.
@@ -83,13 +83,15 @@ use wasm_game_of_life::Universe;
 ```
 
 In the `wasm_game_of_life/tests/web.rs` file we'll want to create some
-spaceship builder functions. We'll want one for our input spaceship that we'll
-call the `tick` function on and we'll want the expected spaceship we will get
-after one tick. We picked the cells that we want to initialize as `Alive` to
-create our spaceship in the `input_spaceship` function. The position of the
-spaceship in the `expected_spaceship` function after the tick was calculated
-manually. You can confirm for yourself that the cells of the input spaceship
-after one tick is the same as the expected spaceship.
+spaceship builder functions.
+
+We'll want one for our input spaceship that we'll call the `tick` function on
+and we'll want the expected spaceship we will get after one tick. We picked the
+cells that we want to initialize as `Alive` to create our spaceship in the
+`input_spaceship` function. The position of the spaceship in the
+`expected_spaceship` function after the tick of the `input_spaceship` was
+calculated manually. You can confirm for yourself that the cells of the input
+spaceship after one tick is the same as the expected spaceship.
 
 ```rust
 #[cfg(test)]
