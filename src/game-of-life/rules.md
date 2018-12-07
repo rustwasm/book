@@ -63,9 +63,9 @@ Put it all together, and we get this universe after the next tick:
 
 From these simple, deterministic rules, strange and exciting behavior emerges:
 
-| Gosper's glider gun | Pulsar | Space ship |
+| Glider | Pulsar | Space ship |
 |---|---|---|
-| ![Gosper's glider gun](https://upload.wikimedia.org/wikipedia/commons/e/e5/Gospers_glider_gun.gif) | ![Pulsar](https://upload.wikimedia.org/wikipedia/commons/0/07/Game_of_life_pulsar.gif) | ![Lighweight space ship](https://upload.wikimedia.org/wikipedia/commons/3/37/Game_of_life_animated_LWSS.gif) |
+| ![Glider](../images/game-of-life/Game_of_life_animated_glider.gif) | ![Pulsar](../images/game-of-life/Game_of_life_pulsar.gif) | ![Lighweight space ship](../images/game-of-life/Game_of_life_animated_LWSS.gif) |
 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/C2vgICfQawE?rel=0&amp;start=65" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

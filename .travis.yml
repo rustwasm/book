@@ -4,6 +4,7 @@ language: rust
 
 before_install:
   - cargo install mdbook --vers '0.2.0' --debug --force
+  - cargo install mdbook-epub --vers '0.1.0' --debug --force
 
 script:
   - mdbook build
@@ -12,7 +13,7 @@ deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  local-dir: book
+  local-dir: book/html
   keep-history: false
   on:
     branch: master
