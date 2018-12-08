@@ -216,20 +216,12 @@ impl Universe {
                 let live_neighbors = self.live_neighbor_count(row, col);
 
                 let next_cell = match (cell, live_neighbors) {
-                    // Rule 1: Any live cell with fewer than two live neighbours
-                    // dies, as if caused by underpopulation.
-                    (Cell::Alive, x) if x < 2 => Cell::Dead,
-                    // Rule 2: Any live cell with two or three live neighbours
-                    // lives on to the next generation.
-                    (Cell::Alive, 2) | (Cell::Alive, 3) => Cell::Alive,
-                    // Rule 3: Any live cell with more than three live
-                    // neighbours dies, as if by overpopulation.
-                    (Cell::Alive, x) if x > 3 => Cell::Dead,
-                    // Rule 4: Any dead cell with exactly three live neighbours
-                    // becomes a live cell, as if by reproduction.
-                    (Cell::Dead, 3) => Cell::Alive,
-                    // All other cells remain in the same state.
-                    (otherwise, _) => otherwise,
+                    // The rules for life are simple by working backwards
+                    // - any cell with 3 neighbours will be alive at the next tick
+                    // - any cell that's alive and has 2 neighbours will stay alive
+                    (Cell::Alive, 2) | (_, 3) => Cell::Alive,
+                    // - Otherwise, it's dead
+                    _ => Cell::Dead,
                 };
 
                 next[idx] = next_cell;
@@ -609,21 +601,21 @@ encourage you to go learn about hashlife on your own!
   <details>
     <summary>Answer</summary>
     *First, add `js-sys` as a dependency in `wasm-game-of-life/Cargo.toml`:*
-  
+
     ```toml
     # ...
     [dependencies]
     js-sys = "0.3"
     # ...
     ```
-  
+
     *Then, use the `js_sys::Math::random` function to flip a coin:*
-  
+
     ```rust
     extern crate js_sys;
-  
+
     // ...
-  
+
     if js_sys::Math::random() < 0.5 {
         // Alive...
     } else {
@@ -658,9 +650,9 @@ encourage you to go learn about hashlife on your own!
         cells: FixedBitSet,
     }
     ```
-    
+
     The Universe constructor can be adjusted the following way:
-    
+
     ```rust
     pub fn new() -> Universe {
         let width = 64;
@@ -686,11 +678,8 @@ encourage you to go learn about hashlife on your own!
 
     ```rust
     next.set(idx, match (cell, live_neighbors) {
-        (true, x) if x < 2 => false,
-        (true, 2) | (true, 3) => true,
-        (true, x) if x > 3 => false,
-        (false, 3) => true,
-        (otherwise, _) => otherwise
+        (true, 2) | (_, 3) => true,
+        _ => false
     });
     ```
 
