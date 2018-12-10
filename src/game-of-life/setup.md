@@ -47,7 +47,7 @@ command:
 npm install npm@latest -g
 ```
 
-[rust-install]: https://www.rust-lang.org/en-US/install.html
+[rust-install]: https://www.rust-lang.org/tools/install
 [npm-install]: https://www.npmjs.com/get-npm
 [wasm-pack]: https://github.com/rustwasm/wasm-pack
 [cargo-generate]: https://github.com/ashleygwilliams/cargo-generate
