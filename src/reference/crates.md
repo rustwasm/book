@@ -32,12 +32,18 @@ standard ECMAScript environments, not just the Web, such as Node.js.
 Raw `wasm-bindgen` imports for all the Web's APIs, such as DOM manipulation,
 `setTimeout`, Web GL, Web Audio, etc.
 
-## Error Reporting
+## Error Reporting and Logging
 
 ### `console_error_panic_hook` | [crates.io](https://crates.io/crates/console_error_panic_hook) | [repository](https://github.com/rustwasm/console_error_panic_hook)
 
 This crate lets you debug panics on `wasm32-unknown-unknown` by providing a
 panic hook that forwards panic messages to `console.error`.
+
+### `console_log` | [crates.io](https://crates.io/crates/console_log) | [repository](https://github.com/iamcodemaker/console_log)
+
+This crate provides a backend for [the `log`
+crate](https://crates.io/crates/log) that routes logged messages to the devtools
+console.
 
 ## Dynamic Allocation
 
