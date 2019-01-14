@@ -721,8 +721,8 @@ encourage you to go learn about hashlife on your own!
 
     ```js
     const bitIsSet = (n, arr) => {
-      let byte = Math.floor(n / 8);
-      let mask = 1 << (n % 8);
+      const byte = Math.floor(n / 8);
+      const mask = 1 << (n % 8);
       return (arr[byte] & mask) === mask;
     };
     ```
