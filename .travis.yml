@@ -1,18 +1,15 @@
-sudo: false
-dist: trusty
 language: rust
 
 before_install:
-  - cargo install mdbook --vers '0.2.2' --debug --force
+  - curl -L https://github.com/rust-lang-nursery/mdBook/releases/download/v0.2.1/mdbook-v0.2.1-x86_64-unknown-linux-musl.tar.gz | tar xzf -
+  - export PATH=$PATH:`pwd`
 
 script:
   - mdbook build
 
 deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  local-dir: book
-  keep-history: false
+  provider: script
+  script: curl -LsSf https://git.io/fhJ8n | rustc - && (cd book && ../rust_out)
+  skip_cleanup: true
   on:
     branch: master
