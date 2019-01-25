@@ -73,6 +73,10 @@ relocs, for example.
 
 An embeddable WebAssembly interpreter from Parity.
 
+### `wasmer-runtime` | [crates.io](https://crates.io/crates/wasmer-runtime) | [repository](https://github.com/wasmerio/wasmer)
+
+An easy-to-use, embeddable WebAssembly JIT runtime from [Wasmer](https://wasmer.io).
+
 ### `cranelift-wasm` | [crates.io](https://crates.io/crates/cranelift-wasm) | [repository](https://github.com/CraneStation/cranelift)
 
 Compile WebAssembly to the native host's machine code. Part of the Cranelift (né
