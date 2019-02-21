@@ -1,7 +1,7 @@
 language: rust
 
 before_install:
-  - curl -L https://github.com/rust-lang-nursery/mdBook/releases/download/v0.2.1/mdbook-v0.2.1-x86_64-unknown-linux-musl.tar.gz | tar xzf -
+  - curl -L https://github.com/rust-lang-nursery/mdBook/releases/download/v0.2.3/mdbook-v0.2.3-x86_64-unknown-linux-musl.tar.gz | tar xzf -
   - export PATH=$PATH:`pwd`
 
 script:
