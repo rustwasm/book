@@ -1,11 +1,17 @@
 language: rust
 
-before_install:
-  - curl -L https://github.com/rust-lang-nursery/mdBook/releases/download/v0.2.3/mdbook-v0.2.3-x86_64-unknown-linux-musl.tar.gz | tar xzf -
-  - export PATH=$PATH:`pwd`
+# before_install:
+#   - curl -L https://github.com/rust-lang-nursery/mdBook/releases/download/v0.2.3/mdbook-v0.2.3-x86_64-unknown-linux-musl.tar.gz | tar xzf -
+#   - export PATH=$PATH:`pwd`
+
+# Temporarily disable using pre-built binaries until
+# https://github.com/rust-lang-nursery/mdBook/issues/820 is fixed.
+before_script:
+  - cargo install mdbook --version 0.2.3
 
 script:
   - mdbook build
+
 
 deploy:
   provider: script
