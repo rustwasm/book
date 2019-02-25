@@ -42,7 +42,7 @@ demo] with the above code.
 ## Linear Memory
 
 WebAssembly has a very simple [memory model]. A wasm module has access to a
-single "linear memory", which is essentially a flat array of a bytes. This
+single "linear memory", which is essentially a flat array of bytes. This
 [memory can be grown] by a multiple of the page size (64K). It cannot be shrunk.
 
 ## Is WebAssembly Just for the Web?
