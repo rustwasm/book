@@ -10,8 +10,8 @@ before_script:
   - cargo install mdbook --version 0.2.3
 
 script:
+  - mv _theme theme
   - mdbook build
-
 
 deploy:
   provider: script
