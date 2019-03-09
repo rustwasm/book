@@ -314,6 +314,8 @@ wasm.greet();
 
 Our Web page is now ready to be served locally!
 
+> Alternatively, instead of using `npm link` you can add local package to `package.json` in `www` directory via relative path. Just add `"wasm-game-of-life": "file:../pkg"` into either `dependencies` or `devDependencies` section of `package.json`.
+
 ## Serving Locally
 
 Next, open a new terminal for the development server. Running the server in a
