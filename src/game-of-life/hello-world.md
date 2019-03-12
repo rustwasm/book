@@ -276,7 +276,10 @@ JavaScript bundler and its development server.
 > Note that `webpack` is not required for working with Rust and WebAssembly, it
 > is just the bundler and development server we've chosen for convenience
 > here. Parcel and Rollup should also support importing WebAssembly as
-> ECMAScript modules.
+> ECMAScript modules. You can also use Rust and WebAssembly [without a
+> bundler][] if you prefer!
+
+[without a bundler]: https://rustwasm.github.io/docs/wasm-bindgen/examples/without-a-bundler.html
 
 ### Using our Local `wasm-game-of-life` Package in `www`
 
