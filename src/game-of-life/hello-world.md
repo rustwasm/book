@@ -284,26 +284,20 @@ Rather than use the `hello-wasm-pack` package from npm, we want to use our local
 `wasm-game-of-life` package instead. This will allow us to incrementally develop
 our Game of Life program.
 
-First, run `npm link` inside the `wasm-game-of-life/pkg` directory, so that the
-local package can be depended upon by other local packages without publishing
-them to npm:
+Open up `wasm-game-of-life/www/package.json` and edit the `"dependencies"` to
+include a `"wasm-game-of-life": "file:../pkg"` entry:
 
-```bash
-npm link
+```js
+{
+  // ...
+  "dependencies": {
+    "wasm-game-of-life": "file:../pkg", // Add this line!
+    // ...
+  }
+}
 ```
 
-> 🐞 Did you get `EACCESS` or permissions errors when running `npm link`? [How
-> to Prevent Permissions Errors with
-> `npm`.](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
-
-Second, use the `npm link`ed version of the `wasm-game-of-life` from the `www`
-package by running this command within `wasm-game-of-life/www`:
-
-```
-npm link wasm-game-of-life
-```
-
-Finally, modify `wasm-game-of-life/www/index.js` to import `wasm-game-of-life`
+Next, modify `wasm-game-of-life/www/index.js` to import `wasm-game-of-life`
 instead of the `hello-wasm-pack` package:
 
 ```js
@@ -313,8 +307,6 @@ wasm.greet();
 ```
 
 Our Web page is now ready to be served locally!
-
-> Alternatively, instead of using `npm link` you can add local package to `package.json` in `www` directory via relative path. Just add `"wasm-game-of-life": "file:../pkg"` into either `dependencies` or `devDependencies` section of `package.json`.
 
 ## Serving Locally
 
