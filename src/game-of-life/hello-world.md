@@ -19,9 +19,19 @@ cargo generate --git https://github.com/rustwasm/wasm-pack-template
 This should prompt you for the new project's name. We will use
 **"wasm-game-of-life"**.
 
+```text
+wasm-game-of-life
+```
+
 ## What's Inside
 
-Enter the new `wasm-game-of-life` project and let's take a look at its contents:
+Enter the new `wasm-game-of-life` project 
+
+```
+cd wasm-game-of-life
+```
+
+and let's take a look at its contents:
 
 ```text
 wasm-game-of-life/
