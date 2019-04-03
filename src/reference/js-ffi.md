@@ -70,7 +70,7 @@ Fortunately, this interop story is very amenable to treatment through a generic
 write idiomatic Rust function signatures that map to idiomatic JS functions,
 automatically.
 
-[wasm-bindgen]: https://github.com/alexcrichton/wasm-bindgen
+[wasm-bindgen]: https://github.com/rustwasm/wasm-bindgen
 
 ## Custom Sections
 
