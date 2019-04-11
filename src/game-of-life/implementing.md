@@ -35,14 +35,14 @@ JavaScript's garbage-collected heap — where `Object`s, `Array`s, and DOM nodes
 are allocated — is distinct from WebAssembly's linear memory space, where our
 Rust values live. WebAssembly currently has no direct access to the
 garbage-collected heap (as of April 2018, this is expected to change with the
-["host bindings" proposal][host-bindings]). JavaScript, on the other hand, can
+["WebIDL bindings" proposal][webidl-bindings]). JavaScript, on the other hand, can
 read and write to the WebAssembly linear memory space, but only as an
 [`ArrayBuffer`][array-buf] of scalar values (`u8`, `i32`, `f64`,
 etc...). WebAssembly functions also take and return scalar values. These are the
 building blocks from which all WebAssembly and JavaScript communication is
 constituted.
 
-[host-bindings]: https://github.com/WebAssembly/host-bindings/blob/master/proposals/host-bindings/Overview.md
+[webidl-bindings]: https://github.com/WebAssembly/webidl-bindings/blob/master/proposals/webidl-bindings/Explainer.md
 [array-buf]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 
 `wasm_bindgen` defines a common understanding of how to work with compound
@@ -609,21 +609,21 @@ encourage you to go learn about hashlife on your own!
   <details>
     <summary>Answer</summary>
     *First, add `js-sys` as a dependency in `wasm-game-of-life/Cargo.toml`:*
-  
+
     ```toml
     # ...
     [dependencies]
     js-sys = "0.3"
     # ...
     ```
-  
+
     *Then, use the `js_sys::Math::random` function to flip a coin:*
-  
+
     ```rust
     extern crate js_sys;
-  
+
     // ...
-  
+
     if js_sys::Math::random() < 0.5 {
         // Alive...
     } else {
@@ -658,9 +658,9 @@ encourage you to go learn about hashlife on your own!
         cells: FixedBitSet,
     }
     ```
-    
+
     The Universe constructor can be adjusted the following way:
-    
+
     ```rust
     pub fn new() -> Universe {
         let width = 64;
