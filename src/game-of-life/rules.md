@@ -92,7 +92,7 @@ From these simple, deterministic rules, strange and exciting behavior emerges:
   every generation is always the same.
 
   <details>
-    <summar>Answer</summary>
+    <summary>Answer</summary>
 
     There are an infinite number of stable universes! The trivially stable
     universe is the empty universe. A two-by-two square of live cells is also a
