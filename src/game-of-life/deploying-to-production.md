@@ -12,7 +12,7 @@ within the `wasm-game-of-life` directory:
 wasm-pack build
 ```
 
-And then we bundle our JavaScript and and HTML by running `webpack` within the
+And then we bundle our JavaScript and HTML by running `webpack` within the
 `wasm-game-of-life/www` directory:
 
 ```
@@ -37,7 +37,7 @@ To use our application from a server, it must be properly configured to serve
 [MIME]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 
 > **Note**: Server configuration varies by operating system, it's recommended
-> you look up a tutorial for your specific operating system and webserver. These
+> you look up a tutorial for your specific operating system and web server. These
 > examples assume an environment like Debian/Ubuntu or CentOS/Red Hat/Fedora.
 
 For example with nginx, [add `application/wasm wasm;` to `/etc/nginx/mime.types`
