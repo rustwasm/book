@@ -286,7 +286,10 @@ JavaScript bundler and its development server.
 > Note that `webpack` is not required for working with Rust and WebAssembly, it
 > is just the bundler and development server we've chosen for convenience
 > here. Parcel and Rollup should also support importing WebAssembly as
-> ECMAScript modules.
+> ECMAScript modules. You can also use Rust and WebAssembly [without a
+> bundler][] if you prefer!
+
+[without a bundler]: https://rustwasm.github.io/docs/wasm-bindgen/examples/without-a-bundler.html
 
 ### Using our Local `wasm-game-of-life` Package in `www`
 
@@ -294,26 +297,20 @@ Rather than use the `hello-wasm-pack` package from npm, we want to use our local
 `wasm-game-of-life` package instead. This will allow us to incrementally develop
 our Game of Life program.
 
-First, run `npm link` inside the `wasm-game-of-life/pkg` directory, so that the
-local package can be depended upon by other local packages without publishing
-them to npm:
+Open up `wasm-game-of-life/www/package.json` and edit the `"dependencies"` to
+include a `"wasm-game-of-life": "file:../pkg"` entry:
 
-```bash
-npm link
+```js
+{
+  // ...
+  "dependencies": {
+    "wasm-game-of-life": "file:../pkg", // Add this line!
+    // ...
+  }
+}
 ```
 
-> 🐞 Did you get `EACCESS` or permissions errors when running `npm link`? [How
-> to Prevent Permissions Errors with
-> `npm`.](https://docs.npmjs.com/getting-started/fixing-npm-permissions)
-
-Second, use the `npm link`ed version of the `wasm-game-of-life` from the `www`
-package by running this command within `wasm-game-of-life/www`:
-
-```
-npm link wasm-game-of-life
-```
-
-Finally, modify `wasm-game-of-life/www/index.js` to import `wasm-game-of-life`
+Next, modify `wasm-game-of-life/www/index.js` to import `wasm-game-of-life`
 instead of the `hello-wasm-pack` package:
 
 ```js
