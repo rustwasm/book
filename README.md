@@ -1,4 +1,21 @@
-# The Rust and WebAssembly Book
+<div align="center">
+
+  <h1>The Rust and WebAssembly Book</h1>
+
+  <strong>This small book describes how to use Rust and WebAssembly together and has a tutorial with exercises.</strong>
+
+  <h3>
+    <a href="https://rustwasm.github.io/docs/book/">Read the Book</a>
+    <span> | </span>
+    <a href="https://github.com/rustwasm/book/blob/master/CONTRIBUTING.md">Contributing</a>
+    <span> | </span>
+    <a href="https://discordapp.com/channels/442252698964721669/443151097398296587">Chat</a>
+  </h3>
+
+  <sub>Built with 🦀🕸 by <a href="https://rustwasm.github.io/">The Rust and WebAssembly Working Group</a></sub>
+</div>
+
+## About
 
 This repo contains documentation on using Rust for wasm, common workflows, how
 to get started and more. It acts as a guide for how to do some neat things with
