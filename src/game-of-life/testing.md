@@ -119,7 +119,7 @@ Then, we call `tick` on the `input_universe`. Finally, we use the `assert_eq!`
 macro to call `get_cells()` to ensure that `input_universe` and
 `expected_universe` have the same `Cell` array values. We add the
 `#[wasm_bindgen_test]` attribute to our code block so we can test our
-Rust-generated WebAssembly code and use `wasm-build test` to test the
+Rust-generated WebAssembly code and use `wasm-pack test` to test the
 WebAssembly code.
 
 ```rust
