@@ -319,6 +319,11 @@ import * as wasm from "wasm-game-of-life";
 wasm.greet();
 ```
 
+Since we declared a new dependency, we need to install it:
+```text
+npm install
+```
+
 Our Web page is now ready to be served locally!
 
 ## Serving Locally
