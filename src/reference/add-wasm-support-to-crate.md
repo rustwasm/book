@@ -69,7 +69,7 @@ If you must perform I/O in your library, then it cannot be synchronous. There is
 only asynchronous I/O on the Web. Use [the `futures`
 crate](https://crates.io/crates/futures) and [the `wasm-bindgen-futures`
 crate](https://rustwasm.github.io/wasm-bindgen/api/wasm_bindgen_futures/) to
-manage asynchronous I/O. If you're library functions are generic over some
+manage asynchronous I/O. If your library functions are generic over some
 future type `F`, then that future can be implemented via `fetch` on the Web or
 via non-blocking I/O provided by the operating system.
 
