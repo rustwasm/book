@@ -60,4 +60,4 @@ flavors (including both on the Web and [Node.js]).
 [value types]: https://webassembly.github.io/spec/core/syntax/types.html#value-types
 [Node.js]: https://nodejs.org
 [S-expressions]: https://en.wikipedia.org/wiki/S-expression
-[wat2wasm demo]: https://cdn.rawgit.com/WebAssembly/wabt/aae5a4b7/demo/wat2wasm/
+[wat2wasm demo]: https://webassembly.github.io/wabt/demo/wat2wasm/
