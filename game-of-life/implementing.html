@@ -1,0 +1,919 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Implementing Life - Rust and WebAssembly</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../why-rust-and-webassembly.html"><strong aria-hidden="true">2.</strong> Why Rust and WebAssembly?</a></li><li><a href="../background-and-concepts.html"><strong aria-hidden="true">3.</strong> Background And Concepts</a></li><li><ol class="section"><li><a href="../what-is-webassembly.html"><strong aria-hidden="true">3.1.</strong> What is WebAssembly?</a></li><li class="spacer"></li></ol></li><li><a href="../game-of-life/introduction.html"><strong aria-hidden="true">4.</strong> Tutorial</a></li><li><ol class="section"><li><a href="../game-of-life/setup.html"><strong aria-hidden="true">4.1.</strong> Setup</a></li><li><a href="../game-of-life/hello-world.html"><strong aria-hidden="true">4.2.</strong> Hello, World!</a></li><li><a href="../game-of-life/rules.html"><strong aria-hidden="true">4.3.</strong> Rules</a></li><li><a href="../game-of-life/implementing.html" class="active"><strong aria-hidden="true">4.4.</strong> Implementing Life</a></li><li><a href="../game-of-life/testing.html"><strong aria-hidden="true">4.5.</strong> Testing Life</a></li><li><a href="../game-of-life/debugging.html"><strong aria-hidden="true">4.6.</strong> Debugging</a></li><li><a href="../game-of-life/interactivity.html"><strong aria-hidden="true">4.7.</strong> Adding Interactivity</a></li><li><a href="../game-of-life/time-profiling.html"><strong aria-hidden="true">4.8.</strong> Time Profiling</a></li><li><a href="../game-of-life/code-size.html"><strong aria-hidden="true">4.9.</strong> Shrinking .wasm Size</a></li><li><a href="../game-of-life/publishing-to-npm.html"><strong aria-hidden="true">4.10.</strong> Publishing to npm</a></li><li class="spacer"></li></ol></li><li><a href="../reference/index.html"><strong aria-hidden="true">5.</strong> Reference</a></li><li><ol class="section"><li><a href="../reference/crates.html"><strong aria-hidden="true">5.1.</strong> Crates You Should Know</a></li><li><a href="../reference/tools.html"><strong aria-hidden="true">5.2.</strong> Tools You Should Know</a></li><li><a href="../reference/project-templates.html"><strong aria-hidden="true">5.3.</strong> Project Templates</a></li><li><a href="../reference/debugging.html"><strong aria-hidden="true">5.4.</strong> Debugging</a></li><li><a href="../reference/time-profiling.html"><strong aria-hidden="true">5.5.</strong> Time Profiling</a></li><li><a href="../reference/code-size.html"><strong aria-hidden="true">5.6.</strong> Shrinking .wasm Size</a></li><li><a href="../reference/js-ffi.html"><strong aria-hidden="true">5.7.</strong> JavaScript Interoperation</a></li><li><a href="../reference/which-crates-work-with-wasm.html"><strong aria-hidden="true">5.8.</strong> Which Crates Will Work Off-the-Shelf with WebAssembly?</a></li><li><a href="../reference/add-wasm-support-to-crate.html"><strong aria-hidden="true">5.9.</strong> How to Add WebAssembly Support to a General-Purpose Crate</a></li><li><a href="../reference/deploying-to-production.html"><strong aria-hidden="true">5.10.</strong> Deploying Rust and WebAssembly to Production</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <style>
+  header.warning {
+    background-color: rgb(242, 222, 222);
+    border-bottom-color: rgb(238, 211, 215);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.666667px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color: rgb(238, 211, 215);
+    border-left-style: solid;
+    border-left-width: 0.666667px;
+    border-right-color: rgb(238, 211, 215);
+    border-right-style: solid;
+    border-right-width: 0.666667px;
+    border-top-color: rgb(238, 211, 215);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 0.666667px;
+    color: rgb(185, 74, 72);
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 30px;
+    padding-bottom: 8px;
+    padding-left: 14px;
+    padding-right: 35px;
+    padding-top: 8px;
+    text-align: center;
+  }
+</style>
+<header class='warning'>
+  This is <strong>unpublished</strong> documentation of
+  working with Rust and WebAssembly, the published documentation is available
+  <a href="https://rustwasm.github.io/docs/book/">
+    on the main Rust and WebAssembly documentation site
+  </a>. Features documented here may not be available in released versions of
+  tooling for Rust and WebAssembly.
+</header>
+
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust and WebAssembly</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#implementing-conways-game-of-life" id="implementing-conways-game-of-life"><h1>Implementing Conway's Game of Life</h1></a>
+<a class="header" href="#design" id="design"><h2>Design</h2></a>
+<p>Before we dive in, we have some design choices to consider.</p>
+<a class="header" href="#infinite-universe" id="infinite-universe"><h3>Infinite Universe</h3></a>
+<p>The Game of Life is played in an infinite universe, but we do not have infinite
+memory and compute power. Working around this rather annoying limitation usually
+comes in one of three flavors:</p>
+<ol>
+<li>
+<p>Keep track of which subset of the universe has interesting things happening,
+and expand this region as needed. In the worst case, this expansion is
+unbounded and the implementation will get slower and slower and eventually
+run out of memory.</p>
+</li>
+<li>
+<p>Create a fixed-size universe, where cells on the edges have fewer neighbors
+than cells in the middle. The downside with this approach is that infinite
+patterns, like gliders, that reach the end of the universe are snuffed out.</p>
+</li>
+<li>
+<p>Create a fixed-size, periodic universe, where cells on the edges have
+neighbors that wrap around to the other side of the universe. Because
+neighbors wrap around the edges of the universe, gliders can keep running
+forever.</p>
+</li>
+</ol>
+<p>We will implement the third option.</p>
+<a class="header" href="#interfacing-rust-and-javascript" id="interfacing-rust-and-javascript"><h3>Interfacing Rust and JavaScript</h3></a>
+<blockquote>
+<p>⚡ This is one of the most important concepts to understand and take away from
+this tutorial!</p>
+</blockquote>
+<p>JavaScript's garbage-collected heap — where <code>Object</code>s, <code>Array</code>s, and DOM nodes
+are allocated — is distinct from WebAssembly's linear memory space, where our
+Rust values live. WebAssembly currently has no direct access to the
+garbage-collected heap (as of April 2018, this is expected to change with the
+<a href="https://github.com/WebAssembly/interface-types/blob/master/proposals/interface-types/Explainer.md">&quot;Interface Types&quot; proposal</a>). JavaScript, on the other hand, can
+read and write to the WebAssembly linear memory space, but only as an
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer"><code>ArrayBuffer</code></a> of scalar values (<code>u8</code>, <code>i32</code>, <code>f64</code>,
+etc...). WebAssembly functions also take and return scalar values. These are the
+building blocks from which all WebAssembly and JavaScript communication is
+constituted.</p>
+<p><code>wasm_bindgen</code> defines a common understanding of how to work with compound
+structures across this boundary. It involves boxing Rust structures, and
+wrapping the pointer in a JavaScript class for usability, or indexing into a
+table of JavaScript objects from Rust. <code>wasm_bindgen</code> is very convenient, but it
+does not remove the need to consider our data representation, and what values
+and structures are passed across this boundary. Instead, think of it as a tool
+for implementing the interface design you choose.</p>
+<p>When designing an interface between WebAssembly and JavaScript, we want to
+optimize for the following properties:</p>
+<ol>
+<li>
+<p><strong>Minimizing copying into and out of the WebAssembly linear memory.</strong>
+Unnecessary copies impose unnecessary overhead.</p>
+</li>
+<li>
+<p><strong>Minimizing serializing and deserializing.</strong> Similar to copies, serializing
+and deserializing also imposes overhead, and often imposes copying as
+well. If we can pass opaque handles to a data structure — instead of
+serializing it on one side, copying it into some known location in the
+WebAssembly linear memory, and deserializing on the other side — we can often
+reduce a lot of overhead. <code>wasm_bindgen</code> helps us define and work with opaque
+handles to JavaScript <code>Object</code>s or boxed Rust structures.</p>
+</li>
+</ol>
+<p>As a general rule of thumb, a good JavaScript↔WebAssembly interface design is
+often one where large, long-lived data structures are implemented as Rust types
+that live in the WebAssembly linear memory, and are exposed to JavaScript as
+opaque handles. JavaScript calls exported WebAssembly functions that take these
+opaque handles, transform their data, perform heavy computations, query the
+data, and ultimately return a small, copy-able result. By only returning the
+small result of the computation, we avoid copying and/or serializing everything
+back and forth between the JavaScript garbage-collected heap and the WebAssembly
+linear memory.</p>
+<a class="header" href="#interfacing-rust-and-javascript-in-our-game-of-life" id="interfacing-rust-and-javascript-in-our-game-of-life"><h3>Interfacing Rust and JavaScript in our Game of Life</h3></a>
+<p>Let's start by enumerating some hazards to avoid. We don't want to copy the
+whole universe into and out of the WebAssembly linear memory on every tick. We
+do not want to allocate objects for every cell in the universe, nor do we want
+to impose a cross-boundary call to read and write each cell.</p>
+<p>Where does this leave us? We can represent the universe as a flat array that
+lives in the WebAssembly linear memory, and has a byte for each cell. <code>0</code> is a
+dead cell and <code>1</code> is a live cell.</p>
+<p>Here is what a 4 by 4 universe looks like in memory:</p>
+<p><img src="../images/game-of-life/universe.png" alt="Screenshot of a 4 by 4 universe" /></p>
+<p>To find the array index of the cell at a given row and column in the universe,
+we can use this formula:</p>
+<pre><code class="language-text">index(row, column, universe) = row * width(universe) + column
+</code></pre>
+<p>We have several ways of exposing the universe's cells to JavaScript. To begin,
+we will implement <a href="https://doc.rust-lang.org/1.25.0/std/fmt/trait.Display.html"><code>std::fmt::Display</code></a> for <code>Universe</code>, which we can
+use to generate a Rust <code>String</code> of the cells rendered as text characters. This
+Rust String is then copied from the WebAssembly linear memory into a JavaScript
+String in the JavaScript's garbage-collected heap, and is then displayed by
+setting HTML <code>textContent</code>. Later in the chapter, we'll evolve this
+implementation to avoid copying the universe's cells between heaps and to render
+to <code>&lt;canvas&gt;</code>.</p>
+<p><em>Another viable design alternative would be for Rust to return a list of every
+cell that changed states after each tick, instead of exposing the whole universe
+to JavaScript. This way, JavaScript wouldn't need to iterate over the whole
+universe when rendering, only the relevant subset. The trade off is that this
+delta-based design is slightly more difficult to implement.</em></p>
+<a class="header" href="#rust-implementation" id="rust-implementation"><h2>Rust Implementation</h2></a>
+<p>In the last chapter, we cloned an initial project template. We will modify that
+project template now.</p>
+<p>Let's begin by removing the <code>alert</code> import and <code>greet</code> function from
+<code>wasm-game-of-life/src/lib.rs</code>, and replacing them with a type definition for
+cells:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[wasm_bindgen]
+#[repr(u8)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Cell {
+    Dead = 0,
+    Alive = 1,
+}
+#}</code></pre></pre>
+<p>It is important that we have <code>#[repr(u8)]</code>, so that each cell is represented as
+a single byte. It is also important that the <code>Dead</code> variant is <code>0</code> and that the
+<code>Alive</code> variant is <code>1</code>, so that we can easily count a cell's live neighbors with
+addition.</p>
+<p>Next, let's define the universe. The universe has a width and a height, and a
+vector of cells of length <code>width * height</code>.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[wasm_bindgen]
+pub struct Universe {
+    width: u32,
+    height: u32,
+    cells: Vec&lt;Cell&gt;,
+}
+#}</code></pre></pre>
+<p>To access the cell at a given row and column, we translate the row and column
+into an index into the cells vector, as described earlier:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+impl Universe {
+    fn get_index(&amp;self, row: u32, column: u32) -&gt; usize {
+        (row * self.width + column) as usize
+    }
+
+    // ...
+}
+#}</code></pre></pre>
+<p>In order to calculate the next state of a cell, we need to get a count of how
+many of its neighbors are alive. Let's write a <code>live_neighbor_count</code> method to
+do just that!</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+impl Universe {
+    // ...
+
+    fn live_neighbor_count(&amp;self, row: u32, column: u32) -&gt; u8 {
+        let mut count = 0;
+        for delta_row in [self.height - 1, 0, 1].iter().cloned() {
+            for delta_col in [self.width - 1, 0, 1].iter().cloned() {
+                if delta_row == 0 &amp;&amp; delta_col == 0 {
+                    continue;
+                }
+
+                let neighbor_row = (row + delta_row) % self.height;
+                let neighbor_col = (column + delta_col) % self.width;
+                let idx = self.get_index(neighbor_row, neighbor_col);
+                count += self.cells[idx] as u8;
+            }
+        }
+        count
+    }
+}
+#}</code></pre></pre>
+<p>The <code>live_neighbor_count</code> method uses deltas and modulo to avoid special casing
+the edges of the universe with <code>if</code>s. When applying a delta of <code>-1</code>, we <em>add</em>
+<code>self.height - 1</code> and let the modulo do its thing, rather than attempting to
+subtract <code>1</code>. <code>row</code> and <code>column</code> can be <code>0</code>, and if we attempted to subtract <code>1</code>
+from them, there would be an unsigned integer underflow.</p>
+<p>Now we have everything we need to compute the next generation from the current
+one! Each of the Game's rules follows a straightforward translation into a
+condition on a <code>match</code> expression. Additionally, because we want JavaScript to
+control when ticks happen, we will put this method inside a <code>#[wasm_bindgen]</code>
+block, so that it gets exposed to JavaScript.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// Public methods, exported to JavaScript.
+#[wasm_bindgen]
+impl Universe {
+    pub fn tick(&amp;mut self) {
+        let mut next = self.cells.clone();
+
+        for row in 0..self.height {
+            for col in 0..self.width {
+                let idx = self.get_index(row, col);
+                let cell = self.cells[idx];
+                let live_neighbors = self.live_neighbor_count(row, col);
+
+                let next_cell = match (cell, live_neighbors) {
+                    // Rule 1: Any live cell with fewer than two live neighbours
+                    // dies, as if caused by underpopulation.
+                    (Cell::Alive, x) if x &lt; 2 =&gt; Cell::Dead,
+                    // Rule 2: Any live cell with two or three live neighbours
+                    // lives on to the next generation.
+                    (Cell::Alive, 2) | (Cell::Alive, 3) =&gt; Cell::Alive,
+                    // Rule 3: Any live cell with more than three live
+                    // neighbours dies, as if by overpopulation.
+                    (Cell::Alive, x) if x &gt; 3 =&gt; Cell::Dead,
+                    // Rule 4: Any dead cell with exactly three live neighbours
+                    // becomes a live cell, as if by reproduction.
+                    (Cell::Dead, 3) =&gt; Cell::Alive,
+                    // All other cells remain in the same state.
+                    (otherwise, _) =&gt; otherwise,
+                };
+
+                next[idx] = next_cell;
+            }
+        }
+
+        self.cells = next;
+    }
+
+    // ...
+}
+#}</code></pre></pre>
+<p>So far, the state of the universe is represented as a vector of cells. To make
+this human readable, let's implement a basic text renderer. The idea is to write
+the universe line by line as text, and for each cell that is alive, print the
+Unicode character <code>◼</code> (&quot;black medium square&quot;). For dead cells, we'll print <code>◻</code>
+(a &quot;white medium square&quot;).</p>
+<p>By implementing the <a href="https://doc.rust-lang.org/1.25.0/std/fmt/trait.Display.html"><code>Display</code></a> trait from Rust's standard library, we can add a
+way to format a structure in a user-facing manner. This will also automatically
+give us a <a href="https://doc.rust-lang.org/1.25.0/std/string/trait.ToString.html"><code>to_string</code></a> method.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::fmt;
+
+impl fmt::Display for Universe {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        for line in self.cells.as_slice().chunks(self.width as usize) {
+            for &amp;cell in line {
+                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
+                write!(f, &quot;{}&quot;, symbol)?;
+            }
+            write!(f, &quot;\n&quot;)?;
+        }
+
+        Ok(())
+    }
+}
+#}</code></pre></pre>
+<p>Finally, we define a constructor that initializes the universe with an
+interesting pattern of live and dead cells, as well as a <code>render</code> method:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// Public methods, exported to JavaScript.
+#[wasm_bindgen]
+impl Universe {
+    // ...
+
+    pub fn new() -&gt; Universe {
+        let width = 64;
+        let height = 64;
+
+        let cells = (0..width * height)
+            .map(|i| {
+                if i % 2 == 0 || i % 7 == 0 {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect();
+
+        Universe {
+            width,
+            height,
+            cells,
+        }
+    }
+
+    pub fn render(&amp;self) -&gt; String {
+        self.to_string()
+    }
+}
+#}</code></pre></pre>
+<p>With that, the Rust half of our Game of Life implementation is complete!</p>
+<p>Recompile it to WebAssembly by running <code>wasm-pack build</code> within the
+<code>wasm-game-of-life</code> directory.</p>
+<a class="header" href="#rendering-with-javascript" id="rendering-with-javascript"><h2>Rendering with JavaScript</h2></a>
+<p>First, let's add a <code>&lt;pre&gt;</code> element to <code>wasm-game-of-life/www/index.html</code> to
+render the universe into, just above the <code>&lt;script&gt;</code> tag:</p>
+<pre><code class="language-html">&lt;body&gt;
+  &lt;pre id=&quot;game-of-life-canvas&quot;&gt;&lt;/pre&gt;
+  &lt;script src=&quot;./bootstrap.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>Additionally, we want the <code>&lt;pre&gt;</code> centered in the middle of the Web page. We can
+use CSS flex boxes to accomplish this task. Add the following <code>&lt;style&gt;</code> tag
+inside <code>wasm-game-of-life/www/index.html</code>'s <code>&lt;head&gt;</code>:</p>
+<pre><code class="language-html">&lt;style&gt;
+  body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+&lt;/style&gt;
+</code></pre>
+<p>At the top of <code>wasm-game-of-life/www/index.js</code>, let's fix our import to bring in
+the <code>Universe</code> rather than the old <code>greet</code> function:</p>
+<pre><code class="language-js">import { Universe } from &quot;wasm-game-of-life&quot;;
+</code></pre>
+<p>Also, let's get that <code>&lt;pre&gt;</code> element we just added and instantiate a new
+universe:</p>
+<pre><code class="language-js">const pre = document.getElementById(&quot;game-of-life-canvas&quot;);
+const universe = Universe.new();
+</code></pre>
+<p>The JavaScript runs in <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">a <code>requestAnimationFrame</code>
+loop</a>. On each iteration, it draws the current universe
+to the <code>&lt;pre&gt;</code>, and then calls <code>Universe::tick</code>.</p>
+<pre><code class="language-js">const renderLoop = () =&gt; {
+  pre.textContent = universe.render();
+  universe.tick();
+
+  requestAnimationFrame(renderLoop);
+};
+</code></pre>
+<p>To start the rendering process, all we have to do is make the initial call for
+the first iteration of the rendering loop:</p>
+<pre><code class="language-js">requestAnimationFrame(renderLoop);
+</code></pre>
+<p>Make sure your development server is still running (run <code>npm run start</code> inside
+<code>wasm-game-of-life/www</code>) and this is what
+<a href="http://localhost:8080/">http://localhost:8080/</a> should look like:</p>
+<p><a href="../images/game-of-life/initial-game-of-life-pre.png"><img src="../images/game-of-life/initial-game-of-life-pre.png" alt="Screenshot of the Game of Life implementation with text rendering" /></a></p>
+<a class="header" href="#rendering-to-canvas-directly-from-memory" id="rendering-to-canvas-directly-from-memory"><h2>Rendering to Canvas Directly from Memory</h2></a>
+<p>Generating (and allocating) a <code>String</code> in Rust and then having <code>wasm-bindgen</code>
+convert it to a valid JavaScript string makes unnecessary copies of the
+universe's cells. As the JavaScript code already knows the width and
+height of the universe, and can read WebAssembly's linear memory that make up
+the cells directly, we'll modify the <code>render</code> method to return a pointer to the
+start of the cells array.</p>
+<p>Also, instead of rendering Unicode text, we'll switch to using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Canvas
+API</a>. We will use this design in the rest of the tutorial.</p>
+<p>Inside <code>wasm-game-of-life/www/index.html</code>, let's replace the <code>&lt;pre&gt;</code> we added
+earlier with a <code>&lt;canvas&gt;</code> we will render into (it too should be within the
+<code>&lt;body&gt;</code>, before the <code>&lt;script&gt;</code> that loads our JavaScript):</p>
+<pre><code class="language-html">&lt;body&gt;
+  &lt;canvas id=&quot;game-of-life-canvas&quot;&gt;&lt;/canvas&gt;
+  &lt;script src='./bootstrap.js'&gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>To get the necessary information from the Rust implementation, we'll need to add
+some more getter functions for a universe's width, height, and pointer to its
+cells array. All of these are exposed to JavaScript as well. Make these
+additions to <code>wasm-game-of-life/src/lib.rs</code>:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// Public methods, exported to JavaScript.
+#[wasm_bindgen]
+impl Universe {
+    // ...
+
+    pub fn width(&amp;self) -&gt; u32 {
+        self.width
+    }
+
+    pub fn height(&amp;self) -&gt; u32 {
+        self.height
+    }
+
+    pub fn cells(&amp;self) -&gt; *const Cell {
+        self.cells.as_ptr()
+    }
+}
+#}</code></pre></pre>
+<p>Next, in <code>wasm-game-of-life/www/index.js</code>, let's also import <code>Cell</code> from
+<code>wasm-game-of-life</code>, and define some constants that we will use when rendering
+to the canvas:</p>
+<pre><code class="language-js">import { Universe, Cell } from &quot;wasm-game-of-life&quot;;
+
+const CELL_SIZE = 5; // px
+const GRID_COLOR = &quot;#CCCCCC&quot;;
+const DEAD_COLOR = &quot;#FFFFFF&quot;;
+const ALIVE_COLOR = &quot;#000000&quot;;
+</code></pre>
+<p>Now, let's rewrite the rest of this JavaScript code to no longer write to the
+<code>&lt;pre&gt;</code>'s <code>textContent</code> but instead draw to the <code>&lt;canvas&gt;</code>:</p>
+<pre><code class="language-js">// Construct the universe, and get its width and height.
+const universe = Universe.new();
+const width = universe.width();
+const height = universe.height();
+
+// Give the canvas room for all of our cells and a 1px border
+// around each of them.
+const canvas = document.getElementById(&quot;game-of-life-canvas&quot;);
+canvas.height = (CELL_SIZE + 1) * height + 1;
+canvas.width = (CELL_SIZE + 1) * width + 1;
+
+const ctx = canvas.getContext('2d');
+
+const renderLoop = () =&gt; {
+  universe.tick();
+
+  drawGrid();
+  drawCells();
+
+  requestAnimationFrame(renderLoop);
+};
+</code></pre>
+<p>To draw the grid between cells, we draw a set of equally-spaced horizontal
+lines, and a set of equally-spaced vertical lines. These lines criss-cross to
+form the grid.</p>
+<pre><code class="language-js">const drawGrid = () =&gt; {
+  ctx.beginPath();
+  ctx.strokeStyle = GRID_COLOR;
+
+  // Vertical lines.
+  for (let i = 0; i &lt;= width; i++) {
+    ctx.moveTo(i * (CELL_SIZE + 1) + 1, 0);
+    ctx.lineTo(i * (CELL_SIZE + 1) + 1, (CELL_SIZE + 1) * height + 1);
+  }
+
+  // Horizontal lines.
+  for (let j = 0; j &lt;= height; j++) {
+    ctx.moveTo(0,                           j * (CELL_SIZE + 1) + 1);
+    ctx.lineTo((CELL_SIZE + 1) * width + 1, j * (CELL_SIZE + 1) + 1);
+  }
+
+  ctx.stroke();
+};
+</code></pre>
+<p>We can directly access WebAssembly's linear memory via <code>memory</code>, which is
+defined in the raw wasm module <code>wasm_game_of_life_bg</code>. To draw the cells, we
+get a pointer to the universe's cells, construct a <code>Uint8Array</code> overlaying the
+cells buffer, iterate over each cell, and draw a white or black rectangle
+depending on whether the cell is dead or alive, respectively. By working with
+pointers and overlays, we avoid copying the cells across the boundary on every
+tick.</p>
+<pre><code class="language-js">// Import the WebAssembly memory at the top of the file.
+import { memory } from &quot;wasm-game-of-life/wasm_game_of_life_bg&quot;;
+
+// ...
+
+const getIndex = (row, column) =&gt; {
+  return row * width + column;
+};
+
+const drawCells = () =&gt; {
+  const cellsPtr = universe.cells();
+  const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
+
+  ctx.beginPath();
+
+  for (let row = 0; row &lt; height; row++) {
+    for (let col = 0; col &lt; width; col++) {
+      const idx = getIndex(row, col);
+
+      ctx.fillStyle = cells[idx] === Cell.Dead
+        ? DEAD_COLOR
+        : ALIVE_COLOR;
+
+      ctx.fillRect(
+        col * (CELL_SIZE + 1) + 1,
+        row * (CELL_SIZE + 1) + 1,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+    }
+  }
+
+  ctx.stroke();
+};
+</code></pre>
+<p>To start the rendering process, we'll use the same code as above to start the
+first iteration of the rendering loop:</p>
+<pre><code class="language-js">drawGrid();
+drawCells();
+requestAnimationFrame(renderLoop);
+</code></pre>
+<p>Note that we call <code>drawGrid()</code> and <code>drawCells()</code> here <em>before</em> we call
+<code>requestAnimationFrame()</code>. The reason we do this is so that the <em>initial</em> state
+of the universe is drawn before we make modifications. If we instead simply
+called <code>requestAnimationFrame(renderLoop)</code>, we'd end up with a situation where
+the first frame that was drawn would actually be <em>after</em> the first call to
+<code>universe.tick()</code>, which is the second &quot;tick&quot; of the life of these cells.</p>
+<a class="header" href="#it-works" id="it-works"><h2>It Works!</h2></a>
+<p>Rebuild the WebAssembly and bindings glue by running this command from within
+the root <code>wasm-game-of-life</code> directory:</p>
+<pre><code>wasm-pack build
+</code></pre>
+<p>Make sure your development server is still running. If it isn't, start it again
+from within the <code>wasm-game-of-life/www</code> directory:</p>
+<pre><code>npm run start
+</code></pre>
+<p>If you refresh <a href="http://localhost:8080/">http://localhost:8080/</a>, you should be
+greeted with an exciting display of life!</p>
+<p><a href="../images/game-of-life/initial-game-of-life.png"><img src="../images/game-of-life/initial-game-of-life.png" alt="Screenshot of the Game of Life implementation" /></a></p>
+<p>As an aside, there is also a really neat algorithm for implementing the Game of
+Life called <a href="https://en.wikipedia.org/wiki/Hashlife">hashlife</a>. It uses
+aggressive memoizing and can actually get <em>exponentially faster</em> to compute
+future generations the longer it runs! Given that, you might be wondering why we
+didn't implement hashlife in this tutorial. It is out of scope for this text,
+where we are focusing on Rust and WebAssembly integration, but we highly
+encourage you to go learn about hashlife on your own!</p>
+<a class="header" href="#exercises" id="exercises"><h2>Exercises</h2></a>
+<ul>
+<li>
+<p>Initialize the universe with a single space ship.</p>
+</li>
+<li>
+<p>Instead of hard-coding the initial universe, generate a random one, where each
+cell has a fifty-fifty chance of being alive or dead.</p>
+<p><em>Hint: use <a href="https://crates.io/crates/js-sys">the <code>js-sys</code> crate</a> to import
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random">the <code>Math.random</code> JavaScript
+function</a>.</em></p>
+<p><details>
+<summary>Answer</summary>
+<em>First, add <code>js-sys</code> as a dependency in <code>wasm-game-of-life/Cargo.toml</code>:</em></p>
+<pre><code class="language-toml"># ...
+[dependencies]
+js-sys = &quot;0.3&quot;
+# ...
+</code></pre>
+<p><em>Then, use the <code>js_sys::Math::random</code> function to flip a coin:</em></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+extern crate js_sys;
+
+// ...
+
+if js_sys::Math::random() &lt; 0.5 {
+    // Alive...
+} else {
+    // Dead...
+}
+#}</code></pre></pre>
+<p></details></p>
+</li>
+<li>
+<p>Representing each cell with a byte makes iterating over cells easy, but it
+comes at the cost of wasting memory. Each byte is eight bits, but we only
+require a single bit to represent whether each cell is alive or dead. Refactor
+the data representation so that each cell uses only a single bit of space.</p>
+<p><details>
+<summary>Answer</summary></p>
+<p>In Rust, you can use <a href="https://crates.io/crates/fixedbitset">the <code>fixedbitset</code> crate and its <code>FixedBitSet</code>
+type</a> to represent cells instead of
+<code>Vec&lt;Cell&gt;</code>:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// Make sure you also added the dependency to Cargo.toml!
+extern crate fixedbitset;
+use fixedbitset::FixedBitSet;
+
+// ...
+
+#[wasm_bindgen]
+pub struct Universe {
+    width: u32,
+    height: u32,
+    cells: FixedBitSet,
+}
+#}</code></pre></pre>
+<p>The Universe constructor can be adjusted the following way:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub fn new() -&gt; Universe {
+    let width = 64;
+    let height = 64;
+
+    let size = (width * height) as usize;
+    let mut cells = FixedBitSet::with_capacity(size);
+
+    for i in 0..size {
+        cells.set(i, i % 2 == 0 || i % 7 == 0);
+    }
+
+    Universe {
+        width,
+        height,
+        cells,
+    }
+}
+#}</code></pre></pre>
+<p>To update a cell in the next tick of the universe, we use the <code>set</code> method
+of <code>FixedBitSet</code>:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+next.set(idx, match (cell, live_neighbors) {
+    (true, x) if x &lt; 2 =&gt; false,
+    (true, 2) | (true, 3) =&gt; true,
+    (true, x) if x &gt; 3 =&gt; false,
+    (false, 3) =&gt; true,
+    (otherwise, _) =&gt; otherwise
+});
+#}</code></pre></pre>
+<p>To pass a pointer to the start of the bits to JavaScript, you can convert
+the <code>FixedBitSet</code> to a slice and then convert the slice to a pointer:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[wasm_bindgen]
+impl Universe {
+    // ...
+
+    pub fn cells(&amp;self) -&gt; *const u32 {
+        self.cells.as_slice().as_ptr()
+    }
+}
+#}</code></pre></pre>
+<p>In JavaScript, constructing a <code>Uint8Array</code> from Wasm memory is the same as
+before, except that the length of the array is not <code>width * height</code> anymore,
+but <code>width * height / 8</code> since we have a cell per bit rather than per byte:</p>
+<pre><code class="language-js">const cells = new Uint8Array(memory.buffer, cellsPtr, width * height / 8);
+</code></pre>
+<p>Given an index and <code>Uint8Array</code>, you can determine whether the
+<em>n<sup>th</sup></em> bit is set with the following function:</p>
+<pre><code class="language-js">const bitIsSet = (n, arr) =&gt; {
+  const byte = Math.floor(n / 8);
+  const mask = 1 &lt;&lt; (n % 8);
+  return (arr[byte] &amp; mask) === mask;
+};
+</code></pre>
+<p>Given all that, the new version of <code>drawCells</code> looks like this:</p>
+<pre><code class="language-js">const drawCells = () =&gt; {
+  const cellsPtr = universe.cells();
+
+  // This is updated!
+  const cells = new Uint8Array(memory.buffer, cellsPtr, width * height / 8);
+
+  ctx.beginPath();
+
+  for (let row = 0; row &lt; height; row++) {
+    for (let col = 0; col &lt; width; col++) {
+      const idx = getIndex(row, col);
+
+      // This is updated!
+      ctx.fillStyle = bitIsSet(idx, cells)
+        ? ALIVE_COLOR
+        : DEAD_COLOR;
+
+      ctx.fillRect(
+        col * (CELL_SIZE + 1) + 1,
+        row * (CELL_SIZE + 1) + 1,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+    }
+  }
+
+  ctx.stroke();
+};
+</code></pre>
+<p></details></p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../game-of-life/rules.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../game-of-life/testing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../game-of-life/rules.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../game-of-life/testing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

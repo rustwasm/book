@@ -1,0 +1,511 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Shrinking .wasm Size - Rust and WebAssembly</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../why-rust-and-webassembly.html"><strong aria-hidden="true">2.</strong> Why Rust and WebAssembly?</a></li><li><a href="../background-and-concepts.html"><strong aria-hidden="true">3.</strong> Background And Concepts</a></li><li><ol class="section"><li><a href="../what-is-webassembly.html"><strong aria-hidden="true">3.1.</strong> What is WebAssembly?</a></li><li class="spacer"></li></ol></li><li><a href="../game-of-life/introduction.html"><strong aria-hidden="true">4.</strong> Tutorial</a></li><li><ol class="section"><li><a href="../game-of-life/setup.html"><strong aria-hidden="true">4.1.</strong> Setup</a></li><li><a href="../game-of-life/hello-world.html"><strong aria-hidden="true">4.2.</strong> Hello, World!</a></li><li><a href="../game-of-life/rules.html"><strong aria-hidden="true">4.3.</strong> Rules</a></li><li><a href="../game-of-life/implementing.html"><strong aria-hidden="true">4.4.</strong> Implementing Life</a></li><li><a href="../game-of-life/testing.html"><strong aria-hidden="true">4.5.</strong> Testing Life</a></li><li><a href="../game-of-life/debugging.html"><strong aria-hidden="true">4.6.</strong> Debugging</a></li><li><a href="../game-of-life/interactivity.html"><strong aria-hidden="true">4.7.</strong> Adding Interactivity</a></li><li><a href="../game-of-life/time-profiling.html"><strong aria-hidden="true">4.8.</strong> Time Profiling</a></li><li><a href="../game-of-life/code-size.html"><strong aria-hidden="true">4.9.</strong> Shrinking .wasm Size</a></li><li><a href="../game-of-life/publishing-to-npm.html"><strong aria-hidden="true">4.10.</strong> Publishing to npm</a></li><li class="spacer"></li></ol></li><li><a href="../reference/index.html"><strong aria-hidden="true">5.</strong> Reference</a></li><li><ol class="section"><li><a href="../reference/crates.html"><strong aria-hidden="true">5.1.</strong> Crates You Should Know</a></li><li><a href="../reference/tools.html"><strong aria-hidden="true">5.2.</strong> Tools You Should Know</a></li><li><a href="../reference/project-templates.html"><strong aria-hidden="true">5.3.</strong> Project Templates</a></li><li><a href="../reference/debugging.html"><strong aria-hidden="true">5.4.</strong> Debugging</a></li><li><a href="../reference/time-profiling.html"><strong aria-hidden="true">5.5.</strong> Time Profiling</a></li><li><a href="../reference/code-size.html" class="active"><strong aria-hidden="true">5.6.</strong> Shrinking .wasm Size</a></li><li><a href="../reference/js-ffi.html"><strong aria-hidden="true">5.7.</strong> JavaScript Interoperation</a></li><li><a href="../reference/which-crates-work-with-wasm.html"><strong aria-hidden="true">5.8.</strong> Which Crates Will Work Off-the-Shelf with WebAssembly?</a></li><li><a href="../reference/add-wasm-support-to-crate.html"><strong aria-hidden="true">5.9.</strong> How to Add WebAssembly Support to a General-Purpose Crate</a></li><li><a href="../reference/deploying-to-production.html"><strong aria-hidden="true">5.10.</strong> Deploying Rust and WebAssembly to Production</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <style>
+  header.warning {
+    background-color: rgb(242, 222, 222);
+    border-bottom-color: rgb(238, 211, 215);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.666667px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color: rgb(238, 211, 215);
+    border-left-style: solid;
+    border-left-width: 0.666667px;
+    border-right-color: rgb(238, 211, 215);
+    border-right-style: solid;
+    border-right-width: 0.666667px;
+    border-top-color: rgb(238, 211, 215);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 0.666667px;
+    color: rgb(185, 74, 72);
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 30px;
+    padding-bottom: 8px;
+    padding-left: 14px;
+    padding-right: 35px;
+    padding-top: 8px;
+    text-align: center;
+  }
+</style>
+<header class='warning'>
+  This is <strong>unpublished</strong> documentation of
+  working with Rust and WebAssembly, the published documentation is available
+  <a href="https://rustwasm.github.io/docs/book/">
+    on the main Rust and WebAssembly documentation site
+  </a>. Features documented here may not be available in released versions of
+  tooling for Rust and WebAssembly.
+</header>
+
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust and WebAssembly</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#shrinking-wasm-code-size" id="shrinking-wasm-code-size"><h1>Shrinking <code>.wasm</code> Code Size</h1></a>
+<p>This section will teach you how to optimize your <code>.wasm</code> build for a small code
+size footprint, and how to identify opportunities to change your Rust source
+such that less <code>.wasm</code> code is emitted.</p>
+<a class="header" href="#why-care-about-code-size" id="why-care-about-code-size"><h2>Why Care About Code Size?</h2></a>
+<p>When serving a <code>.wasm</code> file over the network, the smaller it is, the faster the
+client can download it. Faster <code>.wasm</code> downloads lead to faster page load times,
+and that leads to happier users.</p>
+<p>However, it's important to remember though that code size likely isn't the
+end-all-be-all metric you're interested in, but rather something much more vague
+and hard to measure like &quot;time to first interaction&quot;. While code size plays a
+large factor in this measurement (can't do anything if you don't even have all
+the code yet!) it's not the only factor.</p>
+<p>WebAssembly is typically served to users gzip'd so you'll want to be sure to
+compare differences in gzip'd size for transfer times over the wire. Also keep
+in mind that the WebAssembly binary format is quite amenable to gzip
+compression, often getting over 50% reductions in size.</p>
+<p>Furthermore, WebAssembly's binary format is optimized for very fast parsing and
+processing. Browsers nowadays have &quot;baseline compilers&quot; which parses WebAssembly
+and emits compiled code as fast as wasm can come in over the network. This means
+that <a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/">if you're using <code>instantiateStreaming</code></a> the second the Web request
+is done the WebAssembly module is probably ready to go. JavaScript, on the other
+hand, can often take longer to not only parse but also get up to speed with JIT
+compilation and such.</p>
+<p>And finally, remember that WebAssembly is also far more optimized than
+JavaScript for execution speed. You'll want to be sure to measure for runtime
+comparisons between JavaScript and WebAssembly to factor that in to how
+important code size is.</p>
+<p>All this to say basically don't dismay immediately if your <code>.wasm</code> file is
+larger than expected! Code size may end up only being one of many factors in the
+end-to-end story. Comparisons between JavaScript and WebAssembly that only look
+at code size are missing the forest for the trees.</p>
+<a class="header" href="#optimizing-builds-for-code-size" id="optimizing-builds-for-code-size"><h2>Optimizing Builds for Code Size</h2></a>
+<p>There are a bunch of configuration options we can use to get <code>rustc</code> to make
+smaller <code>.wasm</code> binaries. In some cases, we are trading longer compile times for
+smaller <code>.wasm</code> sizes. In other cases, we are trading runtime speed of the
+WebAssembly for smaller code size. We should be cognizant of the trade offs of
+each option, and in the cases where we trade runtime speed for code size,
+profile and measure to make an informed decision about whether the trade is
+worth it.</p>
+<a class="header" href="#compiling-with-link-time-optimizations-lto" id="compiling-with-link-time-optimizations-lto"><h3>Compiling with Link Time Optimizations (LTO)</h3></a>
+<p>In <code>Cargo.toml</code>, add <code>lto = true</code> in the <code>[profile.release]</code> section:</p>
+<pre><code class="language-toml">[profile.release]
+lto = true
+</code></pre>
+<p>This gives LLVM many more opportunities to inline and prune functions. Not only
+will it make the <code>.wasm</code> smaller, but it will also make it faster at runtime!
+The downside is that compilation will take longer.</p>
+<a class="header" href="#tell-llvm-to-optimize-for-size-instead-of-speed" id="tell-llvm-to-optimize-for-size-instead-of-speed"><h3>Tell LLVM to Optimize for Size Instead of Speed</h3></a>
+<p>LLVM's optimization passes are tuned to improve speed, not size, by default. We
+can change the goal to code size by modifying the <code>[profile.release]</code> section in
+<code>Cargo.toml</code> to this:</p>
+<pre><code class="language-toml">[profile.release]
+opt-level = 's'
+</code></pre>
+<p>Or, to even more aggressively optimize for size, at further potential speed
+costs:</p>
+<pre><code class="language-toml">[profile.release]
+opt-level = 'z'
+</code></pre>
+<p>Note that, surprisingly enough, <code>opt-level = &quot;s&quot;</code> can sometimes result in
+smaller binaries than <code>opt-level = &quot;z&quot;</code>. Always measure!</p>
+<a class="header" href="#use-the-wasm-opt-tool" id="use-the-wasm-opt-tool"><h3>Use the <code>wasm-opt</code> Tool</h3></a>
+<p>The <a href="https://github.com/WebAssembly/binaryen">Binaryen</a> toolkit is a collection of WebAssembly-specific compiler
+tools. It goes much further than LLVM's WebAssembly backend does, and using its
+<code>wasm-opt</code> tool to post-process a <code>.wasm</code> binary generated by LLVM can often get
+another 15-20% savings on code size. It will often produce runtime speed ups at
+the same time!</p>
+<pre><code class="language-bash"># Optimize for size.
+wasm-opt -Os -o output.wasm input.wasm
+
+# Optimize aggressively for size.
+wasm-opt -Oz -o output.wasm input.wasm
+
+# Optimize for speed.
+wasm-opt -O -o output.wasm input.wasm
+
+# Optimize aggressively for speed.
+wasm-opt -O3 -o output.wasm input.wasm
+</code></pre>
+<a class="header" href="#notes-about-debug-information" id="notes-about-debug-information"><h3>Notes about Debug Information</h3></a>
+<p>One of the biggest contributors to wasm binary size can be debug information and
+the <code>names</code> section of the wasm binary. The <code>wasm-pack</code> tool, however, removes
+debuginfo by default. Additionally <code>wasm-opt</code> removes the <code>names</code> section by
+default unless <code>-g</code> is also specified.</p>
+<p>This means that if you follow the above steps you should by default not have
+either debuginfo or the names section in the wasm binary. If, however, you are
+manually otherwise preserving this debug information in the wasm binary be sure
+to be mindful of this!</p>
+<a class="header" href="#size-profiling" id="size-profiling"><h2>Size Profiling</h2></a>
+<p>If tweaking build configurations to optimize for code size isn't resulting in a
+small enough <code>.wasm</code> binary, it is time to do some profiling to see where the
+remaining code size is coming from.</p>
+<blockquote>
+<p>⚡ Just like how we let time profiling guide our speed up efforts, we want to
+let size profiling guide our code size shrinking efforts. Fail to do this and
+you risk wasting your own time!</p>
+</blockquote>
+<a class="header" href="#the-twiggy-code-size-profiler" id="the-twiggy-code-size-profiler"><h3>The <code>twiggy</code> Code Size Profiler</h3></a>
+<p><a href="https://github.com/rustwasm/twiggy"><code>twiggy</code> is a code size profiler</a> that supports WebAssembly as
+input. It analyzes a binary's call graph to answer questions like:</p>
+<ul>
+<li>
+<p>Why was this function included in the binary in the first place?</p>
+</li>
+<li>
+<p>What is the <em>retained size</em> of this function? I.e. how much space would be
+saved if I removed it and all the functions that become dead code after its
+removal?</p>
+</li>
+</ul>
+<style>
+/* For whatever reason, the default mdbook fonts fonts break with the
+   following box-drawing characters, hence the manual style. */
+pre, code {
+  font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
+}
+</style>
+<pre><code class="language-text">$ twiggy top -n 20 pkg/wasm_game_of_life_bg.wasm
+ Shallow Bytes │ Shallow % │ Item
+───────────────┼───────────┼────────────────────────────────────────────────────────────────────────────────────────
+          9158 ┊    19.65% ┊ &quot;function names&quot; subsection
+          3251 ┊     6.98% ┊ dlmalloc::dlmalloc::Dlmalloc::malloc::h632d10c184fef6e8
+          2510 ┊     5.39% ┊ &lt;str as core::fmt::Debug&gt;::fmt::he0d87479d1c208ea
+          1737 ┊     3.73% ┊ data[0]
+          1574 ┊     3.38% ┊ data[3]
+          1524 ┊     3.27% ┊ core::fmt::Formatter::pad::h6825605b326ea2c5
+          1413 ┊     3.03% ┊ std::panicking::rust_panic_with_hook::h1d3660f2e339513d
+          1200 ┊     2.57% ┊ core::fmt::Formatter::pad_integral::h06996c5859a57ced
+          1131 ┊     2.43% ┊ core::str::slice_error_fail::h6da90c14857ae01b
+          1051 ┊     2.26% ┊ core::fmt::write::h03ff8c7a2f3a9605
+           931 ┊     2.00% ┊ data[4]
+           864 ┊     1.85% ┊ dlmalloc::dlmalloc::Dlmalloc::free::h27b781e3b06bdb05
+           841 ┊     1.80% ┊ &lt;char as core::fmt::Debug&gt;::fmt::h07742d9f4a8c56f2
+           813 ┊     1.74% ┊ __rust_realloc
+           708 ┊     1.52% ┊ core::slice::memchr::memchr::h6243a1b2885fdb85
+           678 ┊     1.45% ┊ &lt;core::fmt::builders::PadAdapter&lt;'a&gt; as core::fmt::Write&gt;::write_str::h96b72fb7457d3062
+           631 ┊     1.35% ┊ universe_tick
+           631 ┊     1.35% ┊ dlmalloc::dlmalloc::Dlmalloc::dispose_chunk::hae6c5c8634e575b8
+           514 ┊     1.10% ┊ std::panicking::default_hook::{{closure}}::hfae0c204085471d5
+           503 ┊     1.08% ┊ &lt;&amp;'a T as core::fmt::Debug&gt;::fmt::hba207e4f7abaece6
+</code></pre>
+<a class="header" href="#manually-inspecting-llvm-ir" id="manually-inspecting-llvm-ir"><h3>Manually Inspecting LLVM-IR</h3></a>
+<p>LLVM-IR is the final intermediate representation in the compiler toolchain
+before LLVM generates WebAssembly. Therefore, it is very similar to the
+WebAssembly that is ultimately emitted. More LLVM-IR generally means more
+<code>.wasm</code> size, and if a function takes up 25% of the LLVM-IR, then it generally
+will take up 25% of the <code>.wasm</code>. While these numbers only hold in general, the
+LLVM-IR has crucial information that is not present in the <code>.wasm</code> (because of
+WebAssembly's lack of a debugging format like DWARF): which subroutines were
+inlined into a given function.</p>
+<p>You can generate LLVM-IR with this <code>cargo</code> command:</p>
+<pre><code>cargo rustc --release -- --emit llvm-ir
+</code></pre>
+<p>Then, you can use <code>find</code> to locate the <code>.ll</code> file containing the LLVM-IR in
+<code>cargo</code>'s <code>target</code> directory:</p>
+<pre><code>find target/release -type f -name '*.ll'
+</code></pre>
+<a class="header" href="#references" id="references"><h4>References</h4></a>
+<ul>
+<li><a href="https://llvm.org/docs/LangRef.html">LLVM Language Reference Manual</a></li>
+</ul>
+<a class="header" href="#more-invasive-tools-and-techniques" id="more-invasive-tools-and-techniques"><h2>More Invasive Tools and Techniques</h2></a>
+<p>Tweaking build configurations to get smaller <code>.wasm</code> binaries is pretty hands
+off. When you need to go the extra mile, however, you are prepared to use more
+invasive techniques, like rewriting source code to avoid bloat. What follows is
+a collection of get-your-hands-dirty techniques you can apply to get smaller
+code sizes.</p>
+<a class="header" href="#avoid-string-formatting" id="avoid-string-formatting"><h3>Avoid String Formatting</h3></a>
+<p><code>format!</code>, <code>to_string</code>, etc... can bring in a lot of code bloat. If possible,
+only do string formatting in debug mode, and in release mode use static strings.</p>
+<a class="header" href="#avoid-panicking" id="avoid-panicking"><h3>Avoid Panicking</h3></a>
+<p>This is definitely easier said than done, but tools like <code>twiggy</code> and manually
+inspecting LLVM-IR can help you figure out which functions are panicking.</p>
+<p>Panics do not always appear as a <code>panic!()</code> macro invocation. They arise
+implicitly from many constructs, such as:</p>
+<ul>
+<li>
+<p>Indexing a slice panics on out of bounds indices: <code>my_slice[i]</code></p>
+</li>
+<li>
+<p>Division will panic if the divisor is zero: <code>dividend / divisor</code></p>
+</li>
+<li>
+<p>Unwrapping an <code>Option</code> or <code>Result</code>: <code>opt.unwrap()</code> or <code>res.unwrap()</code></p>
+</li>
+</ul>
+<p>The first two can be translated into the third. Indexing can be replaced with
+fallible <code>my_slice.get(i)</code> operations. Division can be replaced with
+<code>checked_div</code> calls. Now we only have a single case to contend with.</p>
+<p>Unwrapping an <code>Option</code> or <code>Result</code> without panicking comes in two flavors: safe
+and unsafe.</p>
+<p>The safe approach is to <code>abort</code> instead of panicking when encountering a <code>None</code>
+or an <code>Error</code>:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[inline]
+pub fn unwrap_abort&lt;T&gt;(o: Option&lt;T&gt;) -&gt; T {
+    use std::process;
+    match o {
+        Some(t) =&gt; t,
+        None =&gt; process::abort(),
+    }
+}
+#}</code></pre></pre>
+<p>Ultimately, panics translate into aborts in <code>wasm32-unknown-unknown</code> anyways, so
+this gives you the same behavior but without the code bloat.</p>
+<p>Alternatively, the <a href="https://crates.io/crates/unreachable"><code>unreachable</code> crate</a> provides an unsafe
+<a href="https://docs.rs/unreachable/1.0.0/unreachable/trait.UncheckedOptionExt.html#tymethod.unchecked_unwrap"><code>unchecked_unwrap</code> extension method</a> for <code>Option</code> and
+<code>Result</code> which tells the Rust compiler to <em>assume</em> that the <code>Option</code> is <code>Some</code>
+or the <code>Result</code> is <code>Ok</code>. It is undefined behavior what happens if that
+assumption does not hold. You really only want to use this unsafe approach when
+you 110% <em>know</em> that the assumption holds, and the compiler just isn't smart
+enough to see it. Even if you go down this route, you should have a debug build
+configuration that still does the checking, and only use unchecked operations in
+release builds.</p>
+<a class="header" href="#avoid-allocation-or-switch-to-wee_alloc" id="avoid-allocation-or-switch-to-wee_alloc"><h3>Avoid Allocation or Switch to <code>wee_alloc</code></h3></a>
+<p>Rust's default allocator for WebAssembly is a port of <code>dlmalloc</code> to Rust. It
+weighs in somewhere around ten kilobytes. If you can completely avoid dynamic
+allocation, then you should be able to shed those ten kilobytes.</p>
+<p>Completely avoiding dynamic allocation can be very difficult. But removing
+allocation from hot code paths is usually much easier (and usually helps make
+those hot code paths faster, as well). In these cases, <a href="https://github.com/rustwasm/wee_alloc">replacing the default
+global allocator with <code>wee_alloc</code></a> should save you most (but not
+quite all) of those ten kilobytes. <code>wee_alloc</code> is an allocator designed for
+situations where you need <em>some</em> kind of allocator, but do not need a
+particularly fast allocator, and will happily trade allocation speed for smaller
+code size.</p>
+<a class="header" href="#use-trait-objects-instead-of-generic-type-parameters" id="use-trait-objects-instead-of-generic-type-parameters"><h3>Use Trait Objects Instead of Generic Type Parameters</h3></a>
+<p>When you create generic functions that use type parameters, like this:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+fn whatever&lt;T: MyTrait&gt;(t: T) { ... }
+#}</code></pre></pre>
+<p>Then <code>rustc</code> and LLVM will create a new copy of the function for each <code>T</code> type
+that the function is used with. This presents many opportunities for compiler
+optimizations based on which particular <code>T</code> each copy is working with, but these
+copies add up quickly in terms of code size.</p>
+<p>If you use trait objects instead of type parameters, like this:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+fn whatever(t: Box&lt;MyTrait&gt;) { ... }
+// or
+fn whatever(t: &amp;MyTrait) { ... }
+// etc...
+#}</code></pre></pre>
+<p>Then dynamic dispatch via virtual calls is used, and only a single version of
+the function is emitted in the <code>.wasm</code>. The downside is the loss of the compiler
+optimization opportunities and the added cost of indirect, dynamically
+dispatched function calls.</p>
+<a class="header" href="#use-the-wasm-snip-tool" id="use-the-wasm-snip-tool"><h3>Use the <code>wasm-snip</code> Tool</h3></a>
+<p><a href="https://github.com/fitzgen/wasm-snip"><code>wasm-snip</code> replaces a WebAssembly function's body with an <code>unreachable</code>
+instruction.</a> This is a rather heavy, blunt hammer for functions that kind
+of look like nails if you squint hard enough.</p>
+<p>Maybe you know that some function will never be called at runtime, but the
+compiler can't prove that at compile time? Snip it! Afterwards, run <code>wasm-opt</code>
+again with the <code>--dce</code> flag, and all the functions that the snipped function
+transitively called (which could also never be called at runtime) will get
+removed too.</p>
+<p>This tool is particularly useful for removing the panicking infrastructure,
+since panics ultimately translate into traps anyways.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../reference/time-profiling.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../reference/js-ffi.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../reference/time-profiling.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../reference/js-ffi.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Adding Interactivity - Rust and WebAssembly</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../why-rust-and-webassembly.html"><strong aria-hidden="true">2.</strong> Why Rust and WebAssembly?</a></li><li><a href="../background-and-concepts.html"><strong aria-hidden="true">3.</strong> Background And Concepts</a></li><li><ol class="section"><li><a href="../what-is-webassembly.html"><strong aria-hidden="true">3.1.</strong> What is WebAssembly?</a></li><li class="spacer"></li></ol></li><li><a href="../game-of-life/introduction.html"><strong aria-hidden="true">4.</strong> Tutorial</a></li><li><ol class="section"><li><a href="../game-of-life/setup.html"><strong aria-hidden="true">4.1.</strong> Setup</a></li><li><a href="../game-of-life/hello-world.html"><strong aria-hidden="true">4.2.</strong> Hello, World!</a></li><li><a href="../game-of-life/rules.html"><strong aria-hidden="true">4.3.</strong> Rules</a></li><li><a href="../game-of-life/implementing.html"><strong aria-hidden="true">4.4.</strong> Implementing Life</a></li><li><a href="../game-of-life/testing.html"><strong aria-hidden="true">4.5.</strong> Testing Life</a></li><li><a href="../game-of-life/debugging.html"><strong aria-hidden="true">4.6.</strong> Debugging</a></li><li><a href="../game-of-life/interactivity.html" class="active"><strong aria-hidden="true">4.7.</strong> Adding Interactivity</a></li><li><a href="../game-of-life/time-profiling.html"><strong aria-hidden="true">4.8.</strong> Time Profiling</a></li><li><a href="../game-of-life/code-size.html"><strong aria-hidden="true">4.9.</strong> Shrinking .wasm Size</a></li><li><a href="../game-of-life/publishing-to-npm.html"><strong aria-hidden="true">4.10.</strong> Publishing to npm</a></li><li class="spacer"></li></ol></li><li><a href="../reference/index.html"><strong aria-hidden="true">5.</strong> Reference</a></li><li><ol class="section"><li><a href="../reference/crates.html"><strong aria-hidden="true">5.1.</strong> Crates You Should Know</a></li><li><a href="../reference/tools.html"><strong aria-hidden="true">5.2.</strong> Tools You Should Know</a></li><li><a href="../reference/project-templates.html"><strong aria-hidden="true">5.3.</strong> Project Templates</a></li><li><a href="../reference/debugging.html"><strong aria-hidden="true">5.4.</strong> Debugging</a></li><li><a href="../reference/time-profiling.html"><strong aria-hidden="true">5.5.</strong> Time Profiling</a></li><li><a href="../reference/code-size.html"><strong aria-hidden="true">5.6.</strong> Shrinking .wasm Size</a></li><li><a href="../reference/js-ffi.html"><strong aria-hidden="true">5.7.</strong> JavaScript Interoperation</a></li><li><a href="../reference/which-crates-work-with-wasm.html"><strong aria-hidden="true">5.8.</strong> Which Crates Will Work Off-the-Shelf with WebAssembly?</a></li><li><a href="../reference/add-wasm-support-to-crate.html"><strong aria-hidden="true">5.9.</strong> How to Add WebAssembly Support to a General-Purpose Crate</a></li><li><a href="../reference/deploying-to-production.html"><strong aria-hidden="true">5.10.</strong> Deploying Rust and WebAssembly to Production</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <style>
+  header.warning {
+    background-color: rgb(242, 222, 222);
+    border-bottom-color: rgb(238, 211, 215);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.666667px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color: rgb(238, 211, 215);
+    border-left-style: solid;
+    border-left-width: 0.666667px;
+    border-right-color: rgb(238, 211, 215);
+    border-right-style: solid;
+    border-right-width: 0.666667px;
+    border-top-color: rgb(238, 211, 215);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 0.666667px;
+    color: rgb(185, 74, 72);
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 30px;
+    padding-bottom: 8px;
+    padding-left: 14px;
+    padding-right: 35px;
+    padding-top: 8px;
+    text-align: center;
+  }
+</style>
+<header class='warning'>
+  This is <strong>unpublished</strong> documentation of
+  working with Rust and WebAssembly, the published documentation is available
+  <a href="https://rustwasm.github.io/docs/book/">
+    on the main Rust and WebAssembly documentation site
+  </a>. Features documented here may not be available in released versions of
+  tooling for Rust and WebAssembly.
+</header>
+
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust and WebAssembly</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#adding-interactivity" id="adding-interactivity"><h1>Adding Interactivity</h1></a>
+<p>We will continue to explore the JavaScript and WebAssembly interface by adding
+some interactive features to our Game of Life implementation. We will enable
+users to toggle whether a cell is alive or dead by clicking on it, and
+allow pausing the game, which makes drawing cell patterns a lot easier.</p>
+<a class="header" href="#pausing-and-resuming-the-game" id="pausing-and-resuming-the-game"><h2>Pausing and Resuming the Game</h2></a>
+<p>Let's add a button to toggle whether the game is playing or paused. To
+<code>wasm-game-of-life/www/index.html</code>, add the button right above the <code>&lt;canvas&gt;</code>:</p>
+<pre><code class="language-html">&lt;button id=&quot;play-pause&quot;&gt;&lt;/button&gt;
+</code></pre>
+<p>In the <code>wasm-game-of-life/www/index.js</code> JavaScript, we will make the following
+changes:</p>
+<ul>
+<li>
+<p>Keep track of the identifier returned by the latest call to
+<code>requestAnimationFrame</code>, so that we can cancel the animation by calling
+<code>cancelAnimationFrame</code> with that identifier.</p>
+</li>
+<li>
+<p>When the play/pause button is clicked, check for whether we have the
+identifier for a queued animation frame. If we do, then the game is currently
+playing, and we want to cancel the animation frame so that <code>renderLoop</code> isn't
+called again, effectively pausing the game. If we do not have an identifier
+for a queued animation frame, then we are currently paused, and we would like
+to call <code>requestAnimationFrame</code> to resume the game.</p>
+</li>
+</ul>
+<p>Because the JavaScript is driving the Rust and WebAssembly, this is all we need
+to do, and we don't need to change the Rust sources.</p>
+<p>We introduce the <code>animationId</code> variable to keep track of the identifier returned
+by <code>requestAnimationFrame</code>. When there is no queued animation frame, we set this
+variable to <code>null</code>.</p>
+<pre><code class="language-js">let animationId = null;
+
+// This function is the same as before, except the
+// result of `requestAnimationFrame` is assigned to
+// `animationId`.
+const renderLoop = () =&gt; {
+  drawGrid();
+  drawCells();
+
+  universe.tick();
+
+  animationId = requestAnimationFrame(renderLoop);
+};
+</code></pre>
+<p>At any instant in time, we can tell whether the game is paused or not by
+inspecting the value of <code>animationId</code>:</p>
+<pre><code class="language-js">const isPaused = () =&gt; {
+  return animationId === null;
+};
+</code></pre>
+<p>Now, when the play/pause button is clicked, we check whether the game is
+currently paused or playing, and resume the <code>renderLoop</code> animation or cancel the
+next animation frame respectively. Additionally, we update the button's text
+icon to reflect the action that the button will take when clicked next.</p>
+<pre><code class="language-js">const playPauseButton = document.getElementById(&quot;play-pause&quot;);
+
+const play = () =&gt; {
+  playPauseButton.textContent = &quot;⏸&quot;;
+  renderLoop();
+};
+
+const pause = () =&gt; {
+  playPauseButton.textContent = &quot;▶&quot;;
+  cancelAnimationFrame(animationId);
+  animationId = null;
+};
+
+playPauseButton.addEventListener(&quot;click&quot;, event =&gt; {
+  if (isPaused()) {
+    play();
+  } else {
+    pause();
+  }
+});
+</code></pre>
+<p>Finally, we were previously kick-starting the game and its animation by calling
+<code>requestAnimationFrame(renderLoop)</code> directly, but we want to replace that with a
+call to <code>play</code> so that the button gets the correct initial text icon.</p>
+<pre><code class="language-diff">// This used to be `requestAnimationFrame(renderLoop)`.
+play();
+</code></pre>
+<p>Refresh <a href="http://localhost:8080/">http://localhost:8080/</a> and we should now be
+able to pause and resume the game by clicking on the button!</p>
+<a class="header" href="#toggling-a-cells-state-on-click-events" id="toggling-a-cells-state-on-click-events"><h2>Toggling a Cell's State on <code>&quot;click&quot;</code> Events</h2></a>
+<p>Now that we can pause the game, it's time to add the ability to mutate the cells
+by clicking on them.</p>
+<p>To toggle a cell is to flip its state from alive to dead or from dead to
+alive. Add a <code>toggle</code> method to <code>Cell</code> in <code>wasm-game-of-life/src/lib.rs</code>:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+impl Cell {
+    fn toggle(&amp;mut self) {
+        *self = match *self {
+            Cell::Dead =&gt; Cell::Alive,
+            Cell::Alive =&gt; Cell::Dead,
+        };
+    }
+}
+#}</code></pre></pre>
+<p>To toggle the state of a cell at given row and column, we translate the row and
+column pair into an index into the cells vector and call the toggle method on
+the cell at that index:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// Public methods, exported to JavaScript.
+#[wasm_bindgen]
+impl Universe {
+    // ...
+
+    pub fn toggle_cell(&amp;mut self, row: u32, column: u32) {
+        let idx = self.get_index(row, column);
+        self.cells[idx].toggle();
+    }
+}
+#}</code></pre></pre>
+<p>This method is defined within the <code>impl</code> block that is annotated with
+<code>#[wasm_bindgen]</code> so that it can be called by JavaScript.</p>
+<p>In <code>wasm-game-of-life/www/index.js</code>, we listen to click events on the <code>&lt;canvas&gt;</code>
+element, translate the click event's page-relative coordinates into
+canvas-relative coordinates, and then into a row and column, invoke the
+<code>toggle_cell</code> method, and finally redraw the scene.</p>
+<pre><code class="language-js">canvas.addEventListener(&quot;click&quot;, event =&gt; {
+  const boundingRect = canvas.getBoundingClientRect();
+
+  const scaleX = canvas.width / boundingRect.width;
+  const scaleY = canvas.height / boundingRect.height;
+
+  const canvasLeft = (event.clientX - boundingRect.left) * scaleX;
+  const canvasTop = (event.clientY - boundingRect.top) * scaleY;
+
+  const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
+  const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
+
+  universe.toggle_cell(row, col);
+
+  drawGrid();
+  drawCells();
+});
+</code></pre>
+<p>Rebuild with <code>wasm-pack build</code> in <code>wasm-game-of-life</code>, then refresh
+<a href="http://localhost:8080/">http://localhost:8080/</a> again and we can now draw our
+own patterns by clicking on the cells and toggling their state.</p>
+<a class="header" href="#exercises" id="exercises"><h2>Exercises</h2></a>
+<ul>
+<li>
+<p>Introduce an <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range"><code>&lt;input type=&quot;range&quot;&gt;</code></a> widget to control how many
+ticks occur per animation frame.</p>
+</li>
+<li>
+<p>Add a button that resets the universe to a random initial state when
+clicked. Another button that resets the universe to all dead cells.</p>
+</li>
+<li>
+<p>On <code>Ctrl + Click</code>, insert a
+<a href="https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)">glider</a> centered on
+the target cell. On <code>Shift + Click</code>, insert a pulsar.</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../game-of-life/debugging.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../game-of-life/time-profiling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../game-of-life/debugging.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../game-of-life/time-profiling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

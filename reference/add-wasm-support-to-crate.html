@@ -1,0 +1,396 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>How to Add WebAssembly Support to a General-Purpose Crate - Rust and WebAssembly</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="../why-rust-and-webassembly.html"><strong aria-hidden="true">2.</strong> Why Rust and WebAssembly?</a></li><li><a href="../background-and-concepts.html"><strong aria-hidden="true">3.</strong> Background And Concepts</a></li><li><ol class="section"><li><a href="../what-is-webassembly.html"><strong aria-hidden="true">3.1.</strong> What is WebAssembly?</a></li><li class="spacer"></li></ol></li><li><a href="../game-of-life/introduction.html"><strong aria-hidden="true">4.</strong> Tutorial</a></li><li><ol class="section"><li><a href="../game-of-life/setup.html"><strong aria-hidden="true">4.1.</strong> Setup</a></li><li><a href="../game-of-life/hello-world.html"><strong aria-hidden="true">4.2.</strong> Hello, World!</a></li><li><a href="../game-of-life/rules.html"><strong aria-hidden="true">4.3.</strong> Rules</a></li><li><a href="../game-of-life/implementing.html"><strong aria-hidden="true">4.4.</strong> Implementing Life</a></li><li><a href="../game-of-life/testing.html"><strong aria-hidden="true">4.5.</strong> Testing Life</a></li><li><a href="../game-of-life/debugging.html"><strong aria-hidden="true">4.6.</strong> Debugging</a></li><li><a href="../game-of-life/interactivity.html"><strong aria-hidden="true">4.7.</strong> Adding Interactivity</a></li><li><a href="../game-of-life/time-profiling.html"><strong aria-hidden="true">4.8.</strong> Time Profiling</a></li><li><a href="../game-of-life/code-size.html"><strong aria-hidden="true">4.9.</strong> Shrinking .wasm Size</a></li><li><a href="../game-of-life/publishing-to-npm.html"><strong aria-hidden="true">4.10.</strong> Publishing to npm</a></li><li class="spacer"></li></ol></li><li><a href="../reference/index.html"><strong aria-hidden="true">5.</strong> Reference</a></li><li><ol class="section"><li><a href="../reference/crates.html"><strong aria-hidden="true">5.1.</strong> Crates You Should Know</a></li><li><a href="../reference/tools.html"><strong aria-hidden="true">5.2.</strong> Tools You Should Know</a></li><li><a href="../reference/project-templates.html"><strong aria-hidden="true">5.3.</strong> Project Templates</a></li><li><a href="../reference/debugging.html"><strong aria-hidden="true">5.4.</strong> Debugging</a></li><li><a href="../reference/time-profiling.html"><strong aria-hidden="true">5.5.</strong> Time Profiling</a></li><li><a href="../reference/code-size.html"><strong aria-hidden="true">5.6.</strong> Shrinking .wasm Size</a></li><li><a href="../reference/js-ffi.html"><strong aria-hidden="true">5.7.</strong> JavaScript Interoperation</a></li><li><a href="../reference/which-crates-work-with-wasm.html"><strong aria-hidden="true">5.8.</strong> Which Crates Will Work Off-the-Shelf with WebAssembly?</a></li><li><a href="../reference/add-wasm-support-to-crate.html" class="active"><strong aria-hidden="true">5.9.</strong> How to Add WebAssembly Support to a General-Purpose Crate</a></li><li><a href="../reference/deploying-to-production.html"><strong aria-hidden="true">5.10.</strong> Deploying Rust and WebAssembly to Production</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <style>
+  header.warning {
+    background-color: rgb(242, 222, 222);
+    border-bottom-color: rgb(238, 211, 215);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.666667px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color: rgb(238, 211, 215);
+    border-left-style: solid;
+    border-left-width: 0.666667px;
+    border-right-color: rgb(238, 211, 215);
+    border-right-style: solid;
+    border-right-width: 0.666667px;
+    border-top-color: rgb(238, 211, 215);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 0.666667px;
+    color: rgb(185, 74, 72);
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 30px;
+    padding-bottom: 8px;
+    padding-left: 14px;
+    padding-right: 35px;
+    padding-top: 8px;
+    text-align: center;
+  }
+</style>
+<header class='warning'>
+  This is <strong>unpublished</strong> documentation of
+  working with Rust and WebAssembly, the published documentation is available
+  <a href="https://rustwasm.github.io/docs/book/">
+    on the main Rust and WebAssembly documentation site
+  </a>. Features documented here may not be available in released versions of
+  tooling for Rust and WebAssembly.
+</header>
+
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust and WebAssembly</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#how-to-add-webassembly-support-to-a-general-purpose-crate" id="how-to-add-webassembly-support-to-a-general-purpose-crate"><h1>How to Add WebAssembly Support to a General-Purpose Crate</h1></a>
+<p>This section is for general-purpose crate authors who want to support
+WebAssembly.</p>
+<a class="header" href="#maybe-your-crate-already-supports-webassembly" id="maybe-your-crate-already-supports-webassembly"><h2>Maybe Your Crate Already Supports WebAssembly!</h2></a>
+<p>Review the information about <a href="./which-crates-work-with-wasm.html">what kinds of things can make a general-purpose
+crate <em>not</em> portable for WebAssembly</a>. If
+your crate doesn't have any of those things, it likely already supports
+WebAssembly!</p>
+<p>You can always check by running <code>cargo build</code> for the WebAssembly target:</p>
+<pre><code>cargo build --target wasm32-unknown-unknown
+</code></pre>
+<p>If that command fails, then your crate doesn't support WebAssembly right now. If
+it doesn't fail, then your crate <em>might</em> support WebAssembly. You can be 100%
+sure that it does (and continues to do so!) by <a href="#maintaining-ongoing-support-for-webassembly">adding tests for wasm and
+running those tests in CI.</a></p>
+<a class="header" href="#adding-support-for-webassembly" id="adding-support-for-webassembly"><h2>Adding Support for WebAssembly</h2></a>
+<a class="header" href="#avoid-performing-io-directly" id="avoid-performing-io-directly"><h3>Avoid Performing I/O Directly</h3></a>
+<p>On the Web, I/O is always asynchronous, and there isn't a file system. Factor
+I/O out of your library, let users perform the I/O and then pass the input
+slices to your library instead.</p>
+<p>For example, refactor this:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::fs;
+use std::path::Path;
+
+pub fn parse_thing(path: &amp;Path) -&gt; Result&lt;MyThing, MyError&gt; {
+    let contents = fs::read(path)?;
+    // ...
+}
+#}</code></pre></pre>
+<p>Into this:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub fn parse_thing(contents: &amp;[u8]) -&gt; Result&lt;MyThing, MyError&gt; {
+    // ...
+}
+#}</code></pre></pre>
+<a class="header" href="#add-wasm-bindgen-as-a-dependency" id="add-wasm-bindgen-as-a-dependency"><h3>Add <code>wasm-bindgen</code> as a Dependency</h3></a>
+<p>If you need to interact with the outside world (i.e. you can't have library
+consumers drive that interaction for you) then you'll need to add <code>wasm-bindgen</code>
+(and <code>js-sys</code> and <code>web-sys</code> if you need them) as a dependency for when
+compilation is targeting WebAssembly:</p>
+<pre><code class="language-toml">[target.'cfg(target_arch = &quot;wasm32&quot;)'.dependencies]
+wasm-bindgen = &quot;0.2&quot;
+js-sys = &quot;0.3&quot;
+web-sys = &quot;0.3&quot;
+</code></pre>
+<a class="header" href="#avoid-synchronous-io" id="avoid-synchronous-io"><h3>Avoid Synchronous I/O</h3></a>
+<p>If you must perform I/O in your library, then it cannot be synchronous. There is
+only asynchronous I/O on the Web. Use <a href="https://crates.io/crates/futures">the <code>futures</code>
+crate</a> and <a href="https://rustwasm.github.io/wasm-bindgen/api/wasm_bindgen_futures/">the <code>wasm-bindgen-futures</code>
+crate</a> to
+manage asynchronous I/O. If your library functions are generic over some
+future type <code>F</code>, then that future can be implemented via <code>fetch</code> on the Web or
+via non-blocking I/O provided by the operating system.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub fn do_stuff&lt;F&gt;(future: F) -&gt; impl Future&lt;Item = MyOtherThing&gt;
+where
+    F: Future&lt;Item = MyThing&gt;,
+{
+    // ...
+}
+#}</code></pre></pre>
+<p>You can also define a trait and implement it for WebAssembly and the Web and
+also for native targets:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+trait ReadMyThing {
+    type F: Future&lt;Item = MyThing&gt;;
+    fn read(&amp;self) -&gt; Self::F;
+}
+
+#[cfg(target_arch = &quot;wasm32&quot;)]
+struct WebReadMyThing {
+    // ...
+}
+
+#[cfg(target_arch = &quot;wasm32&quot;)]
+impl ReadMyThing for WebReadMyThing {
+    // ...
+}
+
+#[cfg(not(target_arch = &quot;wasm32&quot;))]
+struct NativeReadMyThing {
+    // ...
+}
+
+#[cfg(not(target_arch = &quot;wasm32&quot;))]
+impl ReadMyThing for NativeReadMyThing {
+    // ...
+}
+#}</code></pre></pre>
+<a class="header" href="#avoid-spawning-threads" id="avoid-spawning-threads"><h3>Avoid Spawning Threads</h3></a>
+<p>Wasm doesn't support threads yet (but <a href="https://rustwasm.github.io/2018/10/24/multithreading-rust-and-wasm.html">experimental work is
+ongoing</a>),
+so attempts to spawn threads in wasm will panic.</p>
+<p>You can use <code>#[cfg(..)]</code>s to enable threaded and non-threaded code paths
+depending on if the target is WebAssembly or not:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#![cfg(target_arch = &quot;wasm32&quot;)]
+#fn main() {
+fn do_work() {
+    // Do work with only this thread...
+}
+
+#![cfg(not(target_arch = &quot;wasm32&quot;))]
+fn do_work() {
+    use std::thread;
+
+    // Spread work to helper threads....
+    thread::spawn(|| {
+        // ...
+    });
+}
+#}</code></pre></pre>
+<p>Another option is to factor out thread spawning from your library and allow
+users to &quot;bring their own threads&quot; similar to factoring out file I/O and
+allowing users to bring their own I/O. This has the side effect of playing nice
+with applications that want to own their own custom thread pool.</p>
+<a class="header" href="#maintaining-ongoing-support-for-webassembly" id="maintaining-ongoing-support-for-webassembly"><h2>Maintaining Ongoing Support for WebAssembly</h2></a>
+<a class="header" href="#building-for-wasm32-unknown-unknown-in-ci" id="building-for-wasm32-unknown-unknown-in-ci"><h3>Building for <code>wasm32-unknown-unknown</code> in CI</h3></a>
+<p>Ensure that compilation doesn't fail when targeting WebAssembly by having your
+CI script run these commands:</p>
+<pre><code>rustup target add wasm32-unknown-unknown
+cargo check --target wasm32-unknown-unknown
+</code></pre>
+<p>For example, you can add this to your <code>.travis.yml</code> configuration for Travis CI:</p>
+<pre><code class="language-yaml">
+matrix:
+  include:
+    - language: rust
+      rust: stable
+      name: &quot;check wasm32 support&quot;
+      install: rustup target add wasm32-unknown-unknown
+      script: cargo check --target wasm32-unknown-unknown
+</code></pre>
+<a class="header" href="#testing-in-nodejs-and-headless-browsers" id="testing-in-nodejs-and-headless-browsers"><h3>Testing in Node.js and Headless Browsers</h3></a>
+<p>You can use <code>wasm-bindgen-test</code> and the <code>wasm-pack test</code> subcommand to run wasm
+tests in either Node.js or a headless browser. You can even integrate these
+tests into your CI.</p>
+<p><a href="https://rustwasm.github.io/wasm-bindgen/wasm-bindgen-test/index.html">Learn more about testing wasm
+here.</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../reference/which-crates-work-with-wasm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../reference/deploying-to-production.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../reference/which-crates-work-with-wasm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../reference/deploying-to-production.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
