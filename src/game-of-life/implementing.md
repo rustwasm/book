@@ -35,14 +35,14 @@ JavaScript's garbage-collected heap — where `Object`s, `Array`s, and DOM nodes
 are allocated — is distinct from WebAssembly's linear memory space, where our
 Rust values live. WebAssembly currently has no direct access to the
 garbage-collected heap (as of April 2018, this is expected to change with the
-["WebIDL bindings" proposal][webidl-bindings]). JavaScript, on the other hand, can
+["Interface Types" proposal][interface-types]). JavaScript, on the other hand, can
 read and write to the WebAssembly linear memory space, but only as an
 [`ArrayBuffer`][array-buf] of scalar values (`u8`, `i32`, `f64`,
 etc...). WebAssembly functions also take and return scalar values. These are the
 building blocks from which all WebAssembly and JavaScript communication is
 constituted.
 
-[webidl-bindings]: https://github.com/WebAssembly/webidl-bindings/blob/master/proposals/webidl-bindings/Explainer.md
+[interface-types]: https://github.com/WebAssembly/interface-types/blob/master/proposals/interface-types/Explainer.md
 [array-buf]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 
 `wasm_bindgen` defines a common understanding of how to work with compound
