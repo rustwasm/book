@@ -21,7 +21,7 @@ This repo contains documentation on using Rust for wasm, common workflows, how
 to get started and more as you dive deeper. It acts as a guide for doing some really neat things with rust.
 
 If you would like to start learning how to use Rust and WebAssembly together,
-, you can read the book [online here][book].
+ you can read the book [online here][book].
 
 [Open issues for improving the Rust and WebAssembly book.][book-issues]
 
