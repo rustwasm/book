@@ -36,7 +36,7 @@ For reference, here is a factorial function in `wat`:
   (export "fac" (func $fac)))
 ```
 
-If you're curious about how a `wasm` file looks like you can use the [wat2wasm
+If you're curious about what a `wasm` file looks like you can use the [wat2wasm
 demo] with the above code.
 
 ## Linear Memory
