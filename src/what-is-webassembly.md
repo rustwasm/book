@@ -37,7 +37,7 @@ For reference, here is a factorial function in `wat`:
 ```
 
 If you're curious about what a `wasm` file looks like you can use the [wat2wasm
-demo] with the above code. 
+demo] with the above code.
 
 ## Linear Memory
 
