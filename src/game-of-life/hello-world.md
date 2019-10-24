@@ -297,15 +297,17 @@ Rather than use the `hello-wasm-pack` package from npm, we want to use our local
 `wasm-game-of-life` package instead. This will allow us to incrementally develop
 our Game of Life program.
 
-Open up `wasm-game-of-life/www/package.json` and edit the `"dependencies"` to
-include a `"wasm-game-of-life": "file:../pkg"` entry:
+Open up `wasm-game-of-life/www/package.json` and next to `"devDependiecs"`, add the `"dependencies"` field,
+including a `"wasm-game-of-life": "file:../pkg"` entry:
 
 ```js
 {
   // ...
-  "dependencies": {
-    "wasm-game-of-life": "file:../pkg", // Add this line!
-    // ...
+  "dependencies": {                     // Add this three lines block!
+    "wasm-game-of-life": "file:../pkg"
+  },
+  "devDependencies": {
+    //...
   }
 }
 ```
