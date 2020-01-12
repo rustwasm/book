@@ -291,16 +291,12 @@ our Game of Life program.
 Open up `wasm-game-of-life/www/package.json` and next to `"devDependencies"`, add the `"dependencies"` field,
 including a `"wasm-game-of-life": "file:../pkg"` entry:
 
-```js
-{
-  // ...
-  "dependencies": {                     // Add this three lines block!
-    "wasm-game-of-life": "file:../pkg"
-  },
+```diff
+  "homepage": "https://github.com/rustwasm/create-wasm-app#readme",
++  "dependencies": {
++    "wasm-game-of-life": "file:../pkg"
++  },
   "devDependencies": {
-    //...
-  }
-}
 ```
 
 Next, modify `wasm-game-of-life/www/index.js` to import `wasm-game-of-life`
