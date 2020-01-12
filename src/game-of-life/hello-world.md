@@ -293,9 +293,9 @@ including a `"wasm-game-of-life": "file:../pkg"` entry:
 
 ```diff
   "homepage": "https://github.com/rustwasm/create-wasm-app#readme",
-+  "dependencies": {
-+    "wasm-game-of-life": "file:../pkg"
-+  },
++ "dependencies": {
++   "wasm-game-of-life": "file:../pkg"
++ },
   "devDependencies": {
 ```
 
