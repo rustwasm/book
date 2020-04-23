@@ -4,7 +4,7 @@ WebAssembly (wasm) is a simple machine model and executable format with an
 [extensive specification]. It is designed to be portable, compact, and execute
 at or near native speeds.
 
-As a programming language, WebAssembly is comprised of two formats that
+As a programming language, WebAssembly comprises two formats that
 represent the same structures, albeit in different ways:
 
 1. The `.wat` text format (called `wat` for "**W**eb**A**ssembly **T**ext") uses
