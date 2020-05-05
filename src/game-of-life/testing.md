@@ -48,6 +48,7 @@ the `cells` of a `Universe`. We'll also write a `set_cells` function so we can
 set `cells` in a specific row and column of a `Universe` to be `Alive.`
 
 ```rust
+#[wasm_bindgen]
 impl Universe {
     /// Get the dead and alive values of the entire universe.
     pub fn get_cells(&self) -> &[Cell] {
