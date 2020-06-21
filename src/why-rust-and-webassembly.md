@@ -28,7 +28,7 @@ benefits. And you can even stop there if you want to.
 
 Rust and WebAssembly integrates with existing JavaScript tooling. It supports
 ECMAScript modules and you can continue using the tooling you already love, like
-npm, Webpack, and Greenkeeper.
+npm and Webpack.
 
 ## The Amenities You Expect
 
