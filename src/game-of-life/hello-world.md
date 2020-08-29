@@ -10,6 +10,8 @@ Make sure you have followed the [setup instructions](setup.html) before beginnin
 The project template comes pre-configured with sane defaults, so you can quickly
 build, integrate, and package your code for the Web.
 
+### Using `cargo-generate`
+
 Clone the project template with this command:
 
 ```text
@@ -21,6 +23,20 @@ This should prompt you for the new project's name. We will use
 
 ```text
 wasm-game-of-life
+```
+
+### Using `wasm-pack`
+
+You can also use `wasm-pack` to clone the template with this command, replacing `name` with the new project's name:
+
+```text
+wasm-pack new name
+```
+
+In this case, we will use **"wasm-game-of-life"**:
+
+```text
+wasm-pack new wasm-game-of-life
 ```
 
 ## What's Inside
