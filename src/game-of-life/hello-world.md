@@ -55,9 +55,11 @@ wasm-game-of-life/
 ├── LICENSE_APACHE
 ├── LICENSE_MIT
 ├── README.md
-└── src
-    ├── lib.rs
-    └── utils.rs
+├── src
+│   ├── lib.rs
+│   └── utils.rs
+└── tests
+    └── web.rs
 ```
 
 Let's take a look at a couple of these files in detail.
@@ -119,7 +121,7 @@ To do all of that, run this command inside the project directory:
 
 ```
 wasm-pack build
-```
+``
 
 When the build has completed, we can find its artifacts in the `pkg` directory,
 and it should have these contents:
@@ -128,6 +130,8 @@ and it should have these contents:
 pkg/
 ├── package.json
 ├── README.md
+├── wasm_game_of_life_bg.d.ts
+├── wasm_game_of_life_bg.js
 ├── wasm_game_of_life_bg.wasm
 ├── wasm_game_of_life.d.ts
 └── wasm_game_of_life.js
@@ -154,7 +158,7 @@ interesting values back and forth between wasm and JavaScript, it will help
 shepherd those values across the boundary.
 
 ```js
-import * as wasm from './wasm_game_of_life_bg';
+import * as wasm from './wasm_game_of_life_bg.wasm';
 
 // ...
 
@@ -190,16 +194,15 @@ publish our package to npm.
   "collaborators": [
     "Your Name <your.email@example.com>"
   ],
-  "description": null,
   "version": "0.1.0",
-  "license": null,
-  "repository": null,
   "files": [
     "wasm_game_of_life_bg.wasm",
+    "wasm_game_of_life.js",
     "wasm_game_of_life.d.ts"
   ],
-  "main": "wasm_game_of_life.js",
-  "types": "wasm_game_of_life.d.ts"
+  "module": "wasm_game_of_life.js",
+  "types": "wasm_game_of_life.d.ts",
+  "sideEffects": false
 }
 ```
 
@@ -228,6 +231,7 @@ wasm-game-of-life/www/
 ├── LICENSE-APACHE
 ├── LICENSE-MIT
 ├── package.json
+├── package-lock.json
 ├── README.md
 └── webpack.config.js
 ```
@@ -259,6 +263,7 @@ load `bootstrap.js`, which is a very thin wrapper around `index.js`.
     <title>Hello wasm-pack!</title>
   </head>
   <body>
+    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
     <script src="./bootstrap.js"></script>
   </body>
 </html>
@@ -294,7 +299,7 @@ JavaScript bundler and its development server.
 > is just the bundler and development server we've chosen for convenience
 > here. Parcel and Rollup should also support importing WebAssembly as
 > ECMAScript modules. You can also use Rust and WebAssembly [without a
-> bundler][] if you prefer!
+> bundler] if you prefer!
 
 [without a bundler]: https://rustwasm.github.io/docs/wasm-bindgen/examples/without-a-bundler.html
 
@@ -326,6 +331,18 @@ instead of the `hello-wasm-pack` package:
 import * as wasm from "wasm-game-of-life";
 
 wasm.greet();
+```
+
+Next, remove `hello-wasm-pack` from the `"devDependencies"` section.
+This doesn't really matter too much in the end, but it can decrease build times slightly.
+```js
+{
+  // ...
+  "devDependencies": {
+    "hello-wasm-pack": "^0.1.0", // Remove this line!
+    //...
+  }
+}
 ```
 
 Since we declared a new dependency, we need to install it:
