@@ -16,7 +16,7 @@ things to JavaScript.
 
 ### `wasm-bindgen-futures` | [crates.io](https://crates.io/crates/wasm-bindgen-futures) | [repository](https://github.com/rustwasm/wasm-bindgen/tree/master/crates/futures)
 
-`wasm-bindgen-futures` is a bridge connecting JavaSript `Promise`s and Rust
+`wasm-bindgen-futures` is a bridge connecting JavaScript `Promise`s and Rust
 `Future`s. It can convert in both directions and is useful when working with
 asynchronous tasks in Rust, and allows interacting with DOM events and I/O
 operations.
