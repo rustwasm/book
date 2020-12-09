@@ -37,6 +37,10 @@ First, add `web-sys` as a dependency and enable its `"console"` feature in
 `wasm-game-of-life/Cargo.toml`:
 
 ```toml
+[dependencies]
+
+# ...
+
 [dependencies.web-sys]
 version = "0.3"
 features = [
