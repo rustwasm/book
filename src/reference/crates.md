@@ -73,7 +73,7 @@ relocs, for example.
 
 An embeddable WebAssembly interpreter from Parity.
 
-### `cranelift-wasm` | [crates.io](https://crates.io/crates/cranelift-wasm) | [repository](https://github.com/CraneStation/cranelift)
+### `cranelift-wasm` | [crates.io](https://crates.io/crates/cranelift-wasm) | [repository](https://github.com/bytecodealliance/wasmtime/tree/master/cranelift)
 
 Compile WebAssembly to the native host's machine code. Part of the Cranelift (né
 Cretonne) code generator project.
