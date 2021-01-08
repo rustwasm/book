@@ -147,7 +147,7 @@ console:
 
 Additionally, `console.time` and `console.timeEnd` pairs will show up in your
 browser's profiler's "timeline" or "waterfall" view:
-pp
+
 [![Screenshot of console.time logs](../images/game-of-life/console-time-in-profiler.png)](../images/game-of-life/console-time-in-profiler.png)
 
 [RAII]: https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization
