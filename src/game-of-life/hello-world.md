@@ -13,14 +13,7 @@ build, integrate, and package your code for the Web.
 Clone the project template with this command:
 
 ```text
-cargo generate --git https://github.com/rustwasm/wasm-pack-template
-```
-
-This should prompt you for the new project's name. We will use
-**"wasm-game-of-life"**.
-
-```text
-wasm-game-of-life
+cargo generate --git https://github.com/rustwasm/wasm-pack-template --name wasm-game-of-life
 ```
 
 ## What's Inside
