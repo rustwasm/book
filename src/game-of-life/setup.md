@@ -19,7 +19,9 @@ require Rust 1.30 or newer.
 `wasm-pack` is your one-stop shop for building, testing, and publishing
 Rust-generated WebAssembly.
 
-[Get `wasm-pack` here!][wasm-pack-install]
+```
+cargo install wasm-pack
+```
 
 ## `cargo-generate`
 
