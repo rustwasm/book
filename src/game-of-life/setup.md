@@ -32,6 +32,17 @@ Install `cargo-generate` with this command:
 cargo install cargo-generate
 ```
 
+## `wasm-bindgen-cli`
+
+`wasm-bindgen-cli` a Rust library and CLI tool that facilitate high-level
+interactions between wasm modules and JavaScript.
+
+Install `wasm-bindgen-cli` with this command:
+
+```
+cargo install wasm-bindgen-cli
+```
+
 ## `npm`
 
 `npm` is a package manager for JavaScript. We will use it to install and run a
