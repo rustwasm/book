@@ -222,7 +222,7 @@ Now that we have discovered that setting `fillStyle` is so expensive, what can
 we do to avoid setting it so often? We need to change `fillStyle` depending on
 whether a cell is alive or dead. If we set `fillStyle = ALIVE_COLOR` and then
 draw every alive cell in one pass, and then set `fillStyle = DEAD_COLOR` and
-draw every dead cell in another pass, then we only end setting `fillStyle`
+draw every dead cell in another pass, then we only end up setting `fillStyle`
 twice, rather than once for every cell.
 
 ```js
@@ -266,6 +266,60 @@ for (let row = 0; row < height; row++) {
 After saving these changes and refreshing
 [http://localhost:8080/](http://localhost:8080/), rendering is back to a smooth
 60 frames per second.
+
+> 🔨 You'll notice with this last change, we added quite
+> a bit of duplicate code. The logic for dead and alive cells is _almost_
+> identical. We should spend some time refactoring this so that we don't repeat
+> ourselves.
+>
+> A common practice to take toward refactoring is what is known as
+> "red, green, refactor". Usually, this is in the context of TDD, or test-driven
+> development, where a developer will first write an automated test for the
+> functionality she wants to develop, which doesn't pass (the test is "red" in
+> this case), then she adds the necessary functionality to make the test pass
+> (making it "green"), and finally she refactors the code to make it cleaner
+> while still verifying the test passes ("refactor").
+>
+> We're not using automated testing here, but we can use the same ideology to
+> work with our code. Our original "red" state was that the 128x128 cell grid
+> did not render at 60 fps. We made this "green" by fixing our code to not call
+> `CanvasRenderingContext2D.fillStyle` as frequently. Now, let's refactor to
+> eliminate duplicate code:
+> ```js
+> const drawCellsWithColor = (cells, state, color) => {
+>  ctx.fillStyle = color;
+>  for (let row = 0; row < height; row++) {
+>    for (let col = 0; col < width; col++) {
+>      const idx = getIndex(row, col);
+>      if (cells[idx] !== state) {
+>        continue;
+>      }
+>
+>      ctx.fillRect(
+>        col * (CELL_SIZE + 1) + 1,
+>        row * (CELL_SIZE + 1) + 1,
+>        CELL_SIZE,
+>        CELL_SIZE
+>      );
+>    }
+>  }
+>};
+>
+>const drawCells = () => {
+>  ...
+>
+>  // Alive cells.
+>  drawCellsWithColor(cells, Cell.Alive, ALIVE_COLOR);
+>
+>  // Dead cells.
+>  drawCellsWithColor(cells, Cell.Dead, DEAD_COLOR);
+>
+>  ctx.stroke();
+>};
+>```
+>
+> Sweet! Now our code is less repetitive, and easier to maintain for our future
+> selves.
 
 If we take another profile, we can see that only about ten milliseconds are
 spent in each animation frame now.
@@ -569,6 +623,7 @@ Success!
 
 ## Exercises
 
+* After
 * At this point, the next lowest hanging fruit for speeding up `Universe::tick`
   is removing the allocation and free. Implement double buffering of cells,
   where the `Universe` maintains two vectors, never frees either of them, and
