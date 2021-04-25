@@ -199,7 +199,11 @@ To take our `wasm-game-of-life` package and use it in a Web page, we use [the
 Run this command within the `wasm-game-of-life` directory:
 
 ```
-npm init wasm-app www
+cargo generate --git https://github.com/rustwasm/create-wasm-app
+```
+This will prompt you for a project name, enter **"www"**.
+```
+www
 ```
 
 Here's what our new `wasm-game-of-life/www` subdirectory contains:
