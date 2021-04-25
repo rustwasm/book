@@ -416,9 +416,10 @@ earlier with a `<canvas>` we will render into (it too should be within the
 ```
 
 To get the necessary information from the Rust implementation, we'll need to add
-some more getter functions for a universe's width, height, and pointer to its
-cells array. All of these are exposed to JavaScript as well. Make these
-additions to `wasm-game-of-life/src/lib.rs`:
+some more getter functions for a universe's width, height and a view into
+WebAssembly's linear memory to efficiently share access to the cells array. All
+of these are exposed to JavaScript as well. Make these additions to
+`wasm-game-of-life/src/lib.rs`:
 
 ```rust
 /// Public methods, exported to JavaScript.
@@ -434,8 +435,11 @@ impl Universe {
         self.height
     }
 
-    pub fn cells(&self) -> *const Cell {
-        self.cells.as_ptr()
+    pub fn cells(&self) -> js_sys::Uint8Array {
+        unsafe {
+            let u8_cells = mem::transmute::<&Vec<Cell>, &Vec<u8>>(&self.cells);
+            js_sys::Uint8Array::view(&u8_cells)
+        }
     }
 }
 ```
@@ -505,27 +509,24 @@ const drawGrid = () => {
 };
 ```
 
-We can directly access WebAssembly's linear memory via `memory`, which is
-defined in the raw wasm module `wasm_game_of_life_bg`. To draw the cells, we
-get a pointer to the universe's cells, construct a `Uint8Array` overlaying the
-cells buffer, iterate over each cell, and draw a white or black rectangle
-depending on whether the cell is dead or alive, respectively. By working with
-pointers and overlays, we avoid copying the cells across the boundary on every
-tick.
+We can directly access WebAssembly's linear memory from Javascript. To draw the
+cells, we access a `Uint8Array::view` of the cells buffer, iterate over each
+cell, and draw a white or black rectangle depending on whether the cell is dead
+or alive, respectively. Using this view, we avoid copying the cells across the
+boundary on every tick. The `Uint8Array::view` is unsafe, because behind the
+scenes it points directly into WebAssembly's linear memory using the length
+of `Vec<Cell>` as size knowing the data is stored in linear fashion. Using this
+performance trick we have to make sure not to change or invalidate the contents
+of that view before Javascript is finished accessing it. We do that by not
+processing the next `universe.tick()` while drawing.
 
 ```js
-// Import the WebAssembly memory at the top of the file.
-import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
-
-// ...
-
 const getIndex = (row, column) => {
   return row * width + column;
 };
 
 const drawCells = () => {
-  const cellsPtr = universe.cells();
-  const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
+  const cells = universe.cells();
 
   ctx.beginPath();
 
@@ -663,8 +664,8 @@ encourage you to go learn about hashlife on your own!
 
     ```rust
     pub fn new() -> Universe {
-        let width = 64;
-        let height = 64;
+        let width = 128;
+        let height = 128;
 
         let size = (width * height) as usize;
         let mut cells = FixedBitSet::with_capacity(size);
@@ -694,36 +695,31 @@ encourage you to go learn about hashlife on your own!
     });
     ```
 
-    To pass a pointer to the start of the bits to JavaScript, you can convert
-    the `FixedBitSet` to a slice and then convert the slice to a pointer:
+    To share a view of the bits to JavaScript, you can access the `FixedBitSet`
+    as a slice of u32. We will therefore return a `Uint32Array` as a view into
+    Webassemly's shared linear memory.:
 
     ```rust
     #[wasm_bindgen]
     impl Universe {
         // ...
 
-        pub fn cells(&self) -> *const u32 {
-            self.cells.as_slice().as_ptr()
+        pub fn cells(&mut self) -> js_sys::Uint32Array {
+            unsafe {
+                js_sys::Uint32Array::view(&self.cells.as_slice())
+            }
         }
     }
     ```
 
-    In JavaScript, constructing a `Uint8Array` from Wasm memory is the same as
-    before, except that the length of the array is not `width * height` anymore,
-    but `width * height / 8` since we have a cell per bit rather than per byte:
-
-    ```js
-    const cells = new Uint8Array(memory.buffer, cellsPtr, width * height / 8);
-    ```
-
-    Given an index and `Uint8Array`, you can determine whether the
+    Given an index and `Uint32Array`, you can determine whether the
     *n<sup>th</sup>* bit is set with the following function:
 
     ```js
     const bitIsSet = (n, arr) => {
-      const byte = Math.floor(n / 8);
-      const mask = 1 << (n % 8);
-      return (arr[byte] & mask) === mask;
+      const u32idx = Math.floor(n / 32);
+      const mask = 1 << (n % 32);
+      return (arr[u32idx] & mask) === mask;
     };
     ```
 
@@ -731,10 +727,7 @@ encourage you to go learn about hashlife on your own!
 
     ```js
     const drawCells = () => {
-      const cellsPtr = universe.cells();
-
-      // This is updated!
-      const cells = new Uint8Array(memory.buffer, cellsPtr, width * height / 8);
+      const cells = universe.cells();
 
       ctx.beginPath();
 
