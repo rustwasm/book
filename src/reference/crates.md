@@ -32,6 +32,11 @@ standard ECMAScript environments, not just the Web, such as Node.js.
 Raw `wasm-bindgen` imports for all the Web's APIs, such as DOM manipulation,
 `setTimeout`, Web GL, Web Audio, etc.
 
+### `gloo` | [crates.io](https://crates.io/crates/gloo) | [repository](https://github.com/rustwasm/gloo/)
+
+A modular toolkit for building fast, reliable Web applications and libraries with Rust and Wasm. It provides high-level ergonimic Rust abstractions
+for raw `wasm-bindgen` imports from `web-sys` and `js-sys`.
+
 ## Error Reporting and Logging
 
 ### `console_error_panic_hook` | [crates.io](https://crates.io/crates/console_error_panic_hook) | [repository](https://github.com/rustwasm/console_error_panic_hook)
