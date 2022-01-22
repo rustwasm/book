@@ -93,8 +93,7 @@ code](debugging.html), but we can ignore this file for now.
 
 We use `wasm-pack` to orchestrate the following build steps:
 
-* Ensure that we have Rust 1.30 or newer and the `wasm32-unknown-unknown`
-  target installed via `rustup`,
+* Ensure that we have Rust 1.30 or newer installed via `rustup`,
 * Compile our Rust sources into a WebAssembly `.wasm` binary via `cargo`,
 * Use `wasm-bindgen` to generate the JavaScript API for using our Rust-generated
   WebAssembly.
