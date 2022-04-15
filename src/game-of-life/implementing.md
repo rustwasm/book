@@ -42,7 +42,7 @@ etc...). WebAssembly functions also take and return scalar values. These are the
 building blocks from which all WebAssembly and JavaScript communication is
 constituted.
 
-[interface-types]: https://github.com/WebAssembly/interface-types/blob/master/proposals/interface-types/Explainer.md
+[interface-types]: https://github.com/WebAssembly/interface-types/blob/main/proposals/interface-types/Explainer.md
 [array-buf]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
 
 `wasm_bindgen` defines a common understanding of how to work with compound
