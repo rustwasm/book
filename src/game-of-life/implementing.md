@@ -351,7 +351,7 @@ At the top of `wasm-game-of-life/www/index.js`, let's fix our import to bring in
 the `Universe` rather than the old `greet` function:
 
 ```js
-import { Universe } from "wasm-game-of-life";
+import { Universe } from "../pkg/wasm_game_of_life";
 ```
 
 Also, let's get that `<pre>` element we just added and instantiate a new
@@ -515,7 +515,7 @@ tick.
 
 ```js
 // Import the WebAssembly memory at the top of the file.
-import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
+import { memory } from "../pkg/wasm_game_of_life_bg";
 
 // ...
 
@@ -580,6 +580,12 @@ from within the `wasm-game-of-life/www` directory:
 
 ```
 npm run start
+```
+
+(Additionally, newer versions of Node and npm may require you to set the *node_options* environment variable to get the server to run properly, with the following command:)
+
+``` 
+export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
 If you refresh [http://localhost:8080/](http://localhost:8080/), you should be
