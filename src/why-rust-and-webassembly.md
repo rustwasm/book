@@ -26,7 +26,7 @@ benefits. And you can even stop there if you want to.
 
 ## Plays Well With Others
 
-Rust and WebAssembly integrates with existing JavaScript tooling. It supports
+Rust and WebAssembly integrate with existing JavaScript tooling. They support
 ECMAScript modules and you can continue using the tooling you already love, like
 npm and Webpack.
 
