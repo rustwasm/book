@@ -112,7 +112,9 @@ and it should have these contents:
 pkg/
 ├── package.json
 ├── README.md
+├── wasm_game_of_life_bg.js
 ├── wasm_game_of_life_bg.wasm
+├── wasm_game_of_life_bg.wasm.d.ts
 ├── wasm_game_of_life.d.ts
 └── wasm_game_of_life.js
 ```
@@ -147,12 +149,18 @@ export function greet() {
 }
 ```
 
-### `wasm-game-of-life/pkg/wasm_game_of_life.d.ts`
+### `wasm-game-of-life/pkg/wasm_game_of_life_bg.js`
 
-The `.d.ts` file contains [TypeScript][] type declarations for the JavaScript
-glue. If you are using TypeScript, you can have your calls into WebAssembly
-functions type checked, and your IDE can provide autocompletions and
-suggestions! If you aren't using TypeScript, you can safely ignore this file.
+This `_bg.js` file contains shim code that allows the `_bg.wasm` code to be
+required as a module in Node.js.
+
+### `wasm-game-of-life/pkg/wasm_game_of_life.d.ts` and `wasm-game-of-life/pkg/wasm_game_of_life_bg.wasm.d.ts`
+
+These `.d.ts` files contain [TypeScript][] type declarations for the JavaScript
+glue and the wasm code. If you are using TypeScript, you can have your calls
+into WebAssembly functions type checked, and your IDE can provide
+autocompletions and suggestions! If you aren't using TypeScript, you can safely
+ignore these files.
 
 ```typescript
 export function greet(): void;
