@@ -317,9 +317,9 @@ Since we declared a new dependency, we need to install it:
 npm install
 ```
 
-> Note that if using `webpack` with newer Node.js versions, one may have to
+> Note that when using `webpack` on newer Node.js versions, one may have to
 > set NODE_OPTIONS environment variable to [`--openssl-legacy-provider`](https://www.openssl.org/docs/man3.0/man7/OSSL_PROVIDER-legacy.html) due
-> to older versions not [being compliant with OpenSSL 3.0](https://github.com/webpack/webpack/pull/14306)
+> to older versions not [complying with OpenSSL 3.0](https://github.com/webpack/webpack/pull/14306)
 
 Our Web page is now ready to be served locally!
 
