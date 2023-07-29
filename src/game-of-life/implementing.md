@@ -85,7 +85,7 @@ do not want to allocate objects for every cell in the universe, nor do we want
 to impose a cross-boundary call to read and write each cell.
 
 Where does this leave us? We can represent the universe as a flat array that
-lives in the WebAssembly linear memory, and has a byte for each cell. `0` is a
+lives in the WebAssembly linear memory, and has a bit for each cell. `0` is a
 dead cell and `1` is a live cell.
 
 Here is what a 4 by 4 universe looks like in memory:
