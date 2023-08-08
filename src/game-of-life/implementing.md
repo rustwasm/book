@@ -527,8 +527,6 @@ const drawCells = () => {
   const cellsPtr = universe.cells();
   const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
 
-  ctx.beginPath();
-
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
       const idx = getIndex(row, col);
@@ -545,8 +543,6 @@ const drawCells = () => {
       );
     }
   }
-
-  ctx.stroke();
 };
 ```
 
