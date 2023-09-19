@@ -220,6 +220,11 @@ code sizes.
 `format!`, `to_string`, etc... can bring in a lot of code bloat. If possible,
 only do string formatting in debug mode, and in release mode use static strings.
 
+Note that the common `tracing` and `log` crates [support compile-time
+filters](https://docs.rs/tracing/latest/tracing/level_filters/index.html) that
+allow to make logging macros compile to nothing (either depending on the log
+level or completely).
+
 ### Avoid Panicking
 
 This is definitely easier said than done, but tools like `twiggy` and manually
