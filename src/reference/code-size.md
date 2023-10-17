@@ -304,9 +304,9 @@ copies add up quickly in terms of code size.
 If you use trait objects instead of type parameters, like this:
 
 ```rust
-fn whatever(t: Box<MyTrait>) { ... }
+fn whatever(t: Box<dyn MyTrait>) { ... }
 // or
-fn whatever(t: &MyTrait) { ... }
+fn whatever(t: &dyn MyTrait) { ... }
 // etc...
 ```
 
