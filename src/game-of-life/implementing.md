@@ -396,8 +396,7 @@ Generating (and allocating) a `String` in Rust and then having `wasm-bindgen`
 convert it to a valid JavaScript string makes unnecessary copies of the
 universe's cells. As the JavaScript code already knows the width and
 height of the universe, and can read WebAssembly's linear memory that make up
-the cells directly, we'll modify the `render` method to return a pointer to the
-start of the cells array.
+the cells directly, we'll create a new function in the `Universe` that returns a *pointer* to the start of the cells array.
 
 Also, instead of rendering Unicode text, we'll switch to using the [Canvas
 API]. We will use this design in the rest of the tutorial.
@@ -758,6 +757,17 @@ encourage you to go learn about hashlife on your own!
 
       ctx.stroke();
     };
+    ```
+
+    Refactoring Note: Because JavaScript is now getting the Universe via direct memory in wasm, we no longer need the `Display` trait we created earlier, nor the `render()` method, in `lib.rs`. Furthermore, the `Cell` enum can also be removed. However, if you decide to keep them for other use cases,  the `Display` trait will need to be updated like so :
+
+    ```rust
+    #[wasm_bindgen]
+    impl fmt::Display for Universe {
+        // ...
+        let symbol = if cell == 0 { '◻' } else { '◼' }; 
+        // ...
+    }
     ```
 
   </details>
