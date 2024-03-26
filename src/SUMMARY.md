@@ -28,3 +28,4 @@
   - [Which Crates Will Work Off-the-Shelf with WebAssembly?](./reference/which-crates-work-with-wasm.md)
   - [How to Add WebAssembly Support to a General-Purpose Crate](./reference/add-wasm-support-to-crate.md)
   - [Deploying Rust and WebAssembly to Production](./reference/deploying-to-production.md)
+  - [Translations of the Book](./reference/translations.md)
