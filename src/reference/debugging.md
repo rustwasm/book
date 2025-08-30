@@ -88,7 +88,7 @@ Unfortunately, the debugging story for WebAssembly is still immature. On most
 Unix systems, [DWARF][dwarf] is used to encode the information that a debugger
 needs to provide source-level inspection of a running program. There is an
 alternative format that encodes similar information on Windows. Currently, there
-is no equivalent for WebAssembly. Therefore, debuggers currently provide limited
+is no equivalent for WebAssembly. Therefore, most debuggers currently provide limited
 utility, and we end up stepping through raw WebAssembly instructions emitted by
 the compiler, rather than the Rust source text we authored.
 
@@ -99,7 +99,16 @@ the compiler, rather than the Rust source text we authored.
 [debugging-subcharter]: https://github.com/WebAssembly/debugging
 [dwarf]: http://dwarfstd.org/
 
-Nonetheless, debuggers are still useful for inspecting the JavaScript that
+Until that WebAssembly specific work is more finished, there is a workaround using DWARF in Chrome.
+As detailed in [their documentation](https://developer.chrome.com/docs/devtools/wasm) the
+[C/C++ DevTools Support (DWARF)](https://chromewebstore.google.com/detail/cc++-devtools-support-dwa/pdcpmagijalfljmkmjngeonclgbbannb) extension
+can be installed to enable support for DWARF source maps for WebAssembly.
+Despite this extension claiming to not work on stable Chrome, and only mentioning C and C++, it actually works for Rust, even on stable Chrome.
+If using the `chromium` snap, this extension will likley fail to load the actual source due to snap confinement, which can be worked around with
+`snap refresh --devmode --beta chromium && snap refresh --devmode --stable chromium` (that itself is working around a [limitation in snapd](https://bugs.launchpad.net/snapd/+bug/1882214)).
+This has been confirmed to enable source level debugging with break points, single stepping and inspection of variables for Rust code.
+
+Even without this extension, debuggers are still useful for inspecting the JavaScript that
 interacts with our WebAssembly, and inspecting raw wasm state.
 
 ### References
