@@ -317,7 +317,9 @@ Recompile it to WebAssembly by running `wasm-pack build` within the
 
 ## Rendering with JavaScript
 
-First, let's add a `<pre>` element to `wasm-game-of-life/www/index.html` to
+First we need to install the generated javascript pacakge. Go to `www` directory and run `npm install ../pkg/`.
+
+Now, let's add a `<pre>` element to `wasm-game-of-life/www/index.html` to
 render the universe into, just above the `<script>` tag:
 
 ```html
