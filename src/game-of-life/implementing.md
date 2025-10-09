@@ -579,7 +579,7 @@ Make sure your development server is still running. If it isn't, start it again
 from within the `wasm-game-of-life/www` directory:
 
 ```
-npm run start
+npm start
 ```
 
 If you refresh [http://localhost:8080/](http://localhost:8080/), you should be

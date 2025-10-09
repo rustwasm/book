@@ -23,9 +23,33 @@ in the compiler toolchain for now:
 $ cargo install wasm-gc
 ```
 
-And finally if you're *really* interested in making small wasm binaries you'll
+And finally if you're _really_ interested in making small wasm binaries you'll
 want to install `wasm-opt` from the [binaryen toolkit][binaryen].
 
 [rustup]: https://www.rustup.rs/
 [binaryen]: https://github.com/WebAssembly/binaryen
 [wasm-gc]: https://github.com/alexcrichton/wasm-gc
+
+# Troubleshooting
+
+## I installed `rust` with brew on macOS and can't use wasm-pack
+
+If you get an error like this on macOS:
+
+```text
+$ wasm-pack build
+[INFO]: 🎯  Checking for the Wasm target...
+Error: wasm32-unknown-unknown target not found in sysroot: "/usr/local/Cellar/rust/1.39.0"
+
+Used rustc from the following path: "/usr/local/bin/rustc"
+It looks like Rustup is not being used. For non-Rustup setups, the wasm32-unknown-unknown target needs to be installed manually. See https://rustwasm.github.io/wasm-pack/book/prerequisites/non-rustup-setups.html on how to do this.
+```
+
+Try running:
+
+```text
+brew unlink rust
+curl https://sh.rustup.rs -sSf | sh -s
+```
+
+To use `rustc` from `rustup`.
