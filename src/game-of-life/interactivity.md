@@ -76,6 +76,7 @@ const play = () => {
 const pause = () => {
   playPauseButton.textContent = "▶";
   cancelAnimationFrame(animationId);
+  drawCells();  // Draw last frame
   animationId = null;
 };
 
