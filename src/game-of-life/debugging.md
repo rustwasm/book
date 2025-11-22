@@ -49,7 +49,7 @@ features = [
 ```
 
 For ergonomics, we'll wrap the `console.log` function up in a `println!`-style
-macro:
+macro, we could add this to `wasm-game-of-life/src/lib.rs` file:
 
 [logging]: ../reference/debugging.html#logging-with-the-console-apis
 
@@ -68,35 +68,38 @@ Now, we can start logging messages to the console by inserting calls to `log` in
 Rust code. For example, to log each cell's state, live neighbors count, and next
 state, we could modify `wasm-game-of-life/src/lib.rs` like this:
 
-```diff
-diff --git a/src/lib.rs b/src/lib.rs
-index f757641..a30e107 100755
---- a/src/lib.rs
-+++ b/src/lib.rs
-@@ -123,6 +122,14 @@ impl Universe {
-                 let cell = self.cells[idx];
-                 let live_neighbors = self.live_neighbor_count(row, col);
+```rust
+#[wasm_bindgen]
+impl Universe {
+    // ...
+    pub fn tick(&mut self) {
+        let mut next = self.cells.clone();
 
-+                log!(
-+                    "cell[{}, {}] is initially {:?} and has {} live neighbors",
-+                    row,
-+                    col,
-+                    cell,
-+                    live_neighbors
-+                );
-+
-                 let next_cell = match (cell, live_neighbors) {
-                     // Rule 1: Any live cell with fewer than two live neighbours
-                     // dies, as if caused by underpopulation.
-@@ -140,6 +147,8 @@ impl Universe {
-                     (otherwise, _) => otherwise,
-                 };
+        for row in 0..self.height {
+            for col in 0..self.width {
+                let idx = self.get_index(row, col);
+                let cell = self.cells[idx];
+                let live_neighbors = self.live_neighbor_count(row, col);
 
-+                log!("    it becomes {:?}", next_cell);
-+
-                 next[idx] = next_cell;
-             }
-         }
+                log!(
+                    "cell[{}, {}] is initially {:?} and has {} live neighbors",
+                    row,
+                    col,
+                    cell,
+                    live_neighbors
+                );
+              
+                // ...
+              
+                log!("    it becomes {:?}", next_cell);
+
+                next[idx] = next_cell;
+            }
+        }
+        // ...
+    }
+    // ...
+}
 ```
 
 ## Using a Debugger to Pause Between Each Tick
