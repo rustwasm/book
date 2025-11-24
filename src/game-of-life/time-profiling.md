@@ -442,8 +442,8 @@ Recall the `live_neighbor_count` definition inside
 ```rust
 fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
     let mut count = 0;
-    for delta_row in [self.height - 1, 0, 1].iter().cloned() {
-        for delta_col in [self.width - 1, 0, 1].iter().cloned() {
+    for &delta_row in &[self.height - 1, 0, 1] {
+        for &delta_col in &[self.width - 1, 0, 1] {
             if delta_row == 0 && delta_col == 0 {
                 continue;
             }
