@@ -123,7 +123,7 @@ Let's begin by removing the `alert` import and `greet` function from
 `wasm-game-of-life/src/lib.rs`, and replacing them with a type definition for
 cells:
 
-```rust
+```rust,noplaypen
 #[wasm_bindgen]
 #[repr(u8)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -141,7 +141,7 @@ addition.
 Next, let's define the universe. The universe has a width and a height, and a
 vector of cells of length `width * height`.
 
-```rust
+```rust,noplaypen
 #[wasm_bindgen]
 pub struct Universe {
     width: u32,
@@ -153,7 +153,7 @@ pub struct Universe {
 To access the cell at a given row and column, we translate the row and column
 into an index into the cells vector, as described earlier:
 
-```rust
+```rust,noplaypen
 impl Universe {
     fn get_index(&self, row: u32, column: u32) -> usize {
         (row * self.width + column) as usize
@@ -167,7 +167,7 @@ In order to calculate the next state of a cell, we need to get a count of how
 many of its neighbors are alive. Let's write a `live_neighbor_count` method to
 do just that!
 
-```rust
+```rust,noplaypen
 impl Universe {
     // ...
 
@@ -202,7 +202,7 @@ condition on a `match` expression. Additionally, because we want JavaScript to
 control when ticks happen, we will put this method inside a `#[wasm_bindgen]`
 block, so that it gets exposed to JavaScript.
 
-```rust
+```rust,noplaypen
 /// Public methods, exported to JavaScript.
 #[wasm_bindgen]
 impl Universe {
@@ -256,7 +256,7 @@ give us a [`to_string`] method.
 [`Display`]: https://doc.rust-lang.org/1.25.0/std/fmt/trait.Display.html
 [`to_string`]: https://doc.rust-lang.org/1.25.0/std/string/trait.ToString.html
 
-```rust
+```rust,noplaypen
 use std::fmt;
 
 impl fmt::Display for Universe {
@@ -277,7 +277,7 @@ impl fmt::Display for Universe {
 Finally, we define a constructor that initializes the universe with an
 interesting pattern of live and dead cells, as well as a `render` method:
 
-```rust
+```rust,noplaypen
 /// Public methods, exported to JavaScript.
 #[wasm_bindgen]
 impl Universe {
@@ -420,7 +420,7 @@ some more getter functions for a universe's width, height, and pointer to its
 cells array. All of these are exposed to JavaScript as well. Make these
 additions to `wasm-game-of-life/src/lib.rs`:
 
-```rust
+```rust,noplaypen
 /// Public methods, exported to JavaScript.
 #[wasm_bindgen]
 impl Universe {
@@ -619,7 +619,7 @@ encourage you to go learn about hashlife on your own!
 
     *Then, use the `js_sys::Math::random` function to flip a coin:*
 
-    ```rust
+    ```rust,noplaypen
     extern crate js_sys;
 
     // ...
@@ -644,7 +644,7 @@ encourage you to go learn about hashlife on your own!
     type](https://crates.io/crates/fixedbitset) to represent cells instead of
     `Vec<Cell>`:
 
-    ```rust
+    ```rust,noplaypen
     // Make sure you also added the dependency to Cargo.toml!
     extern crate fixedbitset;
     use fixedbitset::FixedBitSet;
@@ -661,7 +661,7 @@ encourage you to go learn about hashlife on your own!
 
     The Universe constructor can be adjusted the following way:
 
-    ```rust
+    ```rust,noplaypen
     pub fn new() -> Universe {
         let width = 64;
         let height = 64;
@@ -684,7 +684,7 @@ encourage you to go learn about hashlife on your own!
     To update a cell in the next tick of the universe, we use the `set` method
     of `FixedBitSet`:
 
-    ```rust
+    ```rust,noplaypen
     next.set(idx, match (cell, live_neighbors) {
         (true, x) if x < 2 => false,
         (true, 2) | (true, 3) => true,
@@ -697,7 +697,7 @@ encourage you to go learn about hashlife on your own!
     To pass a pointer to the start of the bits to JavaScript, you can convert
     the `FixedBitSet` to a slice and then convert the slice to a pointer:
 
-    ```rust
+    ```rust,noplaypen
     #[wasm_bindgen]
     impl Universe {
         // ...
