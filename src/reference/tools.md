@@ -13,6 +13,11 @@ the Web or with Node.js. `wasm-pack` helps you build and publish Rust-generated
 WebAssembly to the npm registry to be used alongside any other JavaScript
 package in workflows that you already use.
 
+### `wasm-tools` | [repository](https://github.com/bytecodealliance/wasm-tools)
+
+`wasm-tools` CLI and Rust libraries for low-level manipulation of WebAssembly modules.
+The full list of sub-commands available with an explaination of their purpose can be found [in the docs](https://crates.io/crates/wasm-tools#tools-included)
+
 ## Optimizing and Manipulating `.wasm` Binaries
 
 ### `wasm-opt` | [repository](https://github.com/WebAssembly/binaryen)
