@@ -150,9 +150,9 @@ export function greet() {
 ### `wasm-game-of-life/pkg/wasm_game_of_life.d.ts`
 
 The `.d.ts` file contains [TypeScript][] type declarations for the JavaScript
-glue. If you are using TypeScript, you can have your calls into WebAssembly
-functions type checked, and your IDE can provide autocompletions and
-suggestions! If you aren't using TypeScript, you can safely ignore this file.
+glue. Through this some IDE's (which use the [JavaScript Language Service](https://github.com/microsoft/TypeScript/wiki/JavaScript-Language-Service-in-Visual-Studio#TSDeclFiles)) can have your calls into WebAssembly
+functions type checked, and also provide autocompletions and
+suggestions!
 
 ```typescript
 export function greet(): void;
