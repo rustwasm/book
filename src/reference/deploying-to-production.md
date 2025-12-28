@@ -24,6 +24,13 @@ will throw an error.
 [apache-mime]: https://httpd.apache.org/docs/2.4/mod/mod_mime.html#addtype
 [nginx-mime]: https://nginx.org/en/docs/http/ngx_http_core_module.html#types
 
+## Deploying without a Bundler
+
+To deploy to the Web via an ES module, run the command: [`$ wasm-pack build --target web`][target web]. This outputs JS that must be [natively imported as an ES module in a browser alongside the WebAssembly being manually instantiated and loaded][wasm-example].
+
+[wasm-example]: https://wasmbyexample.dev/examples/hello-world/hello-world.rust.en-us.html#implementation
+[target web]: https://rustwasm.github.io/wasm-pack/book/commands/build.html#target
+
 ## More Resources
 
 * [Best Practices for Webpack in Production.][webpack-prod] Many Rust and
