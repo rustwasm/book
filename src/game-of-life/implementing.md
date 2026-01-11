@@ -315,6 +315,14 @@ With that, the Rust half of our Game of Life implementation is complete!
 Recompile it to WebAssembly by running `wasm-pack build` within the
 `wasm-game-of-life` directory.
 
+> Note: if `wasm-pack build` doesn't compile (due to [#886](https://github.com/rustwasm/wasm-pack/issues/886) issue),  
+> append your `Cargo.toml` with following:
+> ```toml
+> [package.metadata.wasm-pack.profile.release]
+> wasm-opt = ["-Os", "--enable-mutable-globals"]
+> ```
+> You can replace `-Os` flag with a [variety](https://rustwasm.github.io/book/reference/code-size.html#use-the-wasm-opt-tool) of optimization levels.
+
 ## Rendering with JavaScript
 
 First, let's add a `<pre>` element to `wasm-game-of-life/www/index.html` to
