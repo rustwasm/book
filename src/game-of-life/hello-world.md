@@ -39,9 +39,11 @@ wasm-game-of-life/
 ├── LICENSE_APACHE
 ├── LICENSE_MIT
 ├── README.md
-└── src
-    ├── lib.rs
-    └── utils.rs
+├── src
+|   ├── lib.rs
+|   └── utils.rs
+└-- tests
+    └-- web.rs
 ```
 
 Let's take a look at a couple of these files in detail.
