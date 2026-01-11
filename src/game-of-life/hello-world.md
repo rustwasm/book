@@ -271,8 +271,7 @@ subdirectory:
 npm install
 ```
 
-This command only needs to be run once, and will install the `webpack`
-JavaScript bundler and its development server.
+This command will install the `webpack` JavaScript bundler and its development server.
 
 > Note that `webpack` is not required for working with Rust and WebAssembly, it
 > is just the bundler and development server we've chosen for convenience
