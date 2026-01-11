@@ -27,10 +27,16 @@ The [reference sections][reference] may be perused in any order.
 > **💡 Tip:** You can search through this book by clicking on the 🔍 icon at the
 > top of the page, or by pressing the `s` key.
 
+
+## Translations
+
+Some community [translations](./reference/translations.md) are also available.
+
 ## Contributing to this book
 
 This book is open source! Find a typo? Did we overlook something? [**Send us a
 pull request!**][repo]
+
 
 [Rust]: https://www.rust-lang.org
 [WebAssembly]: https://webassembly.org/
