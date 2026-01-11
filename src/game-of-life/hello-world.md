@@ -339,6 +339,15 @@ Anytime you make changes and want them reflected on
 [http://localhost:8080/](http://localhost:8080/), just re-run the `wasm-pack
 build` command within the `wasm-game-of-life` directory.
 
+### Build and Deploy
+
+To deploy the app with a web server run the following command:
+
+```
+npm run build
+```
+Then you can provide the generated `dist/` directory with a server of your choice (e.g. by running `python3 -m http.server` within the `dist/` directory).
+
 ## Exercises
 
 * Modify the `greet` function in `wasm-game-of-life/src/lib.rs` to take a `name:
