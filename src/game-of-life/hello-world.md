@@ -327,7 +327,7 @@ from running other commands in the meantime. In the new terminal, run this
 command from within the `wasm-game-of-life/www` directory:
 
 ```
-npm run start
+NODE_OPTIONS=--openssl-legacy-provider npm run start
 ```
 
 Navigate your Web browser to [http://localhost:8080/](http://localhost:8080/)
