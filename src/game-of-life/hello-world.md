@@ -339,6 +339,47 @@ Anytime you make changes and want them reflected on
 [http://localhost:8080/](http://localhost:8080/), just re-run the `wasm-pack
 build` command within the `wasm-game-of-life` directory.
 
+### Server fails to start - updating package dependencies
+
+Depending on versions of `nodejs` and `wasm-bindgen` that you are using in your system,
+it may be required to upgrade versions of packages included in `devDependencies`
+section of `package.json` in `www` folder in case of server not being able to start
+with default setup due to startup errors.
+
+For example, the setup that works with nodejs `v23.11.0` and wasm-bindgen `0.2.100` is:
+```json
+  "devDependencies": {
+    "hello-wasm-pack": "^0.1.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1",
+    "copy-webpack-plugin": "^5.0.0"
+  }
+
+```
+
+The module also needs to be flagged as WebAssembly in `www/webpack.config.js` file:
+```js
+module.exports = {
+  //...
+  experiments: {
+    asyncWebAssembly: true,
+  },
+  //...
+};
+```
+
+Since we modified dependencies, we need to install it:
+```text
+npm install
+```
+
+and then try to start the server again:
+
+```
+npm run start
+```
+
 ## Exercises
 
 * Modify the `greet` function in `wasm-game-of-life/src/lib.rs` to take a `name:
