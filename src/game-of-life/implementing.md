@@ -334,6 +334,7 @@ inside `wasm-game-of-life/www/index.html`'s `<head>`:
 ```html
 <style>
   body {
+    margin: 0;
     position: absolute;
     top: 0;
     left: 0;
