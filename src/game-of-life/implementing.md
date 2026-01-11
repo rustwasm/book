@@ -154,6 +154,7 @@ To access the cell at a given row and column, we translate the row and column
 into an index into the cells vector, as described earlier:
 
 ```rust
+#[wasm_bindgen]
 impl Universe {
     fn get_index(&self, row: u32, column: u32) -> usize {
         (row * self.width + column) as usize
@@ -168,6 +169,7 @@ many of its neighbors are alive. Let's write a `live_neighbor_count` method to
 do just that!
 
 ```rust
+#[wasm_bindgen]
 impl Universe {
     // ...
 
