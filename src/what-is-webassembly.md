@@ -37,7 +37,16 @@ For reference, here is a factorial function in `wat`:
 ```
 
 If you're curious about what a `wasm` file looks like you can use the [wat2wasm
-demo] with the above code.
+demo] with the above code in the `WAT` panel. And if you add this javascript code 
+to the `JS` panel it will produce a valid output in the `JS LOG` panel:
+```
+const wasmInstance =
+    new WebAssembly.Instance(wasmModule, {});
+const { fac } = wasmInstance.exports;
+for (let i = 1; i <= 15; i++) {
+  console.log(i + "! = " + fac(i));
+}
+```
 
 ## Linear Memory
 
