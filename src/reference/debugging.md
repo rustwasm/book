@@ -14,10 +14,6 @@ names like `wasm-function[42]` rather than the Rust name of the function, like
 When using a "debug" build (aka `wasm-pack build --debug` or `cargo build`)
 debug symbols are enabled by default.
 
-With a "release" build, debug symbols are not enabled by default. To enable
-debug symbols, ensure that you `debug = true` in the `[profile.release]` section
-of your `Cargo.toml`:
-
 ```toml
 [profile.release]
 debug = true
